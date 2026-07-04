@@ -1,0 +1,16 @@
+{% extends "accounts/panel.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Delete Post" %} — OpenSrc Persian{% endblock %}
+
+{% block panel_content %}
+<div class="panel-alert panel-alert--danger">
+  <h2 class="panel-page-title">{% trans "Delete Post" %}</h2>
+  <p>{% trans "Are you sure you want to permanently delete" %} <strong>&ldquo;{{ post.title }}&rdquo;</strong>? {% trans "This action cannot be undone." %}</p>
+  <form method="post" class="panel-form-actions panel-form-actions--inline">
+    {% csrf_token %}
+    <button type="submit" class="panel-btn panel-btn-danger">{% trans "Yes, Delete" %}</button>
+    <a href="{% url 'accounts:admin_posts' %}" class="panel-btn panel-btn-secondary">{% trans "Cancel" %}</a>
+  </form>
+</div>
+{% endblock %}

@@ -1,0 +1,155 @@
+{% extends "accounts/panel.html" %}
+{% load i18n post_extras %}
+
+{% block title %}{% trans "Certificates" %} — OpenSrc Persian{% endblock %}
+
+{% block panel_content %}
+<header class="panel-page-header">
+  <div>
+    <h2 class="panel-page-title">{% trans "Certificates" %}</h2>
+    <p class="panel-page-subtitle">{% trans "Create and manage certificate badges." %}</p>
+  </div>
+</header>
+
+<div class="cert-grid">
+  <!-- Certificate List -->
+  <div>
+    <h3 style="margin-bottom:1rem">{% trans "Existing Certificates" %}</h3>
+    {% for cert in certificates %}
+    <div class="panel-card" style="margin-bottom:1rem;padding:1rem">
+      <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:0.5rem">
+        <div style="width:24px;height:24px;border-radius:50%;background:{{ cert.accent_color|css_color }};flex-shrink:0"></div>
+        <strong>{{ cert.name }}</strong>
+        {% if cert.name_fa %}<span style="color:var(--text-muted);direction:rtl" lang="fa">{{ cert.name_fa }}</span>{% endif %}
+        {% if cert.is_active %}
+        <span class="panel-badge panel-badge--success">{% trans "Active" %}</span>
+        {% else %}
+        <span class="panel-badge panel-badge--muted">{% trans "Inactive" %}</span>
+        {% endif %}
+      </div>
+      <p style="font-size:0.82rem;color:var(--text-muted);margin:0.25rem 0">
+        {% trans "Created by" %} {{ cert.created_by.username|default:"—" }} · {{ cert.created_at|date:"Y-m-d" }}
+      </p>
+      <div style="display:flex;gap:0.5rem;margin-top:0.5rem">
+        <button type="button" class="panel-btn panel-btn-sm panel-btn-secondary cert-edit-btn"
+          data-pk="{{ cert.pk }}"
+          data-name="{{ cert.name|escapejs }}"
+          data-name-fa="{{ cert.name_fa|escapejs }}"
+          data-desc="{{ cert.description|escapejs }}"
+          data-desc-fa="{{ cert.description_fa|escapejs }}"
+          data-color="{{ cert.accent_color }}"
+          data-active="{{ cert.is_active|yesno:'true,false' }}">
+          {% trans "Edit" %}
+        </button>
+        <form method="post" style="display:inline" data-confirm='{% trans "Toggle certificate active state?" %}'>
+          {% csrf_token %}
+          <input type="hidden" name="action" value="toggle_active">
+          <input type="hidden" name="cert_id" value="{{ cert.pk }}">
+          <button type="submit" class="panel-btn panel-btn-sm panel-btn-secondary">
+            {% if cert.is_active %}{% trans "Deactivate" %}{% else %}{% trans "Activate" %}{% endif %}
+          </button>
+        </form>
+        <form method="post" style="display:inline"
+          {% if cert.grants.count %}data-confirm='{% trans "Cannot delete — has grants. Deactivate instead." %}'{% endif %}>
+          {% csrf_token %}
+          <input type="hidden" name="action" value="delete">
+          <input type="hidden" name="cert_id" value="{{ cert.pk }}">
+          <button type="submit" class="panel-btn panel-btn-sm panel-btn-danger"
+            {% if cert.grants.count %}disabled title="{% trans 'Cannot delete — granted to users' %} ({{ cert.grants.count }})"{% endif %}>
+            {% trans "Delete" %}
+          </button>
+        </form>
+        {% if cert.grants.count %}
+        <span class="panel-badge panel-badge--gold" style="align-self:center">{{ cert.grants.count }} {% trans "grants" %}</span>
+        {% endif %}
+      </div>
+    </div>
+    {% empty %}
+    <p style="color:var(--text-muted)">{% trans "No certificates yet. Create one on the right." %}</p>
+    {% endfor %}
+  </div>
+
+  <!-- Create / Edit Form -->
+  <div>
+    {% if error %}
+    <div class="panel-alert panel-alert--error" style="margin-bottom:1rem">{{ error }}</div>
+    {% endif %}
+
+    <!-- Create Form -->
+    <div id="create-section">
+      <h3 style="margin-bottom:1rem">{% trans "Create Certificate" %}</h3>
+      <form method="post" enctype="multipart/form-data" class="panel-form">
+        {% csrf_token %}
+        <input type="hidden" name="action" value="create">
+        {% for field in form %}
+        <div class="form-row">
+          <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+          <div>
+            {{ field }}
+            {% if field.name == 'accent_color' %}
+            <div style="width:24px;height:24px;border-radius:50%;background:{{ field.value|default:'#4f46e5'|css_color }};margin-top:0.25rem;display:inline-block"></div>
+            {% endif %}
+            {% if field.errors %}
+            <ul class="form-errors">
+              {% for error in field.errors %}<li>{{ error }}</li>{% endfor %}
+            </ul>
+            {% endif %}
+          </div>
+        </div>
+        {% endfor %}
+        <div class="form-row">
+          <div></div>
+          <button type="submit" class="panel-btn panel-btn-primary">{% trans "Create Certificate" %}</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Edit Form (hidden by default) -->
+    <div id="edit-section" style="display:none">
+      <h3 style="margin-bottom:1rem">{% trans "Edit Certificate" %}</h3>
+      <form method="post" enctype="multipart/form-data" class="panel-form">
+        {% csrf_token %}
+        <input type="hidden" name="action" value="edit">
+        <input type="hidden" name="cert_id" id="edit-id">
+        <div class="form-row">
+          <label>{% trans "Name" %}</label>
+          <input type="text" name="name" id="edit-name" class="panel-input" required>
+        </div>
+        <div class="form-row">
+          <label>{% trans "Name (Persian)" %}</label>
+          <input type="text" name="name_fa" id="edit-name-fa" class="panel-input" dir="rtl">
+        </div>
+        <div class="form-row">
+          <label>{% trans "Description" %}</label>
+          <textarea name="description" id="edit-desc" class="panel-input" rows="3"></textarea>
+        </div>
+        <div class="form-row">
+          <label>{% trans "Description (Persian)" %}</label>
+          <textarea name="description_fa" id="edit-desc-fa" class="panel-input" rows="3" dir="rtl"></textarea>
+        </div>
+        <div class="form-row">
+          <label>{% trans "Icon" %}</label>
+          <input type="file" name="icon" accept="image/*" class="panel-input">
+        </div>
+        <div class="form-row">
+          <label>{% trans "Accent Color" %}</label>
+          <input type="color" name="accent_color" id="edit-color" class="panel-input">
+        </div>
+        <div class="form-row">
+          <label>{% trans "Active" %}</label>
+          <input type="checkbox" name="is_active" id="edit-active" checked>
+        </div>
+        <div class="form-row">
+          <div></div>
+          <div style="display:flex;gap:0.5rem">
+            <button type="submit" class="panel-btn panel-btn-primary">{% trans "Save Changes" %}</button>
+            <button type="button" class="panel-btn panel-btn-secondary cert-cancel-btn">
+              {% trans "Cancel" %}
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

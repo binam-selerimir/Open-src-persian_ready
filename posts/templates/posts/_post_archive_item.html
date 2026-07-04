@@ -1,0 +1,26 @@
+{% load i18n post_extras %}
+<li class="news-archive-item{% if post.cover_image %} has-cover{% endif %}" style="--article-accent: {{ post.post_type.accent_color|css_color }};">
+  <time class="news-archive-date" datetime="{{ post.pub_date|date:'Y-m-d' }}">{{ post.pub_date|date:"j M Y" }}</time>
+  <div class="news-archive-body">
+    <div class="news-archive-meta">
+      <span class="badge badge-category">
+        {% if LANGUAGE_CODE == 'fa' %}{{ post.category.name_fa }}{% else %}{{ post.category.name_en }}{% endif %}
+      </span>
+      <span class="badge badge-type">{{ post.post_type|type_label:LANGUAGE_CODE }}</span>
+    </div>
+    <h2 class="news-archive-title">
+      <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+    </h2>
+    {% if post.author_name %}
+    <p class="news-archive-author">{% trans "by" %} {{ post.author_name }}</p>
+    {% endif %}
+    <p class="news-archive-excerpt">
+      {% if post.summary %}{{ post.summary|truncatewords:35 }}{% else %}{{ post.body|post_excerpt:35 }}{% endif %}
+    </p>
+  </div>
+  {% if post.cover_image %}
+  <div class="news-archive-cover">
+    {% include "posts/_post_cover_thumb.html" %}
+  </div>
+  {% endif %}
+</li>

@@ -1,0 +1,106 @@
+{% load i18n %}
+
+<div class="body-mode-toggle" style="margin-bottom:1rem;">
+  <label style="margin-right:1.2rem;cursor:pointer;">
+    <input type="radio" name="_body_mode_ui" value="write"
+           {% if form.body_mode.value != 'upload_md' %}checked{% endif %}>
+    {% trans "Write manually" %}
+  </label>
+  <label style="cursor:pointer;">
+    <input type="radio" name="_body_mode_ui" value="upload_md"
+           {% if form.body_mode.value == 'upload_md' %}checked{% endif %}>
+    {% trans "Upload Markdown file" %}
+  </label>
+</div>
+
+{{ form.body_mode }}
+
+<div id="body-write-section"
+     {% if form.body_mode.value == 'upload_md' %}style="display:none;"{% endif %}>
+
+  <div class="form-row form-row--full{% if form.body.errors %} form-row--error{% endif %}">
+
+    <label for="id_body">{{ form.body.label }}{% if form.body.field.required %} <span class="required">*</span>{% endif %}</label>
+
+    <div class="form-row-input">
+
+      <div class="richtext-editor-wrap">
+
+        <div id="quill-editor" class="richtext-editor"
+
+             data-placeholder="{% trans 'Write your article…' %}"
+
+             data-upload-url="{% url 'accounts:upload_post_media' %}"
+
+             data-uploading-text="{% blocktrans %}Uploading {n} file(s)…{% endblocktrans %}"
+
+             data-no-tags-text="{% trans 'No tags found' %}"
+
+             data-cover-title="{% trans 'Add a cover image' %}"
+
+             data-cover-hint="{% trans 'Drag & drop here, or click to browse' %}"
+
+             data-cover-formats="JPG · PNG · GIF · WebP"></div>
+
+        <textarea name="body" id="id_body" class="richtext-source" rows="20">{{ form.body.value|default:'' }}</textarea>
+
+      </div>
+
+      <div id="post-media-dropzone" class="media-dropzone" role="button" tabindex="0"
+
+           aria-label="{% trans 'Drop photos, audio, or video here to embed in the article' %}">
+
+        <span class="media-dropzone-icon" aria-hidden="true"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg></span>
+
+        <span class="media-dropzone-text">{% trans "Drop photos, music, or videos here — or click to browse" %}</span>
+
+        <span class="media-dropzone-hint">{% trans "JPEG, PNG, GIF, WebP · MP3, OGG, WAV · MP4, WebM" %}</span>
+
+      </div>
+
+      <input type="file" id="post-media-file-input" class="sr-only" multiple
+
+             accept="image/jpeg,image/png,image/gif,image/webp,audio/mpeg,audio/ogg,audio/wav,audio/mp4,audio/flac,video/mp4,video/webm,video/ogg,video/quicktime">
+
+      <p id="media-upload-status" class="media-upload-status" role="status" aria-live="polite"></p>
+
+      <span class="helptext">{% trans "Use the toolbar for formatting, or upload samples (screenshots, audio clips, demo videos) inline while writing." %}</span>
+
+      {% if form.body.errors %}
+
+      <ul class="errorlist">{% for e in form.body.errors %}<li>{{ e }}</li>{% endfor %}</ul>
+
+      {% endif %}
+
+    </div>
+
+  </div>
+
+</div>
+
+<div id="body-upload-section"
+     {% if form.body_mode.value != 'upload_md' %}style="display:none;"{% endif %}>
+
+  {% if form.instance.pk and form.instance.body_md_file %}
+    <p class="help-text">
+      {% trans "Current file:" %}
+      <strong>{{ form.instance.body_md_file.name|default:'' }}</strong>
+      — {% trans "Upload a new file to replace it, or leave blank to keep it." %}
+    </p>
+  {% endif %}
+
+  {{ form.body_md_file }}
+
+  {% if form.body_md_file.errors %}
+    <ul class="errorlist">
+      {% for e in form.body_md_file.errors %}<li>{{ e }}</li>{% endfor %}
+    </ul>
+  {% endif %}
+
+  <p class="help-text" style="margin-top:.4rem;">
+    {% trans "Accepted: .md — max 1 MB. Rendered with fenced code blocks and tables." %}
+  </p>
+</div>
+
+{% load static %}
+<script src="{% static 'accounts/body-mode-toggle.js' %}"></script>

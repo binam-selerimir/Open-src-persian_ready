@@ -1,0 +1,80 @@
+{% extends "core/base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "New Board" %} — {% trans "Forum" %}{% endblock %}
+
+{% block content %}
+<div class="container">
+  <nav class="breadcrumb" aria-label="{% trans 'Breadcrumb' %}">
+    <ol>
+      <li><a href="{% url 'forum:index' %}">{% trans "Forum" %}</a></li>
+      <li aria-current="page">{% trans "New Board" %}</li>
+    </ol>
+  </nav>
+
+  <header class="page-header">
+    <h1 class="page-title">{% trans "New Board" %}</h1>
+    <p class="page-subtitle">{% trans "Create a new discussion board" %}</p>
+  </header>
+
+  <div class="panel-card">
+    <form method="post" class="panel-form">
+      {% csrf_token %}
+      {% if form.non_field_errors %}
+      <div class="form-row--error">
+        <ul class="errorlist">{% for error in form.non_field_errors %}<li>{{ error }}</li>{% endfor %}</ul>
+      </div>
+      {% endif %}
+      <div class="form-row{% if form.name_en.errors %} form-row--error{% endif %}">
+        <label for="id_name_en">{% trans "Name (English)" %}</label>
+        <div{% if form.name_en.errors %} aria-describedby="id_name_en-errors"{% endif %}>
+        {{ form.name_en }}
+        {% if form.name_en.errors %}
+          <ul class="errorlist" id="id_name_en-errors">{% for error in form.name_en.errors %}<li>{{ error }}</li>{% endfor %}</ul>
+        {% endif %}
+        </div>
+      </div>
+      <div class="form-row{% if form.name_fa.errors %} form-row--error{% endif %}">
+        <label for="id_name_fa">{% trans "Name (Persian)" %}</label>
+        <div{% if form.name_fa.errors %} aria-describedby="id_name_fa-errors"{% endif %}>
+        {{ form.name_fa }}
+        {% if form.name_fa.errors %}
+          <ul class="errorlist" id="id_name_fa-errors">{% for error in form.name_fa.errors %}<li>{{ error }}</li>{% endfor %}</ul>
+        {% endif %}
+        </div>
+      </div>
+      <div class="form-row{% if form.description_en.errors %} form-row--error{% endif %}">
+        <label for="id_description_en">{% trans "Description (English)" %}</label>
+        <div{% if form.description_en.errors %} aria-describedby="id_description_en-errors"{% endif %}>
+        {{ form.description_en }}
+        {% if form.description_en.errors %}
+          <ul class="errorlist" id="id_description_en-errors">{% for error in form.description_en.errors %}<li>{{ error }}</li>{% endfor %}</ul>
+        {% endif %}
+        </div>
+      </div>
+      <div class="form-row{% if form.description_fa.errors %} form-row--error{% endif %}">
+        <label for="id_description_fa">{% trans "Description (Persian)" %}</label>
+        <div{% if form.description_fa.errors %} aria-describedby="id_description_fa-errors"{% endif %}>
+        {{ form.description_fa }}
+        {% if form.description_fa.errors %}
+          <ul class="errorlist" id="id_description_fa-errors">{% for error in form.description_fa.errors %}<li>{{ error }}</li>{% endfor %}</ul>
+        {% endif %}
+        </div>
+      </div>
+      <div class="form-row{% if form.order.errors %} form-row--error{% endif %}">
+        <label for="id_order">{% trans "Order" %}</label>
+        <div{% if form.order.errors %} aria-describedby="id_order-errors"{% endif %}>
+        {{ form.order }}
+        {% if form.order.errors %}
+          <ul class="errorlist" id="id_order-errors">{% for error in form.order.errors %}<li>{{ error }}</li>{% endfor %}</ul>
+        {% endif %}
+        </div>
+      </div>
+      <div class="panel-form-actions">
+        <button type="submit" class="panel-btn panel-btn-primary" data-loading-text="{% trans 'Creating…' %}">{% trans "Create Board" %}</button>
+        <a href="{% url 'forum:index' %}" class="panel-btn panel-btn-secondary">{% trans "Cancel" %}</a>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

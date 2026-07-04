@@ -1,0 +1,94 @@
+{% extends "accounts/panel.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Manage Comments" %} — OpenSrc Persian{% endblock %}
+
+{% block panel_content %}
+<header class="panel-page-header">
+  <div>
+    <h2 class="panel-page-title">{% trans "Manage Comments" %}</h2>
+    <p class="panel-page-subtitle">{% trans "Approve, reject, or delete user comments." %}</p>
+  </div>
+</header>
+
+<!-- Status filter -->
+<div class="admin-filter-bar">
+  <a href="{% url 'accounts:admin_comments' %}" class="panel-btn panel-btn-secondary{% if not status_filter %} active{% endif %}">{% trans "All" %}</a>
+  <a href="{% url 'accounts:admin_comments' %}?status=pending" class="panel-btn panel-btn-secondary{% if status_filter == 'pending' %} active{% endif %}">{% trans "Pending" %}</a>
+  <a href="{% url 'accounts:admin_comments' %}?status=approved" class="panel-btn panel-btn-secondary{% if status_filter == 'approved' %} active{% endif %}">{% trans "Approved" %}</a>
+</div>
+
+<!-- Bulk action form -->
+<form method="post" id="bulk-form" data-no-disable
+  data-no-action-msg="{% trans 'Please select a bulk action.' %}">
+  {% csrf_token %}
+  <div class="bulk-action-bar" id="bulk-bar" style="display:none">
+    <span class="bulk-count" id="bulk-count" data-label="{% trans 'selected' %}">0 {% trans "selected" %}</span>
+    <select name="bulk_action">
+      <option value="">{% trans "Bulk action…" %}</option>
+      <option value="approve">{% trans "Approve selected" %}</option>
+      <option value="reject">{% trans "Reject selected" %}</option>
+      <option value="delete">{% trans "Delete selected" %}</option>
+    </select>
+    <button type="submit" class="panel-btn panel-btn-secondary">{% trans "Apply" %}</button>
+  </div>
+
+  <div class="panel-table-wrap">
+    <table class="panel-table">
+      <thead>
+        <tr>
+          <th class="col-check"><input type="checkbox" id="select-all" aria-label="{% trans 'Select all' %}"></th>
+          <th>{% trans "Post" %}</th>
+          <th>{% trans "Author" %}</th>
+          <th>{% trans "Comment" %}</th>
+          <th>{% trans "Status" %}</th>
+          <th>{% trans "Date" %}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for comment in comments %}
+        <tr>
+          <td class="col-check"><input type="checkbox" name="selected_comments" value="{{ comment.pk }}" class="post-checkbox" aria-label="{% trans 'Select comment' %}"></td>
+          <td><a href="{{ comment.post.get_absolute_url }}" target="_blank" rel="noopener">{{ comment.post.title|truncatechars:40 }}</a></td>
+          <td>{{ comment.author_name }}</td>
+          <td class="panel-table-title">{{ comment.body|truncatechars:80 }}</td>
+          <td>
+            {% if comment.is_approved %}
+            <span class="panel-badge panel-badge--success">{% trans "Approved" %}</span>
+            {% else %}
+            <span class="panel-badge panel-badge--gold">{% trans "Pending" %}</span>
+            {% endif %}
+          </td>
+          <td class="panel-table-date">{{ comment.created_at|date:"j M Y" }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="6" class="panel-table-empty">
+            <p>{% trans "No comments found." %}</p>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</form>
+
+{% if page_obj.has_other_pages %}
+<nav class="pagination" aria-label="{% trans 'Comments pagination' %}">
+  {% if page_obj.has_previous %}
+    <a href="?page={{ page_obj.previous_page_number }}{% if status_filter %}&status={{ status_filter }}{% endif %}" class="page-link">&laquo; {% trans "Previous" %}</a>
+  {% else %}
+    <span class="page-link disabled">&laquo; {% trans "Previous" %}</span>
+  {% endif %}
+  <span class="page-info">
+    {% blocktrans with num=page_obj.number total=page_obj.paginator.num_pages %}Page {{ num }} of {{ total }}{% endblocktrans %}
+  </span>
+  {% if page_obj.has_next %}
+    <a href="?page={{ page_obj.next_page_number }}{% if status_filter %}&status={{ status_filter }}{% endif %}" class="page-link">{% trans "Next" %} &raquo;</a>
+  {% else %}
+    <span class="page-link disabled">{% trans "Next" %} &raquo;</span>
+  {% endif %}
+</nav>
+{% endif %}
+
+{% endblock %}

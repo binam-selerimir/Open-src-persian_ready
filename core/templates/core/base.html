@@ -1,0 +1,170 @@
+{% load static i18n %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}" dir="{% if LANGUAGE_CODE == 'fa' %}rtl{% else %}ltr{% endif %}">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% block title %}{% trans "OpenSrc Persian" %}{% endblock %}</title>
+  <meta name="description" content="{% block description %}{% trans "Advocating for free software, digital rights, and open technology for everyone." %}{% endblock %}" />
+  <meta property="og:title" content="{% block og_title %}{% trans "OpenSrc Persian" %}{% endblock %}" />
+  <meta property="og:description" content="{% block og_description %}{% trans "Advocating for free software, digital rights, and open technology for everyone." %}{% endblock %}" />
+  <meta property="og:type" content="{% block og_type %}website{% endblock %}" />
+  <meta property="og:url" content="{{ request.build_absolute_uri }}" />
+  {% block og_image %}
+  <meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{% static 'core/og-default.png' %}" />
+  {% endblock %}
+  {# M-3: canonical URL prevents duplicate-page indexing from query strings #}
+  <link rel="canonical" href="{{ request.scheme }}://{{ request.get_host }}{{ request.path }}" />
+  {# M-2: RSS autodiscovery lets browsers and feed readers detect the feed #}
+  <link rel="alternate" type="application/rss+xml"
+        title="{% trans 'OpenSrc Persian RSS Feed' %}"
+        href="{% url 'posts:post_feed' %}" />
+  {# L-4: theme-color colours the browser chrome on Android Chrome #}
+  <meta name="theme-color" content="#001a33" />
+  <link rel="stylesheet" href="{% static 'core/local-fonts.css' %}" />
+  <link rel="stylesheet" href="{% static 'core/style.css' %}" />
+  {% if LANGUAGE_CODE == 'fa' %}
+  <link rel="stylesheet" href="{% static 'core/rtl.css' %}">
+  {% endif %}
+  {% block extra_head %}{% endblock %}
+</head>
+<body>
+
+  {% if site_alert %}
+  <div class="site-alert" id="site-alert" data-alert-id="{{ site_alert.pk }}">
+    <div class="site-alert-inner">
+      <strong class="site-alert-title">{{ site_alert.localised_title }}</strong>
+      <span class="site-alert-message">{{ site_alert.localised_message }}</span>
+      <button class="site-alert-close" id="site-alert-close" aria-label="{% trans 'Dismiss alert' %}">&#215;</button>
+    </div>
+  </div>
+  {% endif %}
+
+  <!-- Skip to content -->
+  <a href="#main-content" class="skip-link">{% trans "Skip to main content" %}</a>
+
+  <!-- Header / site identity -->
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="site-branding">
+        <a href="{% url 'home' %}" class="site-logo">
+          <span class="logo-icon" aria-hidden="true">&#9675;</span>
+          <span class="site-name">{% trans "OpenSrc" %} <span class="site-name-accent">{% trans "Persian" %}</span></span>
+        </a>
+        <p class="site-tagline">{% trans "Freedom, Privacy, and Open Technology" %}</p>
+      </div>
+      <!-- Inline search -->
+      <form class="nav-search" action="{% url 'search:search' %}" method="get" role="search" aria-label="{% trans 'Quick search' %}">
+        <input type="search" name="q" class="nav-search-input" placeholder="{% trans 'Search…' %}" aria-label="{% trans 'Search posts' %}">
+        <button type="submit" class="nav-search-btn" aria-label="{% trans 'Submit search' %}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></button>
+      </form>
+      <button class="hamburger" id="hamburger" aria-label="{% trans 'Toggle navigation' %}" aria-expanded="false" aria-controls="main-nav">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Navigation bar -->
+  <nav class="main-nav" id="main-nav" role="navigation" aria-label="{% trans 'Main navigation' %}">
+    <ul>
+      <li><a href="{% url 'home' %}" {% if request.resolver_match.url_name == 'home' %}class="active"{% endif %}>{% trans "Home" %}</a></li>
+      <li><a href="{% url 'posts:post_list' %}" {% if request.resolver_match.namespace == 'posts' %}class="active"{% endif %}>{% trans "articles" %}</a></li>
+      <li><a href="{% url 'about' %}" {% if request.resolver_match.url_name == 'about' %}class="active"{% endif %}>{% trans "About" %}</a></li>
+      <li><a href="{% url 'search:search' %}" {% if request.resolver_match.namespace == 'search' %}class="active"{% endif %}>{% trans "Search" %}</a></li>
+      <li><a href="{% url 'forum:index' %}" {% if request.resolver_match.namespace == 'forum' %}class="active"{% endif %}>{% trans "Forum" %}</a></li>
+      {% for p in nav_pages %}
+        <li><a href="{{ p.get_absolute_url }}">{{ p.title }}</a></li>
+      {% endfor %}
+      {% if user.is_authenticated %}
+      <li><a href="{% url 'accounts:panel' %}" {% if request.resolver_match.namespace == 'accounts' %}class="active"{% endif %}>{% trans "User Panel" %}</a></li>
+      <li>
+        <form method="post" action="{% url 'accounts:logout' %}" class="inline-form">
+          {% csrf_token %}
+          <button type="submit" class="nav-logout-btn">{% trans "Logout" %}</button>
+        </form>
+      </li>
+      {% else %}
+      <li><a href="{% url 'accounts:login' %}" {% if request.resolver_match.url_name == 'login' %}class="active"{% endif %}>{% trans "Login" %}</a></li>
+      <li><a href="{% url 'accounts:register' %}" {% if request.resolver_match.url_name == 'register' %}class="active"{% endif %}>{% trans "Register" %}</a></li>
+      {% endif %}
+      <li>
+        <form action="{% url 'set_language' %}" method="post" class="inline-form">
+          {% csrf_token %}
+          <input name="next" type="hidden" value="{{ request.path }}">
+          {% if LANGUAGE_CODE == 'fa' %}
+            <button name="language" value="en" class="nav-lang-btn">English</button>
+          {% else %}
+            <button name="language" value="fa" class="nav-lang-btn">فارسی</button>
+          {% endif %}
+        </form>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- Page layout -->
+  <div class="layout{% block body_class %}{% endblock %}">
+    <main id="main-content" class="main-content" role="main">
+      {% if messages %}
+      <div class="messages" role="status" aria-live="polite">
+        {% for message in messages %}
+        <div class="message message-{{ message.tags }}">
+          <span>{{ message }}</span>
+          <button class="message-close" aria-label="{% trans 'Dismiss' %}">&#215;</button>
+        </div>
+        {% endfor %}
+      </div>
+      {% endif %}
+      {% block content %}{% endblock %}
+    </main>
+
+    {% block sidebar %}{% endblock %}
+  </div>
+
+  <!-- Back to top button -->
+  <button class="back-to-top" id="back-to-top" aria-label="{% trans 'Back to top' %}" title="{% trans 'Back to top' %}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"></polyline></svg></button>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-col">
+        <h4>{% trans "OpenSrc Persian" %}</h4>
+        <p>{% trans "A piece of knowledge is only free if it offers all four freedoms together. Missing even one means access is still conditional — and conditional access isn't truly free." %}</p>
+      </div>
+      <div class="footer-col">
+        <h4>{% trans "Navigation" %}</h4>
+        <ul>
+          <li><a href="{% url 'home' %}">{% trans "Home" %}</a></li>
+          <li><a href="{% url 'posts:post_list' %}">{% trans "articles" %}</a></li>
+          <li><a href="{% url 'about' %}">{% trans "About" %}</a></li>
+          <li><a href="{% url 'search:search' %}">{% trans "Search" %}</a></li>
+          <li><a href="{% url 'forum:index' %}">{% trans "Forum" %}</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>{% trans "Resources" %}</h4>
+        <ul>
+          <li><a href="https://www.gnu.org/licenses/" rel="noopener noreferrer">{% trans "Free Licenses" %}</a></li>
+          <li><a href="https://www.gnu.org/philosophy/" rel="noopener noreferrer">{% trans "Philosophy" %}</a></li>
+          <li><a href="https://www.fsf.org/campaigns/" rel="noopener noreferrer">{% trans "Campaigns" %}</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>{% trans "Legal" %}</h4>
+        <ul>
+          <li><a href="https://creativecommons.org/licenses/by-sa/4.0/" rel="noopener noreferrer">{% trans "Content License" %}</a></li>
+          <li><a href="{% url 'about' %}">{% trans "Contact" %}</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>{% trans "Copyright" %} &copy; {% now "Y" %} {% trans "OpenSrc Persian" %}. {% trans "Content licensed under" %}
+        <a href="https://creativecommons.org/licenses/by-sa/4.0/" rel="noopener noreferrer">CC BY-SA 4.0</a>
+        {% trans "unless otherwise noted. Built with" %} <a href="https://www.djangoproject.com" rel="noopener noreferrer">Django</a>.</p>
+    </div>
+  </footer>
+
+  <script src="{% static 'core/main.js' %}"></script>
+  <script src="{% static 'core/confirm-submit.js' %}"></script>
+  {% block extra_scripts %}{% endblock %}
+</body>
+</html>

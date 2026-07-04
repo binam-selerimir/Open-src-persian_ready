@@ -1,0 +1,41 @@
+{% load i18n post_extras %}
+<article class="post-card{% if post.cover_image %} has-cover{% endif %}">
+  <div class="post-card-body">
+    {% if show_meta != False %}
+    <div class="post-card-meta">
+      {% if show_category != False %}
+      <span class="badge badge-category">
+        {% if LANGUAGE_CODE == 'fa' %}{{ post.category.name_fa }}{% else %}{{ post.category.name_en }}{% endif %}
+      </span>
+      {% endif %}
+      {% if show_subcategory and post.subcategory %}
+      <span class="badge badge-type">
+        {% if LANGUAGE_CODE == 'fa' %}{{ post.subcategory.name_fa }}{% else %}{{ post.subcategory.name_en }}{% endif %}
+      </span>
+      {% endif %}
+      {% if show_type != False %}
+      <span class="badge badge-type">{{ post.post_type|type_label:LANGUAGE_CODE }}</span>
+      {% endif %}
+    </div>
+    {% endif %}
+    <h2 class="post-card-title">
+      <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+    </h2>
+    {% if show_author != False or show_date != False %}
+    <p class="post-card-author">
+      {% if show_author != False and post.author_name %}{% trans "by" %} {{ post.author_name }}{% if show_date != False %} · {% endif %}{% endif %}
+      {% if show_date != False %}<time datetime="{{ post.pub_date|date:'Y-m-d' }}">{{ post.pub_date|date:"j N Y" }}</time>{% endif %}
+    </p>
+    {% endif %}
+    {% if show_summary != False %}
+    <p class="post-card-summary">
+      {% if post.summary %}{{ post.summary|truncatewords:30 }}{% else %}{{ post.body|post_excerpt:30 }}{% endif %}
+    </p>
+    {% endif %}
+  </div>
+  {% if post.cover_image %}
+  <div class="post-card-cover">
+    {% include "posts/_post_cover_thumb.html" %}
+  </div>
+  {% endif %}
+</article>

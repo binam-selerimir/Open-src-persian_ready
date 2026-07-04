@@ -1,0 +1,23 @@
+{% extends "core/base.html" %}
+{% load i18n %}
+
+{% block title %}{{ page.title }} — {% trans "OpenSrc Persian" %}{% endblock %}
+
+{% block content %}
+<article class="article-single">
+  <header class="article-header">
+    <h1>{{ page.title }}</h1>
+    <p class="article-updated">{% trans "Last updated:" %} {{ page.updated_at|date:"j N Y" }}</p>
+  </header>
+
+  <div class="article-body">
+    {# SECURITY: linebreaks escapes HTML first, then converts newlines. #}
+    {# Do NOT add |safe here — Page.body is admin-editable and must be escaped. #}
+    {{ page.body|linebreaks }}
+  </div>
+
+  <footer class="article-footer">
+    <a href="{% url 'home' %}" class="btn-secondary">&larr; {% trans "Back to Home" %}</a>
+  </footer>
+</article>
+{% endblock %}

@@ -1,0 +1,92 @@
+{% extends "accounts/panel.html" %}
+{% load i18n panel_extras %}
+
+{% block title %}{% trans "New Post" %} — OpenSrc Persian{% endblock %}
+
+{% block extra_head %}
+{% include "accounts/_post_editor_head.html" %}
+{% endblock %}
+
+{% block panel_content %}
+<header class="panel-page-header">
+  <div>
+    <h2 class="panel-page-title">{% trans "New Post" %}</h2>
+    <p class="panel-page-subtitle">{% trans "Create a new article with category, tags, and media." %} <a href="{% url 'accounts:admin_post_taxonomy' %}">{% trans "Manage categories & types" %}</a></p>
+  </div>
+  <a href="{% url 'accounts:admin_posts' %}" class="panel-btn panel-btn-secondary">{% trans "Back to posts" %}</a>
+</header>
+
+<form method="post" enctype="multipart/form-data" class="panel-form panel-form--post">
+  {% csrf_token %}
+  {% if form.non_field_errors %}
+  <div class="panel-form-errors">{{ form.non_field_errors }}</div>
+  {% endif %}
+
+  <section class="panel-form-section">
+    <h3 class="panel-form-section-title">{% trans "Basic info" %}</h3>
+    <fieldset class="panel-fieldset">
+      {% for field in form.visible_fields %}
+        {% if field.name|in_field_group:"title,slug,category,subcategory,post_type,author_name" %}
+        <div class="form-row{% if field.errors %} form-row--error{% endif %}">
+          <label for="{{ field.id_for_label }}">{{ field.label }}{% if field.field.required %} <span class="required">*</span>{% endif %}</label>
+          <div class="form-row-input">
+            {{ field }}
+            {% if field.help_text %}<span class="helptext">{{ field.help_text }}</span>{% endif %}
+            {% if field.errors %}<ul class="errorlist">{% for e in field.errors %}<li>{{ e }}</li>{% endfor %}</ul>{% endif %}
+          </div>
+        </div>
+        {% endif %}
+      {% endfor %}
+    </fieldset>
+  </section>
+
+  <section class="panel-form-section">
+    <h3 class="panel-form-section-title">{% trans "Content" %}</h3>
+    <fieldset class="panel-fieldset">
+      <div class="form-row form-row--full{% if form.summary.errors %} form-row--error{% endif %}">
+        <label for="id_summary">{{ form.summary.label }}</label>
+        <div class="form-row-input">
+          {{ form.summary }}
+          {% if form.summary.errors %}<ul class="errorlist">{% for e in form.summary.errors %}<li>{{ e }}</li>{% endfor %}</ul>{% endif %}
+        </div>
+      </div>
+      {% include "accounts/_post_body_field.html" %}
+    </fieldset>
+  </section>
+
+  <section class="panel-form-section">
+    <h3 class="panel-form-section-title">{% trans "Media & tags" %}</h3>
+    <fieldset class="panel-fieldset">
+      {% include "accounts/_post_media_fields.html" %}
+    </fieldset>
+  </section>
+
+  <section class="panel-form-section">
+    <h3 class="panel-form-section-title">{% trans "Publishing" %}</h3>
+    <fieldset class="panel-fieldset">
+      {% for field in form.visible_fields %}
+        {% if field.name|in_field_group:"reading_time_override,pub_date,is_visible" %}
+        <div class="form-row{% if field.errors %} form-row--error{% endif %}">
+          <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+          <div class="form-row-input">
+            {{ field }}
+            {% if field.errors %}<ul class="errorlist">{% for e in field.errors %}<li>{{ e }}</li>{% endfor %}</ul>{% endif %}
+          </div>
+        </div>
+        {% endif %}
+      {% endfor %}
+    </fieldset>
+  </section>
+
+  <div class="panel-form-actions">
+    <button type="submit" class="panel-btn panel-btn-primary" id="edit-post-submit" data-loading-text="{% trans 'Creating…' %}">{% trans "Create Post" %}</button>
+    <a href="{% url 'accounts:admin_posts' %}" class="panel-btn panel-btn-secondary">{% trans "Cancel" %}</a>
+  </div>
+</form>
+{% endblock %}
+
+{% block extra_scripts %}
+{% load static %}
+{% include "accounts/_post_editor_scripts.html" %}
+<script src="{% static 'accounts/post-editor-panel.js' %}"></script>
+{% endblock %}

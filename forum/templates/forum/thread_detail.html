@@ -1,0 +1,142 @@
+{% extends "core/base.html" %}
+{% load i18n forum_extras static %}
+
+{% block title %}{{ thread.title }} — {% trans "Forum" %}{% endblock %}
+
+{% block content %}
+<div class="container">
+  <nav class="breadcrumb" aria-label="{% trans 'Breadcrumb' %}">
+    <ol>
+      <li><a href="{% url 'forum:index' %}">{% trans "Forum" %}</a></li>
+      <li><a href="{% url 'forum:board_detail' board.slug %}">{% if LANGUAGE_CODE == 'fa' and board.name_fa %}{{ board.name_fa }}{% else %}{{ board.name_en }}{% endif %}</a></li>
+      <li aria-current="page">{{ thread.title|truncatechars:60 }}</li>
+    </ol>
+  </nav>
+
+  <header class="page-header">
+    <h1 class="page-title">{{ thread.title }}</h1>
+    <span class="page-subtitle">
+      {% trans "by" %} {{ thread.author.username|default:"—" }}<br>
+      {{ thread.created_at|timesince }} {% trans "ago" %}
+      · {{ thread.view_count }} {% trans "views" %}
+    </span>
+  </header>
+
+  {% if user.is_site_admin %}
+  <div class="forum-mod-bar">
+    <form method="post" action="{% url 'forum:toggle_sticky' thread.pk %}" style="display:inline"
+          data-confirm='{% if thread.is_sticky %}{% trans "Unpin this thread?" %}{% else %}{% trans "Pin this thread?" %}{% endif %}'>
+      {% csrf_token %}
+      <button type="submit" class="panel-btn panel-btn-sm">
+        {% if thread.is_sticky %}{% trans "Unpin" %}{% else %}{% trans "Pin" %}{% endif %}
+      </button>
+    </form>
+    <form method="post" action="{% url 'forum:toggle_close' thread.pk %}" style="display:inline"
+          data-confirm='{% if thread.is_closed %}{% trans "Open this thread?" %}{% else %}{% trans "Close this thread?" %}{% endif %}'>
+      {% csrf_token %}
+      <button type="submit" class="panel-btn panel-btn-sm">
+        {% if thread.is_closed %}{% trans "Open" %}{% else %}{% trans "Close" %}{% endif %}
+      </button>
+    </form>
+    <form method="post" action="{% url 'forum:delete_thread' thread.pk %}" style="display:inline"
+          data-confirm='{% trans "Delete this thread?" %}'>
+      {% csrf_token %}
+      <button type="submit" class="panel-btn panel-btn-sm">{% trans "Delete" %}</button>
+    </form>
+  </div>
+  {% endif %}
+
+  {% if thread.is_closed %}
+  <div class="forum-closed-banner">{% trans "This thread is closed. No new replies can be posted." %}</div>
+  {% endif %}
+
+  {% if page_obj.has_other_pages %}
+  <nav class="pagination" aria-label="{% trans 'Post pagination' %}">
+    {% if page_obj.has_previous %}
+      <a href="?page={{ page_obj.previous_page_number }}" class="page-link">&laquo; {% trans "Previous" %}</a>
+    {% else %}
+      <span class="page-link disabled">&laquo; {% trans "Previous" %}</span>
+    {% endif %}
+    <span class="page-info">{% blocktrans with num=page_obj.number total=page_obj.paginator.num_pages %}Page {{ num }} of {{ total }}{% endblocktrans %}</span>
+    {% if page_obj.has_next %}
+      <a href="?page={{ page_obj.next_page_number }}" class="page-link">{% trans "Next" %} &raquo;</a>
+    {% else %}
+      <span class="page-link disabled">{% trans "Next" %} &raquo;</span>
+    {% endif %}
+  </nav>
+  {% endif %}
+
+  <div class="forum-posts">
+    {% for post in posts %}
+      {% include "forum/_post_row.html" with post=post show_thread=False %}
+    {% endfor %}
+  </div>
+
+  {% if page_obj.has_other_pages %}
+  <nav class="pagination" aria-label="{% trans 'Post pagination' %}">
+    {% if page_obj.has_previous %}
+      <a href="?page={{ page_obj.previous_page_number }}" class="page-link">&laquo; {% trans "Previous" %}</a>
+    {% else %}
+      <span class="page-link disabled">&laquo; {% trans "Previous" %}</span>
+    {% endif %}
+    <span class="page-info">{% blocktrans with num=page_obj.number total=page_obj.paginator.num_pages %}Page {{ num }} of {{ total }}{% endblocktrans %}</span>
+    {% if page_obj.has_next %}
+      <a href="?page={{ page_obj.next_page_number }}" class="page-link">{% trans "Next" %} &raquo;</a>
+    {% else %}
+      <span class="page-link disabled">{% trans "Next" %} &raquo;</span>
+    {% endif %}
+  </nav>
+  {% endif %}
+
+  {% if reply_form %}
+  <div class="forum-reply-form">
+    <h2>{% trans "Post a Reply" %}</h2>
+    <form method="post" action="{% url 'forum:reply' thread.pk %}">
+      {% csrf_token %}
+      <div class="form-row{% if reply_form.body.errors %} form-row--error{% endif %}">
+        <label for="id_body">{% trans "Body" %}</label>
+        <div class="richtext-editor-wrap"{% if reply_form.body.errors %} aria-describedby="id_body-errors"{% endif %}>
+          <div id="forum-quill-editor" class="richtext-editor"
+               data-placeholder="{% trans 'Write your reply…' %}"
+               data-upload-url="{% url 'forum:upload_media' %}"
+               data-textarea-id="id_body"
+               data-forum-editor></div>
+          <textarea name="body" id="id_body" class="richtext-source" rows="12">{{ reply_form.body.value|default:'' }}</textarea>
+          <input type="file" id="forum-quill-editor-file-input" class="sr-only" accept="image/jpeg,image/png,image/gif,image/webp">
+        </div>
+          {% if reply_form.body.errors %}
+          <ul class="errorlist" id="id_body-errors">{% for error in reply_form.body.errors %}<li>{{ error }}</li>{% endfor %}</ul>
+        {% endif %}
+      </div>
+      <div class="panel-form-actions">
+        <button type="submit" class="panel-btn panel-btn-primary" data-loading-text="{% trans 'Posting…' %}">{% trans "Post Reply" %}</button>
+      </div>
+    </form>
+  </div>
+  {% elif not thread.is_closed and not user.is_authenticated %}
+  <div class="forum-login-prompt">
+    <p>{% trans "Please" %} <a href="{% url 'accounts:login' %}">{% trans "log in" %}</a> {% trans "to post a reply." %}</p>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}
+
+{% block extra_head %}
+{{ block.super }}
+<link href="{% static 'vendor/quill.snow.css' %}" rel="stylesheet" />
+<link rel="stylesheet" href="{% static 'core/post-editor.css' %}" />
+{% endblock %}
+
+{% block extra_scripts %}
+{{ block.super }}
+<div id="editor-config" class="sr-only"
+     data-upload-failed="{% trans 'Upload failed.' %}"
+     data-upload-cancelled="{% trans 'Upload cancelled.' %}"
+     data-uploading="{% trans 'Uploading' %}"
+     data-upload-timeout="{% trans 'Upload timed out.' %}"
+     data-editor-load-failed="{% trans 'Rich text editor could not be loaded. You can still type plain text in the box below.' %}"></div>
+<script src="{% static 'accounts/editor-messages.js' %}"></script>
+<script src="{% static 'vendor/quill.js' %}"></script>
+<script src="{% static 'core/editor-utils.js' %}"></script>
+<script src="{% static 'forum/forum-editor.js' %}"></script>
+{% endblock %}

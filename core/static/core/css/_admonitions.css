@@ -1,0 +1,224 @@
+/* ═══════════════════════════════════════════════════════════
+   Markdown Tables — GitHub-style article body tables
+   ═══════════════════════════════════════════════════════════
+   Used by: markdown tables extension
+   Produces: <table><thead><tr><th>...</th></tr></thead>
+             <tbody><tr><td>...</td></tr></tbody></table>
+   ═══════════════════════════════════════════════════════════ */
+
+.article-body table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  margin: 1.25rem 0;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  display: block;
+  overflow-x: auto;
+}
+
+.article-body table th,
+.article-body table td {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--border);
+  text-align: left;
+}
+
+.article-body table th {
+  font-weight: 600;
+  background: var(--gray-100);
+  color: var(--text);
+}
+
+.article-body table tbody tr:nth-child(2n) {
+  background: var(--gray-100);
+}
+
+.article-body table tbody tr:hover {
+  background: var(--code-bg);
+}
+
+.article-body table caption {
+  caption-side: bottom;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  padding-top: 0.5rem;
+}
+
+/* RTL table alignment */
+[dir="rtl"] .article-body table th,
+[dir="rtl"] .article-body table td {
+  text-align: right;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   Admonitions — Note, Warning, Danger, Tip, Info blocks
+   ═══════════════════════════════════════════════════════════
+   Used by: markdown admonition extension (!!! note, !!! warning, etc.)
+   Produces: <div class="admonition {type}"><p class="admonition-title">...</p>...</div>
+   ═══════════════════════════════════════════════════════════ */
+
+.admonition {
+  margin: 1.5rem 0;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--border);
+  border-left-width: 6px;
+  border-radius: var(--radius);
+  background: var(--off-white);
+  font-size: 0.92rem;
+  color: var(--text);
+}
+
+.admonition > .admonition-title {
+  margin: 0 0 0.4rem;
+  padding: 0;
+  font-weight: 600;
+  font-size: 0.88rem;
+  text-transform: capitalize;
+  color: var(--text);
+  line-height: 1.4;
+}
+
+.admonition > p {
+  margin: 0.3rem 0;
+  line-height: 1.55;
+}
+
+/* Type variants */
+.admonition.note {
+  border-color: #0969da;
+  background: #ddf4ff;
+}
+
+.admonition.note > .admonition-title {
+  color: #0969da;
+}
+
+.admonition.warning {
+  border-color: #9a6700;
+  background: #fff8c5;
+}
+
+.admonition.warning > .admonition-title {
+  color: #9a6700;
+}
+
+.admonition.danger,
+.admonition.error {
+  border-color: #cf222e;
+  background: #ffebe9;
+}
+
+.admonition.danger > .admonition-title,
+.admonition.error > .admonition-title {
+  color: #cf222e;
+}
+
+.admonition.tip,
+.admonition.hint {
+  border-color: #1a7f37;
+  background: #dafbe1;
+}
+
+.admonition.tip > .admonition-title,
+.admonition.hint > .admonition-title {
+  color: #1a7f37;
+}
+
+.admonition.info {
+  border-color: #0969da;
+  background: #ddf4ff;
+}
+
+.admonition.info > .admonition-title {
+  color: #0969da;
+}
+
+.admonition.attention,
+.admonition.caution {
+  border-color: #9a6700;
+  background: #fff8c5;
+}
+
+.admonition.attention > .admonition-title,
+.admonition.caution > .admonition-title {
+  color: #9a6700;
+}
+
+/* RTL support — switch left border to right */
+[dir="rtl"] .admonition {
+  border-left-width: 1px;
+  border-right-width: 6px;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   Math (Arithmatex) — LaTeX rendering containers
+   ═══════════════════════════════════════════════════════════
+   Used by: pymdownx.arithmatex (generic mode)
+   Produces: <span class="arithmatex">\(...\)</span> (inline)
+             <div class="arithmatex">\[...\]</div> (block)
+   MathJax processes these client-side.
+   ═══════════════════════════════════════════════════════════ */
+
+.arithmatex {
+  overflow-x: auto;
+}
+
+/* Block math gets extra margin */
+div.arithmatex {
+  margin: 1.25rem 0;
+  padding: 0.5rem 0;
+  text-align: center;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   Syntax Highlighting — Code block styling
+   ═══════════════════════════════════════════════════════════
+   Used by: pymdownx.highlight
+   Produces: <div class="highlight"><pre>...</pre></div>
+   ═══════════════════════════════════════════════════════════ */
+
+.highlight {
+  margin: 1.25rem 0;
+  border-radius: var(--radius);
+  background: var(--code-bg);
+  border: 1px solid var(--border);
+  overflow-x: auto;
+}
+
+.highlight pre {
+  margin: 0;
+  padding: 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.88rem;
+  line-height: 1.6;
+  color: var(--text);
+  background: transparent;
+  border: none;
+}
+
+.highlight code {
+  font-family: var(--font-mono);
+  font-size: 0.88rem;
+  background: transparent;
+  padding: 0;
+  border: none;
+}
+
+/* Inline code (already styled in _base.css, but ensure consistency) */
+.article-body code {
+  font-family: var(--font-mono);
+  font-size: 0.88em;
+  padding: 0.15em 0.4em;
+  background: var(--code-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text);
+}
+
+.article-body pre code {
+  padding: 0;
+  background: transparent;
+  border: none;
+  font-size: inherit;
+}

@@ -1,0 +1,60 @@
+{% extends "accounts/panel.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Edit Profile" %} — OpenSrc Persian{% endblock %}
+
+{% block panel_content %}
+<header class="panel-page-header">
+  <div>
+    <h2 class="panel-page-title">{% trans "Edit Profile" %}</h2>
+    <p class="panel-page-subtitle">{% trans "Update your account details, bio, and social links." %}</p>
+  </div>
+</header>
+
+<form method="post" enctype="multipart/form-data" class="panel-form">
+  {% csrf_token %}
+
+  <section class="panel-form-section">
+    <h3 class="panel-form-section-title">{% trans "Personal information" %}</h3>
+    <fieldset class="panel-fieldset">
+      {% for field in user_form %}
+      <div class="form-row{% if field.errors %} form-row--error{% endif %}">
+        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+        <div class="form-row-input"{% if field.errors %} aria-describedby="{{ field.id_for_label }}-errors"{% endif %}>
+          {% if field.field.widget.input_type == 'file' %}
+          <div class="password-wrap">
+            {{ field }}
+          </div>
+          {% else %}
+            {{ field }}
+          {% endif %}
+          {% if field.help_text %}<span class="helptext">{{ field.help_text }}</span>{% endif %}
+          {% if field.errors %}<ul class="errorlist" id="{{ field.id_for_label }}-errors">{% for e in field.errors %}<li>{{ e }}</li>{% endfor %}</ul>{% endif %}
+        </div>
+      </div>
+      {% endfor %}
+    </fieldset>
+  </section>
+
+  <section class="panel-form-section">
+    <h3 class="panel-form-section-title">{% trans "Professional profile" %}</h3>
+    <fieldset class="panel-fieldset">
+      {% for field in profile_form %}
+      <div class="form-row{% if field.errors %} form-row--error{% endif %}">
+        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+        <div class="form-row-input"{% if field.errors %} aria-describedby="{{ field.id_for_label }}-errors"{% endif %}>
+          {{ field }}
+          {% if field.help_text %}<span class="helptext">{{ field.help_text }}</span>{% endif %}
+          {% if field.errors %}<ul class="errorlist" id="{{ field.id_for_label }}-errors">{% for e in field.errors %}<li>{{ e }}</li>{% endfor %}</ul>{% endif %}
+        </div>
+      </div>
+      {% endfor %}
+    </fieldset>
+  </section>
+
+  <div class="panel-form-actions">
+    <button type="submit" class="panel-btn panel-btn-primary">{% trans "Save Changes" %}</button>
+    <a href="{% url 'accounts:panel' %}" class="panel-btn panel-btn-secondary">{% trans "Cancel" %}</a>
+  </div>
+</form>
+{% endblock %}

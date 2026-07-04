@@ -1,0 +1,10 @@
+{% load i18n %}
+<header class="panel-page-header">
+  <div>
+    <h2 class="panel-page-title">{{ title }}</h2>
+    {% if subtitle %}<p class="panel-page-subtitle">{{ subtitle }}</p>{% endif %}
+  </div>
+  {% if action_url and action_label %}
+  <a href="{{ action_url }}" class="panel-btn panel-btn-primary">{{ action_label }}</a>
+  {% endif %}
+</header>

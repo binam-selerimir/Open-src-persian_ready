@@ -1,0 +1,56 @@
+/* ═══════════════════════════════════════════════════════════
+   Hero, Buttons, Section Divider
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── Hero ─────────────────────────────────────────────────── */
+
+.hero {
+  border-left: 4px solid var(--gold);
+  padding: 1rem 1.5rem;
+  margin-bottom: 1.75rem;
+  background: linear-gradient(135deg, #f8f7f4 0%, #eef4fb 100%);
+  border-radius: 0 var(--radius) var(--radius) 0;
+}
+[dir="rtl"] .hero { border-left: none; border-right: 4px solid var(--gold); border-radius: var(--radius) 0 0 var(--radius); }
+.hero h1 { font-size: 2rem; font-weight: 600; color: var(--navy); line-height: 1.2; margin-bottom: 0.75rem; }
+.hero-lead { font-size: 1.05rem; color: var(--text-muted); max-width: 60ch; margin-bottom: 1rem; }
+.hero-actions { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+
+/* ── Buttons ──────────────────────────────────────────────── */
+
+.btn-primary {
+  display: inline-block;
+  background: var(--navy);
+  color: var(--white);
+  text-decoration: none;
+  padding: 0.5rem 1.25rem;
+  border-radius: var(--radius);
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: background var(--transition);
+}
+.btn-primary:hover { background: var(--navy-light); color: var(--white); }
+.btn-primary:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+
+.btn-secondary {
+  display: inline-block;
+  background: transparent;
+  color: var(--navy);
+  text-decoration: none;
+  padding: 0.5rem 1.25rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--navy-mid);
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: background var(--transition), color var(--transition);
+}
+.btn-secondary:hover { background: var(--navy); color: var(--white); }
+.btn-secondary:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+
+/* ── Section divider ──────────────────────────────────────── */
+
+.section-divider { margin: 2rem 0; }
+
+/* ── Empty state ──────────────────────────────────────────── */
+
+.empty-state { color: var(--text-muted); font-style: italic; padding: 1rem 0; }

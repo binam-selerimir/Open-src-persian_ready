@@ -1,0 +1,536 @@
+/* Rich text editor (Quill) — panel forms */
+.richtext-source--hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+.richtext-editor-wrap {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--white);
+  /* Ensure the wrap itself is always full-width of its grid/flex cell. */
+  width: 100%;
+  box-sizing: border-box;
+  /* Grid/flex items default to min-width:auto, not 0 -- this can stop a
+     child from growing to fill its track in some layout edge cases,
+     leaving empty space beside it while text still wraps at the item's
+     intrinsic width instead of the full available width. */
+  min-width: 0;
+}
+
+.richtext-editor-wrap .ql-toolbar.ql-snow {
+  border: none;
+  border-bottom: 1px solid var(--border);
+  background: var(--gray-100);
+  font-family: var(--font-sans);
+  /* Use a pseudo-element clearfix instead of overflow:hidden, which clips
+     Quill's absolutely-positioned picker dropdowns (header, font, size). */
+  display: flow-root;
+}
+
+.richtext-editor-wrap .ql-container.ql-snow {
+  border: none;
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  min-height: 280px;
+  /* Explicit width so Quill's container never inherits a shrunken value. */
+  display: block;
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+.richtext-editor-wrap .ql-editor {
+  min-height: 280px;
+  line-height: 1.7;
+  color: var(--text);
+  /* Quill's own quill.snow.css hardcodes text-align:left on .ql-editor.
+     Override with 'start' (logical property — inherits RTL direction from
+     the paragraph-level ql-align-right class rather than being overridden
+     by a hardcoded directional value). */
+  text-align: start;
+  /* Ensure the editing surface fills the full container width and never
+     shrinks narrower than its parent, which was the root cause of the
+     "text wraps early, half the box is empty" symptom. */
+  display: block;
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+/*
+ * Reset paragraphs typed inside the editor back to normal block flow.
+ *
+ * ROOT CAUSE: `.panel-form p` (further down this file) sets
+ * `display: grid; grid-template-columns: 180px 1fr; ...` to lay out
+ * Django's auto-generated <p> wrapper for simple label+input form rows.
+ * That selector has no depth limit, so it ALSO matches every <p> Quill
+ * generates inside .ql-editor for each paragraph you type -- since
+ * .ql-editor lives inside the same <form class="panel-form...">,
+ * no matter how deeply nested.
+ *
+ * The effect: every typed paragraph was being forced into a 2-column
+ * grid instead of normal block flow. Plain text got squeezed into the
+ * fixed 180px first column (causing the "wraps too early, half the box
+ * empty" symptom), and any bold/italic run wide enough to exceed 180px
+ * could overflow that fixed-width grid track entirely -- CSS Grid items
+ * don't shrink-wrap text content the way normal block elements do --
+ * which is also what caused the new page-wide horizontal scrollbar.
+ *
+ * Verified against Quill's own bundled CSS that no other block-level tag
+ * (headings, blockquote, li, ol) is similarly leaked by any `.panel-form`
+ * rule -- only `p` and `ul` (below) are actually affected, so only those
+ * two get an override here.
+ *
+ * This rule must have HIGHER SPECIFICITY than `.panel-form p` (4 classes
+ * + type selector vs. 1 class + type selector) so it reliably wins
+ * regardless of source order, and explicitly resets every property the
+ * leaked rule applied -- not just display/grid-template-columns.
+ */
+.panel-form .richtext-editor-wrap .ql-editor p {
+  display: block;
+  grid-template-columns: none;
+  gap: 0;
+  align-items: normal;
+  /* A modest paragraph gap for readability while typing (roughly matches
+     .article-body p's published spacing) -- not a restoration of any
+     prior value, just a sensible default now that the grid layout bug
+     is gone. */
+  margin: 0 0 0.75em 0;
+  padding: 0;
+  border-bottom: none;
+}
+
+/*
+ * Reset bullet lists typed inside the editor back to normal list flow.
+ *
+ * Same root cause as above: `.panel-form ul` (further down this file)
+ * sets `display: grid; grid-template-columns: repeat(auto-fill,
+ * minmax(150px, 1fr)); list-style: none; padding: 0;` to lay out an
+ * unrelated checkbox-grid widget elsewhere in the panel forms. That
+ * selector also has no depth limit, so it matches every <ul> Quill
+ * generates for a bulleted list in the post body -- turning a normal
+ * vertical bullet list into a multi-column card grid with no bullets.
+ *
+ * `revert` rolls each property back to the user-agent stylesheet
+ * default for <ul> (display:block, list-style-type:disc,
+ * padding-inline-start:40px, etc.), which combined with Quill's own
+ * `.ql-editor li { list-style-type:none; padding-left:1.5em; ... }`
+ * rule (untouched by this fix) renders bullets exactly as Quill intends.
+ */
+.panel-form .richtext-editor-wrap .ql-editor ul {
+  display: revert;
+  grid-template-columns: none;
+  gap: revert;
+  list-style: revert;
+  padding: revert;
+}
+
+.richtext-editor-wrap .ql-editor .media-embed,
+.richtext-editor-wrap .ql-editor figure.media-embed {
+  max-width: 560px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+.richtext-editor-wrap .ql-editor .media-embed img,
+.richtext-editor-wrap .ql-editor .media-embed video,
+.richtext-editor-wrap .ql-editor .media-embed audio {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.richtext-editor-wrap .ql-editor.ql-blank::before {
+  color: var(--text-muted);
+  font-style: normal;
+}
+
+.richtext-editor-wrap .ql-snow .ql-stroke {
+  stroke: var(--navy);
+}
+
+.richtext-editor-wrap .ql-snow .ql-fill {
+  fill: var(--navy);
+}
+
+.richtext-editor-wrap .ql-snow .ql-picker-label {
+  color: var(--navy);
+}
+
+.richtext-editor-wrap .ql-snow .ql-picker-options {
+  background: var(--white);
+  border-color: var(--border);
+  z-index: 10;
+}
+
+.richtext-editor-wrap .ql-snow button:hover,
+.richtext-editor-wrap .ql-snow button.ql-active,
+.richtext-editor-wrap .ql-snow .ql-picker-label:hover {
+  color: var(--gold-dark);
+}
+
+.richtext-editor-wrap .ql-snow button:hover .ql-stroke,
+.richtext-editor-wrap .ql-snow button.ql-active .ql-stroke {
+  stroke: var(--gold-dark);
+}
+
+.richtext-editor-wrap .ql-snow button:hover .ql-fill,
+.richtext-editor-wrap .ql-snow button.ql-active .ql-fill {
+  fill: var(--gold-dark);
+}
+
+/* The grid cell that directly holds the rich-text editor (and, on other
+   rows, plain inputs/selects). Previously had no defining rule at all,
+   relying entirely on default grid-item block behaviour. min-width:0
+   prevents a CSS Grid item from refusing to grow to its track's full
+   width in some browsers (grid/flex items default to min-width:auto,
+   not 0) -- the same class of fix applied one level deeper to the
+   editor's own wrapper chain above. */
+.form-row-input { min-width: 0; }
+
+/* Tom Select — tag search */
+.form-row-input .ts-wrapper {
+  width: 100%;
+  font-family: var(--font-sans);
+}
+
+.ts-wrapper .ts-control {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0.4rem 0.6rem;
+  min-height: 42px;
+  background: var(--white);
+  box-shadow: none;
+}
+
+.ts-wrapper.focus .ts-control {
+  outline: 2px solid var(--gold);
+  border-color: var(--gold);
+  box-shadow: none;
+}
+
+.ts-wrapper .ts-control input {
+  font-size: 0.9rem;
+  color: var(--text);
+}
+
+.ts-wrapper .ts-dropdown {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: 0 4px 12px rgba(0, 26, 51, 0.1);
+  font-size: 0.88rem;
+}
+
+.ts-wrapper .ts-dropdown .option {
+  padding: 0.45rem 0.75rem;
+}
+
+.ts-wrapper .ts-dropdown .active {
+  background: var(--navy);
+  color: var(--gold);
+}
+
+.ts-wrapper .item {
+  background: var(--navy) !important;
+  color: var(--gold) !important;
+  border-radius: 2rem;
+  font-size: 0.78rem;
+  border: none;
+}
+
+.ts-wrapper .item .remove {
+  border-inline-start-color: var(--navy-mid) !important;
+  color: var(--gold) !important;
+}
+
+.ts-wrapper .no-results {
+  padding: 0.5rem 0.75rem;
+  color: var(--text-muted);
+}
+
+/* Rendered article HTML */
+.article-body--rich h2,
+.article-body--rich h3,
+.article-body--rich h4 {
+  color: var(--navy);
+  margin: 1.25rem 0 0.5rem;
+}
+
+.article-body--rich blockquote {
+  border-left: 4px solid var(--gold);
+  margin: 1rem 0;
+  padding: 0.5rem 1rem;
+  background: var(--off-white);
+  color: var(--text-muted);
+}
+
+[dir="rtl"] .article-body--rich blockquote {
+  border-left: none;
+  border-right: 4px solid var(--gold);
+}
+
+.article-body--rich pre {
+  background: var(--navy);
+  color: #c8dff0;
+  padding: 1rem;
+  border-radius: var(--radius);
+  overflow-x: auto;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  line-height: 1.5;
+  margin: 1rem 0;
+}
+
+.article-body--rich pre code {
+  background: none;
+  padding: 0;
+  color: inherit;
+}
+
+.article-body--rich code {
+  background: var(--code-bg);
+  padding: 0.15em 0.4em;
+  border-radius: var(--radius);
+  font-size: 0.88em;
+}
+
+.article-body--rich a {
+  font-weight: 600;
+}
+
+/* Inline media embeds — centered in article */
+.article-body--rich .media-embed,
+.article-body--rich figure.media-embed {
+  margin: 1.25rem auto;
+  padding: 0;
+  max-width: min(100%, 720px);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--off-white);
+  overflow: hidden;
+  text-align: center;
+}
+
+.article-body--rich .media-embed img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto;
+}
+
+.article-body--rich .media-embed video {
+  display: block;
+  width: 100%;
+  max-width: 720px;
+  max-height: 480px;
+  margin: 0 auto;
+  background: var(--navy);
+}
+
+.article-body--rich .media-embed audio {
+  display: block;
+  width: 100%;
+  max-width: 560px;
+  margin: 0 auto;
+  padding: 0.75rem 1rem;
+}
+
+.article-body--rich .media-embed--video,
+.article-body--rich .media-embed--audio {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: min(100%, 720px);
+}
+
+.article-body--rich img:not(.media-embed img) {
+  display: block;
+  max-width: min(100%, 720px);
+  height: auto;
+  margin: 1.25rem auto;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+}
+
+.article-body--rich .media-caption {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  padding: 0.5rem 0.85rem;
+  margin: 0;
+  border-top: 1px solid var(--border);
+  background: var(--gray-100);
+  text-align: center;
+}
+
+.article-body--translation blockquote { border-left-color: #4a90c4; }
+.article-body--original_fa blockquote { border-left-color: #2e8b57; }
+[dir="rtl"] .article-body--translation blockquote { border-right-color: #4a90c4; }
+[dir="rtl"] .article-body--original_fa blockquote { border-right-color: #2e8b57; }
+
+/* Custom Quill toolbar icons for video / audio */
+.richtext-editor-wrap .ql-video svg,
+.richtext-editor-wrap .ql-audio svg { display: none; }
+.richtext-editor-wrap .ql-video::after,
+.richtext-editor-wrap .ql-audio::after {
+  font-size: 0.85rem;
+  font-weight: 700;
+  line-height: 1;
+}
+.richtext-editor-wrap .ql-video::after { content: '▶'; }
+.richtext-editor-wrap .ql-audio::after { content: '♫'; }
+
+/* Media drop zone (editor) */
+.media-dropzone {
+  margin-top: 0.75rem;
+  padding: 1rem 1.25rem;
+  border: 2px dashed var(--border);
+  border-radius: var(--radius);
+  background: var(--gray-100);
+  text-align: center;
+  cursor: pointer;
+  transition: border-color var(--transition), background var(--transition);
+}
+.media-dropzone:hover,
+.media-dropzone:focus-visible,
+.media-dropzone--active {
+  border-color: var(--gold);
+  background: #fffbe6;
+  outline: none;
+}
+.media-dropzone-icon { display: block; font-size: 1.5rem; margin-bottom: 0.35rem; }
+.media-dropzone-text { display: block; font-size: 0.88rem; font-weight: 600; color: var(--navy); }
+.media-dropzone-hint { display: block; font-size: 0.75rem; color: var(--text-muted); margin-top: 0.25rem; }
+
+.media-upload-status {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin: 0.4rem 0 0;
+  min-height: 1.2em;
+}
+.media-upload-status--busy { color: var(--navy); font-weight: 600; }
+.media-upload-status--error { color: #c0392b; font-weight: 600; }
+
+/* Cover image upload card */
+.cover-field-row > label { margin-bottom: 0.5rem; }
+
+.cover-upload-card { max-width: 520px; }
+
+.cover-upload-dropzone {
+  position: relative;
+  border: 2px dashed var(--border);
+  border-radius: var(--radius);
+  background: linear-gradient(145deg, var(--gray-100) 0%, var(--off-white) 100%);
+  overflow: hidden;
+  cursor: pointer;
+  transition: border-color var(--transition), box-shadow var(--transition);
+  min-height: 200px;
+}
+.cover-upload-dropzone:hover,
+.cover-upload-dropzone:focus-visible,
+.cover-upload-dropzone--active {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(255, 204, 0, 0.2);
+  outline: none;
+}
+
+.cover-upload-preview {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  min-height: 0;
+}
+
+.cover-upload-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
+.cover-upload-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1.5rem;
+  text-align: center;
+  color: var(--text-muted);
+}
+.cover-upload-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 4rem;
+  height: 4rem;
+  margin-bottom: 0.75rem;
+  border-radius: 50%;
+  background: var(--white);
+  border: 1px solid var(--border);
+  color: var(--navy);
+}
+.cover-upload-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--navy);
+  margin-bottom: 0.25rem;
+}
+.cover-upload-hint { font-size: 0.88rem; margin-bottom: 0.35rem; }
+.cover-upload-formats { font-size: 0.75rem; opacity: 0.8; }
+
+.cover-upload-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 26, 51, 0.55);
+  color: var(--white);
+  font-weight: 600;
+  font-size: 0.9rem;
+  opacity: 0;
+  transition: opacity var(--transition);
+}
+.cover-upload-dropzone:hover .cover-upload-overlay,
+.cover-upload-dropzone:focus-visible .cover-upload-overlay {
+  opacity: 1;
+}
+
+.cover-upload-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.65rem;
+}
+
+/* File field previews (attachment) */
+.file-preview-current {
+  margin-bottom: 0.6rem;
+  padding: 0.6rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--gray-100);
+}
+.file-preview-current--empty { display: none; }
+.file-preview-img {
+  display: block;
+  max-width: 220px;
+  max-height: 140px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+}
+.file-preview-label,
+.file-preview-name {
+  display: block;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin-top: 0.35rem;
+}
+.file-preview-link { font-size: 0.82rem; }

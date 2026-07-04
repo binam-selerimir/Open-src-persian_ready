@@ -1,0 +1,82 @@
+{% extends "core/base.html" %}
+{% block body_class %} layout--no-sidebar{% endblock %}
+{% load static i18n post_extras %}
+
+{% block title %}{% trans "OpenSrc Persian — Free Software for Everyone" %}{% endblock %}
+
+{% block content %}
+
+<!-- Hero Section -->
+<section class="hero">
+  <h1>{% trans "Free knowledge." %}<br>{% trans "Free Society." %}</h1>
+  <p class="hero-lead">
+    {% trans "OpenSrc Persian works to ensure freedom for all users. We believe that knowledge should be free and available to the community - that means publishing it for everyone to use, study, distribute, and improve." %}
+  </p>
+  <div class="hero-actions">
+    <a href="{% url 'about' %}" class="btn-primary">{% trans "Learn Our Mission" %}</a>
+    <a href="{% url 'posts:post_list' %}" class="btn-secondary">{% trans "Read the articles" %}</a>
+  </div>
+</section>
+
+<hr class="section-divider" />
+
+<!-- Four pillars -->
+<section class="pillars">
+  <h2>{% trans "The Four Freedoms" %}</h2>
+  <p class="section-intro">
+    {% trans "We believe knowledge is only truly free when it grants its users four essential freedoms. Knowledge — whether scientific, academic, or practical — is free if all of the following hold true:" %}
+  </p>
+  <div class="pillars-grid">
+    <div class="pillar">
+      <span class="pillar-num">0</span>
+      <h3>{% trans "Use" %}</h3>
+      <p>{% trans "anyone may use the knowledge for any purpose, without restriction or need for permission." %}</p>
+    </div>
+    <div class="pillar">
+      <span class="pillar-num">1</span>
+      <h3>{% trans "Study" %}</h3>
+      <p>{% trans "anyone may examine how it works, understand its reasoning, and learn from it openly." %}</p>
+    </div>
+    <div class="pillar">
+      <span class="pillar-num">2</span>
+      <h3>{% trans "Distribute" %}</h3>
+      <p>{% trans "anyone may share copies of it with others, so that knowledge can spread freely." %}</p>
+    </div>
+    <div class="pillar">
+      <span class="pillar-num">3</span>
+      <h3>{% trans "Improve" %}</h3>
+      <p>{% trans "anyone may build on it, refine it, and share those improvements so the whole community benefits." %}</p>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider" />
+
+<!-- Latest News -->
+<section class="news-section">
+  <div class="news-header">
+    <h2>{% trans "Latest articles" %}</h2>
+    <a href="{% url 'posts:post_list' %}" class="see-all">{% trans "See all articles" %} &rarr;</a>
+  </div>
+
+  {% if latest_news %}
+    <ul class="news-list-home">
+      {% for post in latest_news %}
+      {% include "posts/_post_home_item.html" %}
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="empty-state">{% trans "No news posts yet." %}</p>
+  {% endif %}
+</section>
+
+<hr class="section-divider" />
+
+<!-- Call to action banner -->
+<section class="cta-banner">
+  <h2>{% trans "Join Us" %}</h2>
+  <p>{% trans "OpenSrc Persian runs on volunteers who believe knowledge shouldn't be locked behind language barriers. Whether you write code, translate, or spread the word, there is a place for you here. We can't pay you, but we can offer an audience that needs your work and a community that shares your values." %}</p>
+  <a href="{% url 'about' %}" class="btn-primary">{% trans "Get Involved" %}</a>
+</section>
+
+{% endblock %}

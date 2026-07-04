@@ -1,0 +1,96 @@
+/* ═══════════════════════════════════════════════════════════
+   Error Pages (404, 403, 500)
+   ═══════════════════════════════════════════════════════════ */
+
+.error-page {
+  display: flex;
+  align-items: flex-start;
+  gap: 2.5rem;
+  padding: 3rem 0 2rem;
+}
+
+.error-page-code {
+  flex-shrink: 0;
+  font-size: 7rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--gold);
+  border-right: 4px solid var(--gold);
+  padding-right: 2rem;
+  letter-spacing: -4px;
+  user-select: none;
+}
+
+.error-page-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.error-page-title {
+  font-size: 1.9rem;
+  font-weight: 600;
+  color: var(--navy);
+  margin: 0 0 0.6rem;
+}
+
+.error-page-lead {
+  font-size: 1.05rem;
+  color: var(--text-muted);
+  max-width: 55ch;
+  margin: 0 0 1.5rem;
+}
+
+.error-page-actions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+}
+
+.error-page-hint {
+  border-left: 3px solid var(--border);
+  padding-left: 0.85rem;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+/* RTL mirror */
+[dir="rtl"] .error-page-code {
+  border-right: none;
+  border-left: 4px solid var(--gold);
+  padding-right: 0;
+  padding-left: 2rem;
+}
+
+[dir="rtl"] .error-page-hint {
+  border-left: none;
+  border-right: 3px solid var(--border);
+  padding-left: 0;
+  padding-right: 0.85rem;
+}
+
+@media (max-width: 600px) {
+  .error-page {
+    flex-direction: column;
+    gap: 1.25rem;
+    padding: 2rem 0 1rem;
+  }
+
+  .error-page-code {
+    font-size: 4.5rem;
+    border-right: none;
+    border-bottom: 3px solid var(--gold);
+    padding-right: 0;
+    padding-bottom: 0.75rem;
+    letter-spacing: -2px;
+  }
+
+  [dir="rtl"] .error-page-code {
+    border-left: none;
+    border-bottom: 3px solid var(--gold);
+    padding-left: 0;
+  }
+
+  .error-page-title { font-size: 1.4rem; }
+  .error-page-actions { flex-direction: column; }
+}

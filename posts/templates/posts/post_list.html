@@ -1,0 +1,130 @@
+{% extends "core/base.html" %}
+{% load i18n post_extras %}
+
+{% block body_class %} layout--has-sidebar{% endblock %}
+
+{% block title %}{% trans "News" %} — OpenSrc Persian{% endblock %}
+{% block description %}{% trans "Latest news, announcements, and articles from the OpenSrc Persian." %}{% endblock %}
+
+{% block og_title %}{% trans "News" %} — OpenSrc Persian{% endblock %}
+{% block og_description %}{% trans "Latest news, announcements, and articles from the OpenSrc Persian." %}{% endblock %}
+
+{% block content %}
+
+<!-- Breadcrumbs -->
+<nav class="breadcrumb" aria-label="{% trans 'Breadcrumb' %}">
+  <ol>
+    <li><a href="{% url 'home' %}">{% trans "Home" %}</a></li>
+    <li aria-current="page">{% trans "News" %}</li>
+  </ol>
+</nav>
+
+<div class="page-header">
+  <h1>{% trans "News" %}</h1>
+  <p>{% trans "Announcements, articles, and updates from the OpenSrc Persian." %}</p>
+</div>
+
+<div class="filter-bar">
+  <div class="filter-group">
+    <span class="filter-label">{% trans "Category" %}:</span>
+    <a href="{% url 'posts:post_list' %}{% if active_type %}?type={{ active_type }}{% endif %}"
+       class="filter-pill{% if not active_cat %} active{% endif %}">{% trans "All" %}</a>
+    {% for cat in categories %}
+    <a href="?category={{ cat.slug }}{% if active_type %}&type={{ active_type }}{% endif %}"
+       class="filter-pill{% if active_cat == cat.slug %} active{% endif %}">
+      {% if LANGUAGE_CODE == 'fa' %}{{ cat.name_fa }}{% else %}{{ cat.name_en }}{% endif %}
+    </a>
+    {% endfor %}
+  </div>
+
+  {% if active_cat and active_subcategories %}
+  <div class="filter-group">
+    <span class="filter-label">{% trans "Subcategory" %}:</span>
+    <a href="?category={{ active_cat }}{% if active_type %}&type={{ active_type }}{% endif %}"
+       class="filter-pill{% if not active_sub %} active{% endif %}">{% trans "All" %}</a>
+    {% for sub in active_subcategories %}
+    <a href="?category={{ active_cat }}&subcategory={{ sub.slug }}{% if active_type %}&type={{ active_type }}{% endif %}"
+       class="filter-pill{% if active_sub == sub.slug %} active{% endif %}">
+      {% if LANGUAGE_CODE == 'fa' %}{{ sub.name_fa }}{% else %}{{ sub.name_en }}{% endif %}
+    </a>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  <div class="filter-group">
+    <span class="filter-label">{% trans "Type" %}:</span>
+    <a href="?{% if active_cat %}category={{ active_cat }}{% endif %}{% if active_sub %}{% if active_cat %}&{% endif %}subcategory={{ active_sub }}{% endif %}"
+       class="filter-pill{% if not active_type %} active{% endif %}">{% trans "All" %}</a>
+    {% for pt in post_types %}
+    <a href="?type={{ pt.slug }}{% if active_cat %}&category={{ active_cat }}{% endif %}{% if active_sub %}&subcategory={{ active_sub }}{% endif %}"
+       class="filter-pill{% if active_type == pt.slug %} active{% endif %}">{{ pt|type_label:LANGUAGE_CODE }}</a>
+    {% endfor %}
+  </div>
+</div>
+
+{% if page_obj %}
+  <ul class="news-archive-list">
+    {% for post in page_obj %}
+    {% include "posts/_post_archive_item.html" %}
+    {% endfor %}
+  </ul>
+
+  {% if page_obj.has_other_pages %}
+  <nav class="pagination" aria-label="{% trans 'News pagination' %}">
+    {% if page_obj.has_previous %}
+      <a href="?{% url_replace page=page_obj.previous_page_number %}" class="page-link">&laquo; {% trans "Previous" %}</a>
+    {% else %}
+      <span class="page-link disabled">&laquo; {% trans "Previous" %}</span>
+    {% endif %}
+
+    <span class="page-info">
+      {% blocktrans with num=page_obj.number total=page_obj.paginator.num_pages %}Page {{ num }} of {{ total }}{% endblocktrans %}
+    </span>
+
+    {% if page_obj.has_next %}
+      <a href="?{% url_replace page=page_obj.next_page_number %}" class="page-link">{% trans "Next" %} &raquo;</a>
+    {% else %}
+      <span class="page-link disabled">{% trans "Next" %} &raquo;</span>
+    {% endif %}
+  </nav>
+  {% endif %}
+
+{% else %}
+  <p class="empty-state">{% trans "No posts available yet." %}</p>
+{% endif %}
+
+{% endblock %}
+
+{% block sidebar %}
+<aside class="sidebar" aria-label="{% trans 'Sidebar' %}">
+  {% if categories %}
+  <div class="sidebar-section">
+    <h3>{% trans "Categories" %}</h3>
+    <ul>
+      {% for cat in categories %}
+      <li><a href="{% url 'posts:post_list' %}?category={{ cat.slug }}" {% if active_cat == cat.slug %}class="active"{% endif %}>
+        {% if LANGUAGE_CODE == 'fa' %}{{ cat.name_fa }}{% else %}{{ cat.name_en }}{% endif %}
+      </a></li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+
+  {% if latest_posts %}
+  <div class="sidebar-section">
+    <h3>{% trans "Recent Posts" %}</h3>
+    <ul>
+      {% for p in latest_posts %}
+      <li><a href="{{ p.get_absolute_url }}">{{ p.title|truncatechars:45 }}</a></li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+
+  <div class="sidebar-section sidebar-cta">
+    <h3>{% trans "About" %}</h3>
+    <p>{% trans "OpenSrc Persian advocates for software freedom and digital rights." %}</p>
+    <a href="{% url 'about' %}" class="btn-secondary">{% trans "Learn more" %}</a>
+  </div>
+</aside>
+{% endblock %}

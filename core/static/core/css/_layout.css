@@ -1,0 +1,120 @@
+/* ═══════════════════════════════════════════════════════════
+   Page Layout & Sidebar
+   ═══════════════════════════════════════════════════════════ */
+
+.layout {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  min-height: calc(100vh - 320px);
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-top: none;
+}
+
+/* ── Sidebar ──────────────────────────────────────────────── */
+
+.sidebar {
+  background: var(--sidebar-bg);
+  border-inline-start: 1px solid var(--border);
+  padding: 1.25rem 1rem;
+}
+.sidebar-section { margin-bottom: 1.5rem; }
+
+.sidebar-section h3 {
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0.4rem;
+  margin-bottom: 0.6rem;
+}
+
+.sidebar-section ul { list-style: none; padding: 0; }
+.sidebar-section li { margin: 0; }
+
+.sidebar-section a {
+  display: block;
+  padding: 0.22rem 0.4rem;
+  font-size: 0.88rem;
+  color: var(--link);
+  text-decoration: none;
+  border-radius: var(--radius);
+  transition: background var(--transition), color var(--transition);
+}
+.sidebar-section a:hover { background: var(--gray-200); color: var(--link-hover); }
+
+.sidebar-section a.active {
+  background: var(--gray-200);
+  color: var(--link-hover);
+  font-weight: 600;
+}
+
+.sidebar-cta {
+  background: var(--navy);
+  border-radius: var(--radius);
+  padding: 0.75rem;
+  color: var(--white);
+}
+.sidebar-cta h3 { color: var(--gold); border-color: var(--navy-light); }
+.sidebar-cta p { font-size: 0.82rem; color: #9abbda; margin-bottom: 0.65rem; }
+
+.btn-donate {
+  display: inline-block;
+  background: var(--gold);
+  color: var(--navy) !important;
+  text-decoration: none;
+  padding: 0.35rem 0.85rem;
+  border-radius: var(--radius);
+  font-size: 0.82rem;
+  font-weight: 600;
+  transition: background var(--transition);
+}
+.btn-donate:hover { background: var(--gold-dark); }
+
+/* ── Main content ─────────────────────────────────────────── */
+
+.main-content { padding: 1.75rem 2rem; background: var(--white); }
+
+/* ── Container (forum pages) ────────────────────────────── */
+
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+/* ── Layout: sidebar support ────────────────────────────── */
+
+.layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-areas: "main";
+}
+
+.layout--no-sidebar {
+  grid-template-columns: 1fr;
+  grid-template-areas: "main";
+}
+.layout--no-sidebar .sidebar { display: none; }
+
+.layout--has-sidebar {
+  grid-template-columns: 1fr var(--sidebar-w);
+  grid-template-areas: "main sidebar";
+}
+
+.layout--has-sidebar .main-content {
+  max-width: 900px;
+  margin-inline: auto;
+  width: 100%;
+}
+.main-content { grid-area: main; min-width: 0; }
+.sidebar { grid-area: sidebar; }
+
+@media (max-width: 860px) {
+  .layout {
+    grid-template-columns: 1fr;
+    grid-template-areas: "main";
+  }
+  .sidebar { display: none; }
+}

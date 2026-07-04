@@ -1,0 +1,159 @@
+/* ═══════════════════════════════════════════════════════════
+   Archive, Post Cards, Cover Thumbnails
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── Page header ──────────────────────────────────────────── */
+
+.page-header { margin-bottom: 1.5rem; border-bottom: 2px solid var(--border); padding-bottom: 0.75rem; }
+.page-header h1 { font-size: 1.6rem; color: var(--navy); }
+.page-header p { color: var(--text-muted); font-size: 0.95rem; }
+
+/* ── Full news list ───────────────────────────────────────── */
+
+.news-list-full { list-style: none; padding: 0; }
+
+.news-item-full { padding: 1.25rem 0; border-bottom: 1px solid var(--border); }
+.news-item-full:last-child { border-bottom: none; }
+
+.news-meta { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.3rem; }
+.news-author { margin-left: 0.5rem; }
+.news-item-title { font-size: 1.15rem; font-weight: 600; margin-bottom: 0.4rem; }
+.news-item-title a { color: var(--navy); text-decoration: none; }
+.news-item-title a:hover { color: var(--link); text-decoration: underline; }
+.read-more { font-size: 0.85rem; color: var(--link); text-decoration: none; font-weight: 600; }
+.read-more:hover { text-decoration: underline; }
+
+/* ── News archive (GNU-style list) ───────────────────────── */
+
+.news-archive-list { list-style: none; padding: 0; margin: 0; }
+
+.news-archive-item {
+  display: grid;
+  grid-template-columns: 7.5rem 1fr;
+  gap: 1rem 1.5rem;
+  padding-block: 1.1rem;
+  padding-inline: 0.75rem 0;
+  border-bottom: 1px solid var(--border);
+  border-inline-start: 3px solid var(--article-accent, var(--gold));
+}
+.news-archive-item.has-cover { grid-template-columns: 7.5rem 1fr 5.5rem; }
+.news-archive-cover { align-self: start; }
+.news-archive-item:last-child { border-bottom: none; }
+
+.news-archive-date {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  line-height: 1.4;
+  padding-top: 0.15rem;
+}
+
+.news-archive-meta { display: flex; gap: 0.35rem; flex-wrap: wrap; margin-bottom: 0.35rem; }
+.news-archive-title { font-size: 1.05rem; margin: 0 0 0.25rem; line-height: 1.3; }
+.news-archive-title a { color: var(--navy); text-decoration: none; font-weight: 600; }
+.news-archive-title a:hover { color: var(--link); text-decoration: underline; }
+.news-archive-author { font-size: 0.78rem; color: var(--text-muted); margin: 0 0 0.35rem; }
+.news-archive-excerpt { font-size: 0.88rem; color: var(--text-muted); margin: 0; line-height: 1.55; }
+
+/* ── Post cards ───────────────────────────────────────────── */
+
+.news-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.post-card {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem;
+  background: var(--off-white);
+  transition: box-shadow var(--transition), border-color var(--transition);
+}
+.post-card:hover { box-shadow: 0 2px 8px rgba(0, 26, 51, 0.08); border-color: var(--gold); }
+.post-card.has-cover { display: flex; gap: 1rem; align-items: flex-start; }
+.post-card-body { flex: 1; min-width: 0; }
+.post-card-cover { flex-shrink: 0; }
+.post-card-meta { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-bottom: 0.5rem; }
+
+.badge { font-size: 0.72rem; padding: 0.15rem 0.5rem; border-radius: 2rem; font-weight: 600; }
+.badge-category { background: var(--navy); color: var(--gold); }
+.badge-type { background: var(--gray-200); color: var(--text-muted); }
+
+.post-card-title { font-size: 1rem; margin-bottom: 0.35rem; }
+.post-card-title a { color: var(--navy); text-decoration: none; }
+.post-card-title a:hover { color: var(--link); text-decoration: underline; }
+.post-card-author { font-size: 0.78rem; color: var(--text-muted); margin-bottom: 0.4rem; }
+.post-card-summary { font-size: 0.88rem; color: var(--text-muted); }
+
+/* ── Cover thumbnails ─────────────────────────────────────── */
+
+.post-cover-thumb {
+  display: block;
+  flex-shrink: 0;
+  width: 5.5rem;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: var(--gray-100);
+  text-decoration: none;
+}
+.post-cover-thumb img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.news-item-home .post-cover-thumb { width: 4.5rem; }
+.post-card .post-cover-thumb { width: 5rem; }
+
+.article-cover {
+  margin: 0 auto 1.25rem;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: var(--gray-100);
+}
+.article-cover img { display: block; width: 100%; height: 100%; object-fit: cover; border: none; border-radius: 0; }
+
+/* ── Filter bar ───────────────────────────────────────────── */
+
+.filter-bar { margin-bottom: 1.5rem; display: flex; flex-direction: column; gap: 0.75rem; }
+.filter-group { display: flex; flex-wrap: wrap; gap: 0.4rem; align-items: center; }
+.filter-label { font-size: 0.85rem; font-weight: 600; color: var(--text-muted); }
+
+.filter-pill {
+  display: inline-block;
+  padding: 0.2rem 0.65rem;
+  border: 1px solid var(--border);
+  border-radius: 2rem;
+  font-size: 0.82rem;
+  text-decoration: none;
+  color: var(--link);
+  transition: background var(--transition), color var(--transition), border-color var(--transition);
+}
+.filter-pill.active,
+.filter-pill:hover { background: var(--navy); color: var(--gold); border-color: var(--navy); }
+.filter-pill:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+
+.tag-list { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 1rem; }
+
+/* ── Pagination ───────────────────────────────────────────── */
+
+.pagination { display: flex; align-items: center; justify-content: center; gap: 1rem; margin-top: 2rem; }
+
+.page-link {
+  display: inline-block;
+  padding: 0.4rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  font-size: 0.88rem;
+  text-decoration: none;
+  color: var(--link);
+  background: var(--white);
+  transition: background var(--transition);
+}
+.page-link:hover { background: var(--gray-100); }
+.page-link:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+.page-link.disabled { color: var(--gray-400); cursor: default; background: var(--gray-100); pointer-events: none; }
+.page-info { font-size: 0.85rem; color: var(--text-muted); }

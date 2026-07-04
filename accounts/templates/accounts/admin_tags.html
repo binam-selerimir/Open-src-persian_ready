@@ -1,0 +1,55 @@
+{% extends "accounts/panel.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Tags" %} — OpenSrc Persian{% endblock %}
+
+{% block panel_content %}
+<header class="panel-page-header">
+  <div>
+    <h2 class="panel-page-title">{% trans "Manage Tags" %}</h2>
+    <p class="panel-page-subtitle">{% trans "Add or remove tags used on posts." %}</p>
+  </div>
+</header>
+
+<form method="post" class="panel-inline-form">
+  {% csrf_token %}
+  <input type="hidden" name="action" value="create">
+  <div class="panel-inline-form-row">
+    <label for="tag-name" class="sr-only">{% trans "New tag" %}</label>
+    <input type="text" id="tag-name" name="name" class="panel-input" placeholder="{% trans 'Enter tag name...' %}" required>
+    <button type="submit" class="panel-btn panel-btn-primary">{% trans "Add Tag" %}</button>
+  </div>
+</form>
+
+<div class="panel-table-wrap">
+  <table class="panel-table">
+    <thead>
+      <tr>
+        <th>{% trans "Name" %}</th>
+        <th>{% trans "Slug" %}</th>
+        <th>{% trans "Actions" %}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for tag in tags %}
+      <tr>
+        <td><span class="skill-badge">{{ tag.name }}</span></td>
+        <td class="panel-table-muted">{{ tag.slug }}</td>
+        <td>
+          <form method="post" class="panel-inline-delete" data-confirm='{% trans "Delete this tag?" %}'>
+            {% csrf_token %}
+            <input type="hidden" name="action" value="delete">
+            <input type="hidden" name="tag_id" value="{{ tag.pk }}">
+            <button type="submit" class="panel-btn panel-btn-sm panel-btn-danger">{% trans "Delete" %}</button>
+          </form>
+        </td>
+      </tr>
+      {% empty %}
+      <tr>
+        <td colspan="3" class="panel-table-empty">{% trans "No tags yet. Add one above." %}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

@@ -1,0 +1,162 @@
+{% extends "accounts/panel.html" %}
+{% load i18n post_extras %}
+
+{% block title %}{% trans "Manage Posts" %} — OpenSrc Persian{% endblock %}
+
+{% block panel_content %}
+<header class="panel-page-header">
+  <div>
+    <h2 class="panel-page-title">{% trans "Manage Posts" %}</h2>
+    <p class="panel-page-subtitle">{% trans "View, edit, and delete published content." %}</p>
+  </div>
+  <a href="{% url 'accounts:admin_new_post' %}" class="panel-btn panel-btn-primary">+ {% trans "New Post" %}</a>
+</header>
+
+<!-- Search & filters -->
+<form class="admin-filter-bar" method="get" action="">
+  <input type="search" name="q" value="{{ q }}" placeholder="{% trans 'Search by title or author…' %}" class="admin-search-input">
+  <select name="category">
+    <option value="">{% trans "All categories" %}</option>
+    {% for cat in categories %}
+    <option value="{{ cat.slug }}"{% if active_cat == cat.slug %} selected{% endif %}>{% if LANGUAGE_CODE == 'fa' %}{{ cat.name_fa }}{% else %}{{ cat.name_en }}{% endif %}</option>
+    {% endfor %}
+  </select>
+  <select name="type">
+    <option value="">{% trans "All types" %}</option>
+    {% for pt in post_types %}
+    <option value="{{ pt.slug }}"{% if active_type == pt.slug %} selected{% endif %}>{{ pt|type_label:LANGUAGE_CODE }}</option>
+    {% endfor %}
+  </select>
+  <select name="visible">
+    <option value="">{% trans "All statuses" %}</option>
+    <option value="1"{% if active_visible == '1' %} selected{% endif %}>{% trans "Published" %}</option>
+    <option value="0"{% if active_visible == '0' %} selected{% endif %}>{% trans "Hidden" %}</option>
+  </select>
+  <button type="submit" class="panel-btn panel-btn-secondary">{% trans "Filter" %}</button>
+  {% if q or active_cat or active_type or active_visible %}
+  <a href="{% url 'accounts:admin_posts' %}" class="panel-btn panel-btn-secondary">{% trans "Clear" %}</a>
+  {% endif %}
+</form>
+
+<!-- Bulk action form -->
+<!-- Bulk action form — data-no-disable: submit-disable handled by panel.js -->
+<form method="post" id="bulk-form" data-no-disable
+  data-no-action-msg="{% trans 'Please select a bulk action.' %}"
+  data-delete-confirm-msg="{% trans 'Delete selected posts? This cannot be undone.' %}">
+  {% csrf_token %}
+  <div class="bulk-action-bar" id="bulk-bar" style="display:none">
+    <span class="bulk-count" id="bulk-count" data-label="{% trans 'selected' %}">0 {% trans "selected" %}</span>
+    <select name="bulk_action">
+      <option value="">{% trans "Bulk action…" %}</option>
+      <option value="publish">{% trans "Publish selected" %}</option>
+      <option value="hide">{% trans "Hide selected" %}</option>
+      <option value="delete">{% trans "Delete selected" %}</option>
+    </select>
+    <button type="submit" class="panel-btn panel-btn-secondary">{% trans "Apply" %}</button>
+  </div>
+
+  <div class="panel-table-wrap">
+    <table class="panel-table">
+      <thead>
+        <tr>
+          <th class="col-check"><input type="checkbox" id="select-all" aria-label="{% trans 'Select all' %}"></th>
+          <th>
+            {% if sort == 'title' and dir == 'asc' %}
+            <a href="?{% url_replace sort='title' dir='desc' page=None %}" class="sort-link sort-active">
+              {% trans "Title" %} ↓
+            </a>
+            {% else %}
+            <a href="?{% url_replace sort='title' dir='asc' page=None %}" class="sort-link{% if sort == 'title' %} sort-active{% endif %}">
+              {% trans "Title" %}{% if sort == 'title' and dir == 'desc' %} ↑{% endif %}
+            </a>
+            {% endif %}
+          </th>
+          <th>
+            {% if sort == 'category__name_en' and dir == 'asc' %}
+            <a href="?{% url_replace sort='category__name_en' dir='desc' page=None %}" class="sort-link sort-active">
+              {% trans "Category" %} ↓
+            </a>
+            {% else %}
+            <a href="?{% url_replace sort='category__name_en' dir='asc' page=None %}" class="sort-link{% if sort == 'category__name_en' %} sort-active{% endif %}">
+              {% trans "Category" %}{% if sort == 'category__name_en' and dir == 'desc' %} ↑{% endif %}
+            </a>
+            {% endif %}
+          </th>
+          <th>{% trans "Type" %}</th>
+          <th>{% trans "Comments" %}</th>
+          <th>{% trans "Status" %}</th>
+          <th>
+            {% if sort == 'pub_date' and dir == 'asc' %}
+            <a href="?{% url_replace sort='pub_date' dir='desc' page=None %}" class="sort-link sort-active">
+              {% trans "Date" %} ↓
+            </a>
+            {% else %}
+            <a href="?{% url_replace sort='pub_date' dir='asc' page=None %}" class="sort-link{% if sort == 'pub_date' %} sort-active{% endif %}">
+              {% trans "Date" %}{% if sort == 'pub_date' and dir == 'desc' %} ↑{% endif %}
+            </a>
+            {% endif %}
+          </th>
+          <th>{% trans "Actions" %}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for post in posts %}
+        <tr>
+          <td class="col-check"><input type="checkbox" name="selected_posts" value="{{ post.pk }}" class="post-checkbox" aria-label="{% trans 'Select post' %} {{ post.title }}"></td>
+          <td class="panel-table-title">
+            <a href="{{ post.get_absolute_url }}" target="_blank" rel="noopener">{{ post.title|truncatechars:45 }}</a>
+          </td>
+          <td>{% if LANGUAGE_CODE == 'fa' %}{{ post.category.name_fa }}{% else %}{{ post.category.name_en }}{% endif %}</td>
+          <td><span class="panel-badge panel-badge--muted">{{ post.post_type|type_label:LANGUAGE_CODE }}</span></td>
+          <td>
+            {% if post.comment_count %}
+            <a href="{% url 'accounts:admin_edit_post' post.pk %}#comments-section" class="panel-badge panel-badge--gold">{{ post.comment_count }}{% if post.pending_comment_count %} ({{ post.pending_comment_count }} {% trans "pending" %}){% endif %}</a>
+            {% else %}
+            <span class="panel-badge panel-badge--muted">0</span>
+            {% endif %}
+          </td>
+          <td>
+            {% if post.is_visible %}
+            <span class="panel-badge panel-badge--success">{% trans "Published" %}</span>
+            {% else %}
+            <span class="panel-badge panel-badge--muted">{% trans "Hidden" %}</span>
+            {% endif %}
+          </td>
+          <td class="panel-table-date">{{ post.pub_date|date:"j M Y" }}</td>
+          <td class="panel-table-actions">
+            <a href="{% url 'accounts:admin_edit_post' post.pk %}" class="panel-btn panel-btn-sm panel-btn-secondary">{% trans "Edit" %}</a>
+            <a href="{% url 'accounts:admin_delete_post' post.pk %}" class="panel-btn panel-btn-sm panel-btn-danger">{% trans "Delete" %}</a>
+          </td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="8" class="panel-table-empty">
+            <p>{% trans "No posts found." %}</p>
+            <a href="{% url 'accounts:admin_new_post' %}" class="panel-btn panel-btn-primary">{% trans "Create your first post" %}</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</form>
+
+{% if page_obj.has_other_pages %}
+<nav class="pagination" aria-label="{% trans 'Posts pagination' %}">
+  {% if page_obj.has_previous %}
+    <a href="?{% url_replace page=page_obj.previous_page_number %}" class="page-link">&laquo; {% trans "Previous" %}</a>
+  {% else %}
+    <span class="page-link disabled">&laquo; {% trans "Previous" %}</span>
+  {% endif %}
+  <span class="page-info">
+    {% blocktrans with num=page_obj.number total=page_obj.paginator.num_pages %}Page {{ num }} of {{ total }}{% endblocktrans %}
+  </span>
+  {% if page_obj.has_next %}
+    <a href="?{% url_replace page=page_obj.next_page_number %}" class="page-link">{% trans "Next" %} &raquo;</a>
+  {% else %}
+    <span class="page-link disabled">{% trans "Next" %} &raquo;</span>
+  {% endif %}
+</nav>
+{% endif %}
+
+{% endblock %}

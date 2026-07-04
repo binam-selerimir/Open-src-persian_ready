@@ -1,0 +1,118 @@
+{% extends "core/base.html" %}
+{% block body_class %} layout--no-sidebar{% endblock %}
+{% load i18n post_extras %}
+
+{% block title %}{% trans "Advanced Search" %} — OpenSrc Persian{% endblock %}
+{% block description %}{% trans "Search posts by keyword, category, subcategory, type, tag, and date range." %}{% endblock %}
+
+{% block og_title %}{% trans "Advanced Search" %} — OpenSrc Persian{% endblock %}
+{% block og_description %}{% trans "Search posts by keyword, category, subcategory, type, tag, and date range." %}{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <h1>{% trans "Advanced Search" %}</h1>
+  <p>{% trans "Find posts using keywords, filters, and date ranges." %}</p>
+</div>
+
+{# Category change triggers a form submit so subcategories are always rendered server-side. #}
+{# This means the subcategory dropdown is always correct on page load, back/forward, and bookmarks. #}
+<form class="search-form" action="{% url 'search:search' %}" method="get" role="search" id="search-form">
+  <div class="form-field">
+    <label for="search-q">{% trans "Keywords" %}</label>
+    <input type="search" id="search-q" name="q" value="{{ q }}"
+           placeholder="{% trans 'Search title, body, author...' %}">
+  </div>
+  <div class="form-field">
+    <label for="search-category">{% trans "Category" %}</label>
+    <select id="search-category" name="category" data-auto-submit>
+      <option value="">{% trans "All categories" %}</option>
+      {% for cat in categories %}
+      <option value="{{ cat.slug }}"{% if category_slug == cat.slug %} selected{% endif %}>
+        {% if LANGUAGE_CODE == 'fa' %}{{ cat.name_fa }}{% else %}{{ cat.name_en }}{% endif %}
+      </option>
+      {% endfor %}
+    </select>
+  </div>
+  <div class="form-field">
+    <label for="search-subcategory">{% trans "Subcategory" %}</label>
+    <select id="search-subcategory" name="subcategory" data-auto-submit>
+      <option value="">{% trans "All subcategories" %}</option>
+      {% for sub in subcategories %}
+      <option value="{{ sub.slug }}"{% if subcategory_slug == sub.slug %} selected{% endif %}>
+        {% if LANGUAGE_CODE == 'fa' %}{{ sub.name_fa }}{% else %}{{ sub.name_en }}{% endif %}
+      </option>
+      {% endfor %}
+    </select>
+  </div>
+  <div class="form-field">
+    <label for="search-type">{% trans "Post type" %}</label>
+    <select id="search-type" name="type">
+      <option value="">{% trans "All types" %}</option>
+      {% for pt in post_types %}
+      <option value="{{ pt.slug }}"{% if post_type == pt.slug %} selected{% endif %}>{{ pt|type_label:LANGUAGE_CODE }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <div class="form-field">
+    <label for="search-tag">{% trans "Tag" %}</label>
+    <select id="search-tag" name="tag">
+      <option value="">{% trans "All tags" %}</option>
+      {% for tag in tags %}
+      <option value="{{ tag.slug }}"{% if tag_slug == tag.slug %} selected{% endif %}>{{ tag.name }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <div class="form-field">
+    <label for="search-from">{% trans "Date from" %}</label>
+    <input type="date" id="search-from" name="date_from" value="{{ date_from }}">
+  </div>
+  <div class="form-field">
+    <label for="search-to">{% trans "Date to" %}</label>
+    <input type="date" id="search-to" name="date_to" value="{{ date_to }}">
+  </div>
+  <div class="form-field form-field-actions">
+    <button type="submit" class="btn-primary">{% trans "Search" %}</button>
+    <a href="{% url 'search:search' %}" class="btn-secondary">{% trans "Clear filters" %}</a>
+    <span class="form-date-error" id="date-range-error" hidden>{% trans "Date from must be before date to." %}</span>
+  </div>
+</form>
+
+{% if searched %}
+  <p class="search-results-count">
+    {{ total }} {% trans "results found" %}{% if q %} {% trans "for" %} &ldquo;{{ q }}&rdquo;{% endif %}
+  </p>
+
+  {% if results %}
+    <div class="news-grid">
+      {% for post in results %}
+      {% include "posts/_post_card.html" with show_subcategory=True %}
+      {% endfor %}
+    </div>
+
+    {% if page_obj.has_other_pages %}
+    <nav class="pagination" aria-label="{% trans 'Pagination' %}">
+      {% if page_obj.has_previous %}
+        <a href="?{% url_replace page=page_obj.previous_page_number %}"
+           class="page-link">&laquo; {% trans "Previous" %}</a>
+      {% else %}
+        <span class="page-link disabled">&laquo; {% trans "Previous" %}</span>
+      {% endif %}
+      <span class="page-info">
+        {% blocktrans with num=page_obj.number total=page_obj.paginator.num_pages %}Page {{ num }} of {{ total }}{% endblocktrans %}
+      </span>
+      {% if page_obj.has_next %}
+        <a href="?{% url_replace page=page_obj.next_page_number %}"
+           class="page-link">{% trans "Next" %} &raquo;</a>
+      {% else %}
+        <span class="page-link disabled">{% trans "Next" %} &raquo;</span>
+      {% endif %}
+    </nav>
+    {% endif %}
+
+  {% else %}
+    <p class="empty-state">{% trans "No results found. Try different keywords or filters." %}</p>
+  {% endif %}
+{% else %}
+  <p class="search-hint">{% trans "Use the filters above to search posts. Leave keywords empty to browse by category, subcategory, type, tag, or date only." %}</p>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends "core/base.html" %}
+{% load i18n forum_extras %}
+
+{% block title %}{% trans "Forum" %} — OpenSrc Persian{% endblock %}
+
+{% block content %}
+<div class="container">
+  <header class="page-header">
+    <h1 class="page-title">{% trans "Forum" %}</h1>
+    <p class="page-subtitle">{% trans "Community discussion boards" %}</p>
+    {% if user.is_authenticated and user.is_site_admin %}
+    <a href="{% url 'forum:new_board' %}" class="btn-primary">{% trans "New Board" %}</a>
+    {% endif %}
+  </header>
+
+  <div class="forum-board-list">
+    {% for item in board_data %}
+    <div class="forum-board-row">
+      <div class="forum-board-info">
+        <h2 class="forum-board-name">
+          <a href="{% url 'forum:board_detail' item.board.slug %}">
+            {% if LANGUAGE_CODE == 'fa' and item.board.name_fa %}{{ item.board.name_fa }}{% else %}{{ item.board.name_en }}{% endif %}
+          </a>
+        </h2>
+        {% if LANGUAGE_CODE == 'fa' and item.board.description_fa %}
+          <p class="forum-board-desc">{{ item.board.description_fa }}</p>
+        {% elif item.board.description_en %}
+          <p class="forum-board-desc">{{ item.board.description_en }}</p>
+        {% endif %}
+      </div>
+      <div class="forum-board-stats">
+        <span class="forum-stat"><strong>{{ item.thread_count }}</strong> {% trans "threads" %}</span>
+        <span class="forum-stat"><strong>{{ item.post_count }}</strong> {% trans "posts" %}</span>
+      </div>
+      <div class="forum-board-last-post">
+        {% if item.last_post %}
+          <span class="forum-last-post-label">{% trans "Last post" %}</span>
+          <a href="{{ item.last_post.thread.get_absolute_url }}">{{ item.last_post.thread.title|truncatechars:40 }}</a>
+          <span class="forum-last-post-meta">
+            {{ item.last_post.author.username|default:"—" }}<br>
+            <time datetime="{{ item.last_post.created_at|date:'c' }}">{{ item.last_post.created_at|timesince }}</time> {% trans "ago" %}
+          </span>
+        {% else %}
+          <span class="forum-last-post-empty">{% trans "No posts yet" %}</span>
+        {% endif %}
+      </div>
+    </div>
+    {% empty %}
+    <div class="empty-state">
+      <p>{% trans "No forum boards available." %}</p>
+      {% if user.is_authenticated and user.is_site_admin %}
+      <p><a href="{% url 'forum:new_board' %}" class="btn-primary">{% trans "Create the first board" %}</a></p>
+      {% endif %}
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

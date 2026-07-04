@@ -1,0 +1,66 @@
+/* ═══════════════════════════════════════════════════════════
+   Homepage — Pillars, News List, CTA Banner
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── Pillars (Four Freedoms) ──────────────────────────────── */
+
+.pillars h2 { font-size: 1.3rem; color: var(--navy); margin-bottom: 0.4rem; }
+.section-intro { color: var(--text-muted); margin-bottom: 1.25rem; font-size: 0.95rem; }
+
+.pillars-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 1rem;
+}
+
+.pillar { border: 1px solid var(--border); border-radius: var(--radius); padding: 1rem; background: var(--off-white); }
+
+.pillar-num {
+  display: inline-block;
+  background: var(--navy);
+  color: var(--gold);
+  font-size: 0.85rem;
+  font-weight: 700;
+  width: 1.6rem;
+  height: 1.6rem;
+  line-height: 1.6rem;
+  text-align: center;
+  border-radius: 50%;
+  margin-bottom: 0.5rem;
+}
+.pillar h3 { font-size: 1rem; color: var(--navy); margin-bottom: 0.35rem; }
+.pillar p { font-size: 0.88rem; color: var(--text-muted); }
+
+/* ── Home news list ───────────────────────────────────────── */
+
+.news-section h2 { font-size: 1.3rem; color: var(--navy); }
+.news-header { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 1rem; }
+.see-all { font-size: 0.88rem; color: var(--link); }
+
+.news-list-home { list-style: none; padding: 0; }
+
+.news-item-home {
+  padding: 0.85rem 0;
+  border-bottom: 1px solid var(--border);
+}
+.news-item-home.has-cover { display: flex; gap: 1rem; align-items: flex-start; }
+.news-item-home:last-child { border-bottom: none; }
+.news-item-home-content { flex: 1; min-width: 0; }
+.news-item-home-cover { flex-shrink: 0; }
+
+.news-date { font-size: 0.78rem; color: var(--text-muted); display: block; margin-bottom: 0.15rem; }
+.news-title-link { font-size: 1rem; font-weight: 600; color: var(--navy); text-decoration: none; }
+.news-title-link:hover { color: var(--link); text-decoration: underline; }
+.news-excerpt { font-size: 0.88rem; color: var(--text-muted); margin-top: 0.3rem; }
+
+/* ── CTA banner ───────────────────────────────────────────── */
+
+.cta-banner {
+  background: var(--navy);
+  color: var(--white);
+  padding: 1.5rem;
+  border-radius: var(--radius);
+  text-align: center;
+}
+.cta-banner h2 { font-size: 1.4rem; color: var(--gold); margin-bottom: 0.5rem; }
+.cta-banner p { color: #9abbda; max-width: 60ch; margin: 0 auto 1rem; font-size: 0.95rem; }

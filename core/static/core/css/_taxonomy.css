@@ -1,0 +1,219 @@
+/* ═══════════════════════════════════════════════════════════
+   Taxonomy Admin — Tabs, Cards, Forms, Items
+   ═══════════════════════════════════════════════════════════ */
+
+.taxonomy-page .panel-page-header { margin-bottom: 1.25rem; }
+
+.taxonomy-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 1.75rem;
+  padding: 0.35rem;
+  background: var(--gray-100);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.taxonomy-tab {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.45rem 1rem;
+  border: 1px solid transparent;
+  border-radius: calc(var(--radius) - 2px);
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: none;
+  color: var(--text-muted);
+  background: transparent;
+  transition: background var(--transition), color var(--transition), border-color var(--transition);
+}
+.taxonomy-tab:hover {
+  background: var(--white);
+  color: var(--navy);
+  text-decoration: none;
+  border-color: var(--border);
+}
+.taxonomy-tab--active {
+  background: var(--navy);
+  color: var(--gold);
+  border-color: var(--navy);
+  box-shadow: 0 1px 3px rgba(0, 26, 51, 0.15);
+}
+.taxonomy-tab--active:hover {
+  background: var(--navy-mid);
+  color: var(--gold);
+  border-color: var(--navy-mid);
+}
+
+.taxonomy-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin-bottom: 1.75rem;
+  overflow: hidden;
+  scroll-margin-top: 1.25rem;
+  transition: box-shadow var(--transition), border-color var(--transition);
+}
+.taxonomy-section--highlight {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(255, 204, 0, 0.15);
+}
+
+.taxonomy-card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  background: linear-gradient(180deg, var(--off-white) 0%, var(--white) 100%);
+  border-bottom: 1px solid var(--border);
+  border-left: 4px solid var(--gold);
+}
+[dir="rtl"] .taxonomy-card-header { border-left: none; border-right: 4px solid var(--gold); }
+
+.taxonomy-card-title { font-size: 1.05rem; font-weight: 600; color: var(--navy); margin: 0 0 0.2rem; }
+.taxonomy-card-desc { font-size: 0.82rem; color: var(--text-muted); margin: 0; line-height: 1.45; }
+
+.taxonomy-count {
+  flex-shrink: 0;
+  min-width: 2rem;
+  height: 2rem;
+  padding: 0 0.55rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--navy);
+  color: var(--gold);
+  font-size: 0.82rem;
+  font-weight: 700;
+  border-radius: 2rem;
+}
+
+.taxonomy-add-box {
+  margin: 1rem 1.25rem;
+  padding: 1rem 1.15rem;
+  background: var(--gray-100);
+  border: 1px dashed var(--border);
+  border-radius: var(--radius);
+}
+.taxonomy-add-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--navy);
+  margin: 0 0 0.75rem;
+}
+.taxonomy-add-form { margin: 0; }
+
+.taxonomy-form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 0.75rem 1rem;
+  align-items: end;
+}
+.taxonomy-field label { display: block; font-size: 0.78rem; font-weight: 600; color: var(--text-muted); margin-bottom: 0.3rem; }
+.taxonomy-form-action { display: flex; align-items: flex-end; padding-bottom: 1px; }
+.taxonomy-color-field { display: flex; align-items: center; gap: 0.5rem; }
+.taxonomy-color-hint { font-size: 0.78rem; font-family: var(--font-mono); color: var(--text-muted); }
+
+.panel-input--narrow { max-width: 5rem; }
+.panel-input--color {
+  padding: 0.15rem;
+  width: 2.75rem;
+  height: 2.75rem;
+  min-width: 2.75rem;
+  border-radius: var(--radius);
+  cursor: pointer;
+  border: 1px solid var(--border);
+  background: var(--white);
+}
+.helptext-inline { font-weight: 400; color: var(--text-muted); font-size: 0.75rem; }
+
+.taxonomy-list { list-style: none; margin: 0; padding: 0 1.25rem 1rem; }
+
+.taxonomy-item {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 0.75rem;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--gray-200);
+  transition: background var(--transition), margin var(--transition), padding var(--transition), border-radius var(--transition);
+}
+.taxonomy-item:last-child { border-bottom: none; }
+.taxonomy-item:hover {
+  background: var(--off-white);
+  margin: 0 -0.65rem;
+  padding-left: 0.65rem;
+  padding-right: 0.65rem;
+  border-radius: var(--radius);
+}
+
+.taxonomy-item-form { flex: 1; min-width: 0; }
+.taxonomy-item-fields { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; }
+.taxonomy-field--grow { flex: 1; min-width: 120px; }
+.taxonomy-field--narrow { flex: 0 0 4.5rem; }
+.taxonomy-field--narrow .panel-input { width: 100%; }
+.taxonomy-field--color { flex: 0 0 auto; }
+.taxonomy-input--slug { font-family: var(--font-mono); font-size: 0.82rem; }
+.taxonomy-delete-form { flex-shrink: 0; }
+
+.taxonomy-parent-badge {
+  flex-shrink: 0;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--navy);
+  background: var(--gray-100);
+  border: 1px solid var(--border);
+  padding: 0.25rem 0.6rem;
+  border-radius: 2rem;
+  max-width: 8rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.taxonomy-color-swatch {
+  flex-shrink: 0;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  border: 2px solid var(--white);
+  box-shadow: 0 0 0 1px var(--border), 0 2px 6px rgba(0, 26, 51, 0.12);
+}
+.taxonomy-item--type { padding-left: 0.15rem; }
+
+.taxonomy-empty {
+  padding: 1.5rem 1rem;
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  font-style: italic;
+  border: 1px dashed var(--border);
+  border-radius: var(--radius);
+  background: var(--off-white);
+  margin-top: 0.25rem;
+}
+
+/* ── Slug warning ────────────────────────────────────────── */
+.slug-warning {
+  color: #b45309;
+  font-size: 0.82rem;
+  display: block;
+  margin-top: 0.25rem;
+}
+
+@media (max-width: 720px) {
+  .taxonomy-card-header { flex-direction: column; gap: 0.5rem; }
+  .taxonomy-item-fields { flex-direction: column; align-items: stretch; }
+  .taxonomy-item-fields .panel-btn,
+  .taxonomy-delete-form,
+  .taxonomy-delete-form .panel-btn,
+  .taxonomy-form-action .panel-btn { width: 100%; }
+  .taxonomy-parent-badge { max-width: none; }
+  .taxonomy-form-grid { grid-template-columns: 1fr; }
+}

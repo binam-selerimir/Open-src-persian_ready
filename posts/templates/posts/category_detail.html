@@ -1,0 +1,83 @@
+{% extends "core/base.html" %}
+{% load i18n post_extras %}
+
+{% block body_class %} layout--has-sidebar{% endblock %}
+
+{% block title %}
+{% if LANGUAGE_CODE == 'fa' %}{{ category.name_fa }}{% else %}{{ category.name_en }}{% endif %} — OpenSrc Persian
+{% endblock %}
+
+{% block content %}
+
+<nav class="breadcrumb" aria-label="{% trans 'Breadcrumb' %}">
+  <ol>
+    <li><a href="{% url 'home' %}">{% trans "Home" %}</a></li>
+    <li><a href="{% url 'posts:post_list' %}">{% trans "News" %}</a></li>
+    <li aria-current="page">{% if LANGUAGE_CODE == 'fa' %}{{ category.name_fa }}{% else %}{{ category.name_en }}{% endif %}</li>
+  </ol>
+</nav>
+
+<div class="page-header">
+  <h1>{% if LANGUAGE_CODE == 'fa' %}{{ category.name_fa }}{% else %}{{ category.name_en }}{% endif %}</h1>
+  {% if LANGUAGE_CODE == 'fa' and category.description_fa %}
+  <p>{{ category.description_fa }}</p>
+  {% elif category.description_en %}
+  <p>{{ category.description_en }}</p>
+  {% endif %}
+</div>
+
+{% if page_obj %}
+  <div class="news-grid">
+    {% for post in page_obj %}
+    {% include "posts/_post_card.html" with show_category=False %}
+    {% endfor %}
+  </div>
+
+  {% if page_obj.has_other_pages %}
+    <nav class="pagination" aria-label="{% trans 'Pagination' %}">
+      {% if page_obj.has_previous %}
+        <a href="?page={{ page_obj.previous_page_number }}" class="page-link">&laquo; {% trans "Previous" %}</a>
+      {% else %}
+        <span class="page-link disabled">&laquo; {% trans "Previous" %}</span>
+      {% endif %}
+      <span class="page-info">
+        {% blocktrans with num=page_obj.number total=page_obj.paginator.num_pages %}Page {{ num }} of {{ total }}{% endblocktrans %}
+      </span>
+      {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}" class="page-link">{% trans "Next" %} &raquo;</a>
+      {% else %}
+        <span class="page-link disabled">{% trans "Next" %} &raquo;</span>
+      {% endif %}
+    </nav>
+  {% endif %}
+{% else %}
+  <p class="empty-state">{% trans "No posts in this category yet." %}</p>
+{% endif %}
+{% endblock %}
+
+{% block sidebar %}
+<aside class="sidebar" aria-label="{% trans 'Sidebar' %}">
+  {% if categories %}
+  <div class="sidebar-section">
+    <h3>{% trans "Categories" %}</h3>
+    <ul>
+      {% for cat in categories %}
+      <li><a href="{% url 'posts:category_detail' cat.slug %}" {% if cat.slug == category.slug %}class="active"{% endif %}>
+        {% if LANGUAGE_CODE == 'fa' %}{{ cat.name_fa }}{% else %}{{ cat.name_en }}{% endif %}
+      </a></li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+  {% if latest_posts %}
+  <div class="sidebar-section">
+    <h3>{% trans "Recent Posts" %}</h3>
+    <ul>
+      {% for p in latest_posts %}
+      <li><a href="{{ p.get_absolute_url }}">{{ p.title|truncatechars:45 }}</a></li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+</aside>
+{% endblock %}

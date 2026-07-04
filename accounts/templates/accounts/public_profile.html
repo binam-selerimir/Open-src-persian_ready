@@ -1,0 +1,75 @@
+{% extends "core/base.html" %}
+{% load i18n post_extras %}
+
+{% block title %}{{ profile_user.get_full_name_display }} — OpenSrc Persian{% endblock %}
+
+{% block content %}
+<div class="profile-card">
+  {% if profile_user.avatar %}
+  <img src="{{ profile_user.avatar.url }}" alt="{{ profile_user.get_full_name_display }}" class="profile-avatar">
+  {% else %}
+  <div class="profile-avatar profile-avatar-placeholder">{{ profile_user.username|first|upper }}</div>
+  {% endif %}
+  <div class="profile-info">
+    <h1>{{ profile_user.profile.display_name|default:profile_user.get_full_name_display }}</h1>
+    <p class="profile-headline">
+      {% if LANGUAGE_CODE == 'fa' %}
+        {{ profile_user.profile.headline_fa|default:profile_user.profile.headline_en }}
+      {% else %}
+        {{ profile_user.profile.headline_en }}
+      {% endif %}
+    </p>
+    <div>
+      {% if LANGUAGE_CODE == 'fa' %}
+        {{ profile_user.bio_fa|default:profile_user.bio_en|linebreaks }}
+      {% else %}
+        {{ profile_user.bio_en|linebreaks }}
+      {% endif %}
+    </div>
+    {% if profile_user.website %}
+    <p><a href="{{ profile_user.website }}">{{ profile_user.website }}</a></p>
+    {% endif %}
+    {% if profile_user.profile.skills %}
+    <div class="profile-skills">
+      {% for skill in profile_user.profile.get_skills_list %}
+      <span class="skill-badge">{{ skill }}</span>
+      {% endfor %}
+    </div>
+    {% endif %}
+    <ul class="profile-social">
+      {% if profile_user.profile.linkedin_url %}<li><a href="{{ profile_user.profile.linkedin_url }}" rel="noopener noreferrer">LinkedIn</a></li>{% endif %}
+      {% if profile_user.profile.github_url %}<li><a href="{{ profile_user.profile.github_url }}" rel="noopener noreferrer">GitHub</a></li>{% endif %}
+      {% if profile_user.profile.telegram %}<li><a href="https://t.me/{{ profile_user.profile.telegram }}" rel="noopener noreferrer">Telegram</a></li>{% endif %}
+    </ul>
+  </div>
+</div>
+
+{% if published_posts %}
+<section class="news-section">
+  <h2>{% trans "Published Posts" %}</h2>
+  <div class="news-grid">
+    {% for post in published_posts %}
+    {% include "posts/_post_card.html" with show_meta=False show_author=False %}
+    {% endfor %}
+  </div>
+</section>
+{% endif %}
+
+{% if visible_certs %}
+<section class="profile-certificates">
+  <h3>{% trans "Certificates" %}</h3>
+  <div class="cert-badge-row">
+    {% for uc in visible_certs %}
+    <span class="cert-badge" style="--i:{{ forloop.counter0 }};border-color:{{ uc.certificate.accent_color|css_color }}">
+      {% if uc.certificate.icon %}
+      <img src="{{ uc.certificate.icon.url }}" alt="{{ uc.certificate.name }}" class="cert-badge-icon">
+      {% else %}
+      <span class="cert-badge-dot" style="background:{{ uc.certificate.accent_color|css_color }}"></span>
+      {% endif %}
+      <span class="cert-badge-name">{% if LANGUAGE_CODE == 'fa' and uc.certificate.name_fa %}{{ uc.certificate.name_fa }}{% else %}{{ uc.certificate.name }}{% endif %}</span>
+    </span>
+    {% endfor %}
+  </div>
+</section>
+{% endif %}
+{% endblock %}

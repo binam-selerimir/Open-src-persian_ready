@@ -1,0 +1,66 @@
+{% load i18n %}
+
+
+
+{% include "accounts/_post_cover_field.html" %}
+
+
+
+<div class="form-row{% if form.attachment.errors %} form-row--error{% endif %}" data-file-preview>
+
+  <label for="id_attachment">{{ form.attachment.label }}</label>
+
+  <div class="form-row-input">
+
+    {% if post and post.attachment %}
+
+    <div class="file-preview-current" data-preview-target>
+
+      <span class="file-preview-name">{{ post.attachment.name|cut:"posts/files/" }}</span>
+
+      <a href="{{ post.attachment.url }}" class="file-preview-link" target="_blank" rel="noopener">{% trans "View current file" %}</a>
+
+    </div>
+
+    {% else %}
+
+    <div class="file-preview-current file-preview-current--empty" data-preview-target></div>
+
+    {% endif %}
+
+    {{ form.attachment }}
+
+    <span class="helptext">{% trans "Attach a sample file readers can download (archives, documents, full recordings, etc.)." %}</span>
+
+    {% if form.attachment.errors %}
+
+    <ul class="errorlist">{% for e in form.attachment.errors %}<li>{{ e }}</li>{% endfor %}</ul>
+
+    {% endif %}
+
+  </div>
+
+</div>
+
+
+
+<div class="form-row form-row--full{% if form.tags.errors %} form-row--error{% endif %}">
+
+  <label for="id_tags">{{ form.tags.label }}</label>
+
+  <div class="form-row-input">
+
+    {{ form.tags }}
+
+    <span class="helptext">{% trans "Type to search and select one or more tags." %}</span>
+
+    {% if form.tags.errors %}
+
+    <ul class="errorlist">{% for e in form.tags.errors %}<li>{{ e }}</li>{% endfor %}</ul>
+
+    {% endif %}
+
+  </div>
+
+</div>
+

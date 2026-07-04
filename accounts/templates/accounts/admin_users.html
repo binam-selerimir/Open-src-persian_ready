@@ -1,0 +1,82 @@
+{% extends "accounts/panel.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Users" %} — OpenSrc Persian{% endblock %}
+
+{% block panel_content %}
+<header class="panel-page-header">
+  <div>
+    <h2 class="panel-page-title">{% trans "Manage Users" %}</h2>
+    <p class="panel-page-subtitle">{% trans "Control user access and site admin privileges." %}</p>
+  </div>
+</header>
+
+<div class="panel-table-wrap">
+  <table class="panel-table">
+    <thead>
+      <tr>
+        <th>{% trans "User" %}</th>
+        <th>{% trans "Email" %}</th>
+        <th>{% trans "Status" %}</th>
+        <th>{% trans "Role" %}</th>
+        <th>{% trans "Actions" %}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for u in users %}
+      <tr>
+        <td>
+          <strong>{{ u.username }}</strong>
+          {% if u.first_name or u.last_name %}<br><span class="panel-table-muted">{{ u.first_name }} {{ u.last_name }}</span>{% endif %}
+        </td>
+        <td>{{ u.email|default:"—" }}</td>
+        <td>
+          {% if u.is_active %}
+          <span class="panel-badge panel-badge--success">{% trans "Active" %}</span>
+          {% else %}
+          <span class="panel-badge panel-badge--danger">{% trans "Inactive" %}</span>
+          {% endif %}
+        </td>
+        <td>
+          {% if u.is_site_admin %}
+          <span class="panel-badge panel-badge--gold">{% trans "Site Admin" %}</span>
+          {% else %}
+          <span class="panel-badge panel-badge--muted">{% trans "User" %}</span>
+          {% endif %}
+        </td>
+        <td class="panel-table-actions">
+          <form method="post" class="panel-action-form" data-confirm='{% trans "Are you sure?" %}'>
+            {% csrf_token %}
+            <input type="hidden" name="user_id" value="{{ u.pk }}">
+            <button type="submit" name="toggle_active" class="panel-btn panel-btn-sm panel-btn-secondary">
+              {% if u.is_active %}{% trans "Deactivate" %}{% else %}{% trans "Activate" %}{% endif %}
+            </button>
+            <button type="submit" name="toggle_site_admin" class="panel-btn panel-btn-sm panel-btn-secondary">
+              {% if u.is_site_admin %}{% trans "Revoke Admin" %}{% else %}{% trans "Make Admin" %}{% endif %}
+            </button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% if page_obj.has_other_pages %}
+<nav class="pagination" aria-label="{% trans 'Users pagination' %}">
+  {% if page_obj.has_previous %}
+    <a href="?page={{ page_obj.previous_page_number }}" class="page-link">&laquo; {% trans "Previous" %}</a>
+  {% else %}
+    <span class="page-link disabled">&laquo; {% trans "Previous" %}</span>
+  {% endif %}
+  <span class="page-info">
+    {% blocktrans with num=page_obj.number total=page_obj.paginator.num_pages %}Page {{ num }} of {{ total }}{% endblocktrans %}
+  </span>
+  {% if page_obj.has_next %}
+    <a href="?page={{ page_obj.next_page_number }}" class="page-link">{% trans "Next" %} &raquo;</a>
+  {% else %}
+    <span class="page-link disabled">{% trans "Next" %} &raquo;</span>
+  {% endif %}
+</nav>
+{% endif %}
+
+{% endblock %}

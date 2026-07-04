@@ -1,0 +1,11 @@
+# Normalise all text line endings to LF on commit
+* text=auto eol=lf
+
+# Force binary files to stay binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.webp binary
+*.mo binary
+*.pyc binary

@@ -1,0 +1,90 @@
+{% extends "core/base.html" %}
+{% load i18n %}
+
+{% block title %}{% if LANGUAGE_CODE == 'fa' and board.name_fa %}{{ board.name_fa }}{% else %}{{ board.name_en }}{% endif %} — {% trans "Forum" %}{% endblock %}
+
+{% block content %}
+<div class="container">
+  <nav class="breadcrumb" aria-label="{% trans 'Breadcrumb' %}">
+    <ol>
+      <li><a href="{% url 'forum:index' %}">{% trans "Forum" %}</a></li>
+      <li aria-current="page">{% if LANGUAGE_CODE == 'fa' and board.name_fa %}{{ board.name_fa }}{% else %}{{ board.name_en }}{% endif %}</li>
+    </ol>
+  </nav>
+
+  <header class="page-header">
+    <div>
+      <h1 class="page-title">{% if LANGUAGE_CODE == 'fa' and board.name_fa %}{{ board.name_fa }}{% else %}{{ board.name_en }}{% endif %}</h1>
+      {% if LANGUAGE_CODE == 'fa' and board.description_fa %}
+        <p class="page-subtitle">{{ board.description_fa }}</p>
+      {% elif board.description_en %}
+        <p class="page-subtitle">{{ board.description_en }}</p>
+      {% endif %}
+    </div>
+    {% if user.is_authenticated %}
+    <a href="{% url 'forum:new_thread' board.slug %}" class="btn-primary">{% trans "New Thread" %}</a>
+    {% endif %}
+  </header>
+
+  <div class="forum-thread-list">
+    {% for thread in threads %}
+    <div class="forum-thread-row{% if thread.is_sticky %} forum-thread-sticky{% endif %}">
+      <div class="forum-thread-info">
+        <h2 class="forum-thread-title">
+          {% if thread.is_sticky %}<span class="forum-pin-icon" title="{% trans 'Sticky' %}">📌</span>{% endif %}
+          <a href="{{ thread.get_absolute_url }}">{{ thread.title }}</a>
+          {% if thread.is_closed %}<span class="forum-closed-badge">{% trans "Closed" %}</span>{% endif %}
+        </h2>
+        <span class="forum-thread-meta">
+          {% trans "by" %} {{ thread.author.username|default:"—" }}<br>
+          <time datetime="{{ thread.created_at|date:'c' }}">{{ thread.created_at|timesince }}</time> {% trans "ago" %}
+        </span>
+      </div>
+      <div class="forum-thread-stats">
+        <span class="forum-stat" title="{% trans 'Replies' %}"><strong>{{ thread.reply_count }}</strong> {% trans "replies" %}</span>
+        <span class="forum-stat" title="{% trans 'Views' %}"><strong>{{ thread.view_count }}</strong> {% trans "views" %}</span>
+      </div>
+      <div class="forum-thread-last-post">
+        {% with last_posts=thread.posts.all %}
+        {% if last_posts %}
+          {% with last_post=last_posts|dictsortreversed:"created_at"|first %}
+          {% if not last_post.is_deleted %}
+          <span class="forum-last-post-meta">
+            {{ last_post.author.username|default:"—" }}
+            · {{ last_post.created_at|timesince }} {% trans "ago" %}
+          </span>
+          {% endif %}
+          {% endwith %}
+        {% endif %}
+        {% endwith %}
+      </div>
+    </div>
+    {% empty %}
+    <div class="empty-state">
+      <p>{% trans "No threads yet." %}</p>
+      {% if user.is_authenticated %}
+      <p><a href="{% url 'forum:new_thread' board.slug %}" class="btn-primary">{% trans "Start the first thread" %}</a></p>
+      {% else %}
+      <p><a href="{% url 'accounts:login' %}?next={{ request.path }}">{% trans "Log in to start a discussion" %}</a></p>
+      {% endif %}
+    </div>
+    {% endfor %}
+  </div>
+
+  {% if page_obj.has_other_pages %}
+  <nav class="pagination" aria-label="{% trans 'Thread pagination' %}">
+    {% if page_obj.has_previous %}
+      <a href="?page={{ page_obj.previous_page_number }}" class="page-link">&laquo; {% trans "Previous" %}</a>
+    {% else %}
+      <span class="page-link disabled">&laquo; {% trans "Previous" %}</span>
+    {% endif %}
+    <span class="page-info">{% blocktrans with num=page_obj.number total=page_obj.paginator.num_pages %}Page {{ num }} of {{ total }}{% endblocktrans %}</span>
+    {% if page_obj.has_next %}
+      <a href="?page={{ page_obj.next_page_number }}" class="page-link">{% trans "Next" %} &raquo;</a>
+    {% else %}
+      <span class="page-link disabled">{% trans "Next" %} &raquo;</span>
+    {% endif %}
+  </nav>
+  {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,118 @@
+/* ═══════════════════════════════════════════════════════════
+   Comments Section
+   ═══════════════════════════════════════════════════════════ */
+
+.comments-section {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+}
+.comments-title {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--navy);
+  margin-bottom: 1.25rem;
+}
+.comment {
+  padding: 1rem;
+  margin-bottom: 1rem;
+  background: var(--gray-100);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+.comment-meta {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.comment-author {
+  font-size: 0.9rem;
+  color: var(--navy);
+}
+.comment-date {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+.comment-body {
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: var(--text);
+}
+.comments-empty {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  font-style: italic;
+  margin-bottom: 1rem;
+}
+.comment-form {
+  margin-top: 1.25rem;
+  padding: 1rem;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+.comment-form-user {
+  display: flex;
+  align-items: baseline;
+  gap: 0.4rem;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 0.85rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border);
+}
+.comment-form-user-label {
+  color: var(--text-muted);
+}
+.comment-form-user-name {
+  color: var(--navy);
+}
+.comment-form-user-email {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+}
+.comment-form-row {
+  margin-bottom: 0.85rem;
+}
+.comment-form-row label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--navy);
+  margin-bottom: 0.3rem;
+}
+.comment-form-row textarea {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  font-size: 0.9rem;
+  font-family: var(--font-sans);
+  resize: vertical;
+  min-height: 100px;
+}
+.comment-form-row textarea:focus {
+  outline: 2px solid var(--gold);
+  border-color: var(--gold);
+}
+.comment-notice {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-top: 0.5rem;
+  font-style: italic;
+}
+.comment-login {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  margin-top: 1rem;
+}
+.comment-login a {
+  color: var(--link);
+  text-decoration: none;
+  font-weight: 600;
+}
+.comment-login a:hover {
+  text-decoration: underline;
+  color: var(--link-hover);
+}

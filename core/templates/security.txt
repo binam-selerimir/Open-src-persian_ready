@@ -1,0 +1,3 @@
+Contact: https://github.com/OpenSrcPersian/OpenSrcPersian/issues
+Preferred-Languages: en, fa
+Policy: https://github.com/OpenSrcPersian/OpenSrcPersian/blob/main/SECURITY.md

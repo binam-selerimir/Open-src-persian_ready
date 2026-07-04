@@ -1,0 +1,42 @@
+{% load i18n forum_extras %}
+<div class="forum-post{% if post.is_first_post %} forum-post-first{% endif %}{% if user.is_authenticated and post.author == user %} forum-post-own{% endif %}" id="post-{{ post.pk }}">
+  <div class="forum-post-sidebar">
+    {% if post.author %}
+      {% if post.author.avatar %}
+        <img src="{{ post.author.avatar.url }}" alt="{{ post.author.username }}" class="forum-post-avatar">
+      {% else %}
+        <div class="forum-post-avatar forum-post-avatar-placeholder">{{ post.author.username|first|upper }}</div>
+      {% endif %}
+      <a href="{% url 'accounts:public_profile' post.author.username %}" class="forum-post-author">{{ post.author.username }}</a>
+      <span class="forum-post-join">{% trans "Joined" %} {{ post.author.date_joined|date:"M Y" }}</span>
+      <span class="forum-post-count">{{ post.author|forum_post_count }} {% trans "posts" %}</span>
+    {% else %}
+      <div class="forum-post-avatar forum-post-avatar-placeholder">?</div>
+      <span class="forum-post-author">{% trans "Unknown" %}</span>
+    {% endif %}
+  </div>
+  <div class="forum-post-body">
+    <div class="forum-post-header">
+      <span class="forum-post-number">#{{ forloop.counter }}</span>
+      <time datetime="{{ post.created_at|date:'c' }}">{{ post.created_at|date:"M d, Y H:i" }}</time>
+      {% if post.updated_at != post.created_at %}
+        <span class="forum-post-edited">{% trans "(edited)" %}</span>
+      {% endif %}
+    </div>
+    <div class="forum-post-content">{{ post.body|render_forum_body }}</div>
+    <div class="forum-post-actions">
+      {% if user.is_authenticated and post.author == user %}
+        <a href="{% url 'forum:edit_post' post.pk %}" class="forum-action-link">{% trans "Edit" %}</a>
+      {% endif %}
+      {% if user.is_authenticated and post.author == user or user.is_site_admin %}
+        {% if not post.is_first_post %}
+        <form method="post" action="{% url 'forum:delete_post' post.pk %}" style="display:inline"
+              data-confirm='{% trans "Delete this post?" %}'>
+          {% csrf_token %}
+          <button type="submit" class="forum-action-link forum-action-danger">{% trans "Delete" %}</button>
+        </form>
+        {% endif %}
+      {% endif %}
+    </div>
+  </div>
+</div>

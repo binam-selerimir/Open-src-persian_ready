@@ -1,0 +1,119 @@
+{% extends "core/base.html" %}
+{% load i18n static %}
+
+{% block title %}{% trans "User Panel" %} — OpenSrc Persian{% endblock %}
+
+{% block content %}
+<div class="panel-layout">
+  <header class="panel-top">
+    <div class="panel-top-user">
+      {% if user.avatar %}
+      <img src="{{ user.avatar.url }}" alt="{{ user.get_full_name_display }}" class="panel-top-avatar">
+      {% else %}
+      <div class="panel-top-avatar panel-top-avatar-placeholder">{{ user.username|first|upper }}</div>
+      {% endif %}
+      <div>
+        <strong class="panel-top-name">{{ user.get_full_name_display }}</strong>
+        <span class="panel-top-username">@{{ user.username }}</span>
+      </div>
+    </div>
+    <nav class="panel-tabs panel-tabs--horizontal" aria-label="{% trans 'Panel navigation' %}">
+      <span class="panel-tabs-label">{% trans "Account" %}</span>
+      <a href="{% url 'accounts:panel' %}" class="panel-tab {% if active_tab == 'profile' %}active{% endif %}">
+        {% trans "My Profile" %}
+      </a>
+      <a href="{% url 'accounts:edit_profile' %}" class="panel-tab {% if active_tab == 'edit' %}active{% endif %}">
+        {% trans "Edit Profile" %}
+      </a>
+      <a href="{% url 'accounts:public_profile' user.username %}" class="panel-tab">
+        {% trans "Public Profile" %}
+      </a>
+      {% if user.is_site_admin or user.is_staff %}
+      <span class="panel-tabs-label">{% trans "Administration" %}</span>
+      <a href="{% url 'accounts:admin_new_post' %}" class="panel-tab {% if active_tab == 'new_post' %}active{% endif %}">
+        {% trans "New Post" %}
+      </a>
+      <a href="{% url 'accounts:admin_posts' %}" class="panel-tab {% if active_tab == 'posts' %}active{% endif %}">
+        {% trans "Manage Posts" %}
+      </a>
+      <a href="{% url 'accounts:admin_post_taxonomy' %}" class="panel-tab {% if active_tab == 'taxonomy' %}active{% endif %}">
+        {% trans "Categories & Types" %}
+      </a>
+      <a href="{% url 'accounts:admin_tags' %}" class="panel-tab {% if active_tab == 'tags' %}active{% endif %}">
+        {% trans "Tags" %}
+      </a>
+      {% if user.is_superuser %}
+      <a href="{% url 'accounts:admin_users' %}" class="panel-tab {% if active_tab == 'users' %}active{% endif %}">
+        {% trans "Users" %}
+      </a>
+      <a href="{% url 'accounts:admin_certificates' %}" class="panel-tab {% if active_tab == 'certificates' %}active{% endif %}">
+        {% trans "Certificates" %}
+      </a>
+      <a href="{% url 'accounts:admin_grant_certificate' %}" class="panel-tab {% if active_tab == 'grant' %}active{% endif %}">
+        {% trans "Grant" %}
+      </a>
+      {% endif %}
+      <a href="{% url 'accounts:user_certificates' %}" class="panel-tab {% if active_tab == 'my_certs' %}active{% endif %}">
+        {% trans "My Certificates" %}
+      </a>
+      {% endif %}
+    </nav>
+  </header>
+  <div class="panel-content">
+    <div class="panel-card">
+      {% block panel_content %}
+      <header class="panel-page-header">
+        <div>
+          <h2 class="panel-page-title">{% trans "My Profile" %}</h2>
+          <p class="panel-page-subtitle">{% trans "Your public information and social links." %}</p>
+        </div>
+        <a href="{% url 'accounts:edit_profile' %}" class="panel-btn panel-btn-primary">{% trans "Edit Profile" %}</a>
+      </header>
+      <div class="profile-card profile-card--panel">
+        {% if user.avatar %}
+        <img src="{{ user.avatar.url }}" alt="{{ user.get_full_name_display }}" class="profile-avatar">
+        {% else %}
+        <div class="profile-avatar profile-avatar-placeholder">{{ user.username|first|upper }}</div>
+        {% endif %}
+        <div class="profile-info">
+          <h3>{{ user.profile.display_name|default:user.get_full_name_display }}</h3>
+          <p class="profile-headline">
+            {% if LANGUAGE_CODE == 'fa' %}
+              {{ user.profile.headline_fa|default:user.profile.headline_en }}
+            {% else %}
+              {{ user.profile.headline_en }}
+            {% endif %}
+          </p>
+          <div class="profile-bio">
+            {% if LANGUAGE_CODE == 'fa' %}
+              {{ user.bio_fa|default:user.bio_en|linebreaks }}
+            {% else %}
+              {{ user.bio_en|linebreaks }}
+            {% endif %}
+          </div>
+          {% if user.website %}
+          <p class="profile-website"><a href="{{ user.website }}">{{ user.website }}</a></p>
+          {% endif %}
+          {% if user.profile.skills %}
+          <div class="profile-skills">
+            {% for skill in user.profile.get_skills_list %}
+            <span class="skill-badge">{{ skill }}</span>
+            {% endfor %}
+          </div>
+          {% endif %}
+          <ul class="profile-social">
+            {% if user.profile.linkedin_url %}<li><a href="{{ user.profile.linkedin_url }}" rel="noopener noreferrer">LinkedIn</a></li>{% endif %}
+            {% if user.profile.github_url %}<li><a href="{{ user.profile.github_url }}" rel="noopener noreferrer">GitHub</a></li>{% endif %}
+            {% if user.profile.telegram %}<li><a href="https://t.me/{{ user.profile.telegram }}" rel="noopener noreferrer">Telegram</a></li>{% endif %}
+          </ul>
+        </div>
+      </div>
+      {% endblock %}
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="{% static 'accounts/panel.js' %}"></script>
+{% endblock %}

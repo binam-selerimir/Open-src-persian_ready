@@ -1,0 +1,1575 @@
+# Persian translations for OpenSrc Persian
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenSrc Persian\n"
+"Language: fa\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "OpenSrc Persian"
+msgstr "منبع باز پارسی"
+
+msgid "OpenSrc"
+msgstr "منبع باز"
+
+msgid "Persian"
+msgstr "پارسی"
+
+msgid "Skip to main content"
+msgstr "رفتن به محتوای اصلی"
+
+msgid "Free software, free society."
+msgstr "نرم‌افزار آزاد، جامعه آزاد."
+
+msgid "Home"
+msgstr "خانه"
+
+msgid "articles"
+msgstr "مطالب"
+
+msgid "About"
+msgstr "درباره"
+
+msgid "Latest"
+msgstr "تازه‌ترین"
+
+msgid "Freedom, Privacy, and Open Technology"
+msgstr "آزادی، حریم خصوصی و فناوری باز"
+
+msgid "Toggle navigation"
+msgstr "باز و بسته کردن منو"
+
+msgid "Main navigation"
+msgstr "ناوبری اصلی"
+
+msgid "Admin"
+msgstr "مدیریت"
+
+msgid "Search"
+msgstr "جستجو"
+
+msgid "Search..."
+msgstr "جستجو..."
+
+msgid "All types"
+msgstr "همه انواع"
+
+msgid "Translations"
+msgstr "ترجمه‌ها"
+
+msgid "English"
+msgstr "انگلیسی"
+
+msgid "Go"
+msgstr "برو"
+
+msgid "Sidebar"
+msgstr "نوار کناری"
+
+msgid "Quick Links"
+msgstr "پیوندهای سریع"
+
+msgid "News Archive"
+msgstr "آرشیو اخبار"
+
+msgid "About Us"
+msgstr "درباره ما"
+
+msgid "Free Software"
+msgstr "نرم‌افزار آزاد"
+
+msgid "GNU Project"
+msgstr "پروژه گنو"
+
+msgid "Free Software Foundation"
+msgstr "بنیاد نرم‌افزار آزاد"
+
+msgid "Open Source Initiative"
+msgstr "ابتکار متن‌باز"
+
+msgid "Creative Commons"
+msgstr "کرییتیو کامنز"
+
+msgid "Support Us"
+msgstr "حمایت از ما"
+
+msgid "Help us advance free software for everyone."
+msgstr "به پیشبرد نرم‌افزار آزاد برای همه کمک کنید."
+
+msgid "Learn More"
+msgstr "بیشتر بدانید"
+
+msgid "My Account"
+msgstr "حساب من"
+
+msgid "User Panel"
+msgstr "پنل کاربری"
+
+msgid "My Public Profile"
+msgstr "پروفایل عمومی من"
+
+msgid "Logout"
+msgstr "خروج"
+
+msgid "Account"
+msgstr "حساب کاربری"
+
+msgid "Login"
+msgstr "ورود"
+
+msgid "Register"
+msgstr "ثبت‌نام"
+
+msgid "Navigation"
+msgstr "ناوبری"
+
+msgid "Resources"
+msgstr "منابع"
+
+msgid "Free Licenses"
+msgstr "مجوزهای آزاد"
+
+msgid "Philosophy"
+msgstr "فلسفه"
+
+msgid "Campaigns"
+msgstr "کارزارها"
+
+msgid "Legal"
+msgstr "حقوقی"
+
+msgid "Privacy Policy"
+msgstr "سیاست حریم خصوصی"
+
+msgid "Terms of Use"
+msgstr "شرایط استفاده"
+
+msgid "Contact"
+msgstr "تماس"
+
+msgid "Copyright"
+msgstr "حق نشر"
+
+msgid "Content licensed under"
+msgstr "محتوا تحت مجوز"
+
+msgid "unless otherwise noted. Built with"
+msgstr "مگر اینکه خلاف آن ذکر شده باشد. ساخته‌شده با"
+
+msgid "A piece of knowledge is only free if it offers all four freedoms together. Missing even one means access is still conditional — and conditional access isn't truly free."
+msgstr "یک دانش فقط در صورتی آزاد است که هر چهار آزادی را با هم ارائه دهد. فقدان حتی یکی به این معنی است که دسترسی همچنان مشروط است - و دسترسی مشروط واقعاً آزاد نیست."
+
+msgid "Advocating for free software, digital rights, and open technology for everyone."
+msgstr "دفاع از نرم‌افزار آزاد، حقوق دیجیتال و فناوری باز برای همه."
+
+msgid "Announcements, articles, and updates from the OpenSrc Persian."
+msgstr "اطلاعیه‌ها، مقالات و به‌روزرسانی‌های منبع باز پارسی."
+
+msgid "Category"
+msgstr "دسته‌بندی"
+
+msgid "All"
+msgstr "همه"
+
+msgid "Type"
+msgstr "نوع"
+
+msgid "by"
+msgstr "توسط"
+
+msgid "Previous"
+msgstr "قبلی"
+
+msgid "Next"
+msgstr "بعدی"
+
+msgid "No posts available yet."
+msgstr "هنوز پستی موجود نیست."
+
+msgid "Download attachment"
+msgstr "دانلود پیوست"
+
+msgid "Recent in Category"
+msgstr "اخیر در دسته"
+
+msgid "No other posts in this category."
+msgstr "پست دیگری در این دسته نیست."
+
+msgid "Search Results"
+msgstr "نتایج جستجو"
+
+msgid "All categories"
+msgstr "همه دسته‌ها"
+
+msgid "From"
+msgstr "از"
+
+msgid "To"
+msgstr "تا"
+
+msgid "results found"
+msgstr "نتیجه یافت شد"
+
+msgid "for"
+msgstr "برای"
+
+msgid "No results found. Try different keywords or filters."
+msgstr "نتیجه‌ای یافت نشد. کلمات یا فیلترهای دیگری امتحان کنید."
+
+msgid "My Profile"
+msgstr "پروفایل من"
+
+msgid "Edit Profile"
+msgstr "ویرایش پروفایل"
+
+msgid "New Post"
+msgstr "پست جدید"
+
+msgid "Manage Posts"
+msgstr "مدیریت پست‌ها"
+
+msgid "Tags"
+msgstr "برچسب‌ها"
+
+msgid "Users"
+msgstr "کاربران"
+
+msgid "Save Changes"
+msgstr "ذخیره تغییرات"
+
+msgid "Create an account"
+msgstr "ایجاد حساب"
+
+msgid "Already have an account? Login"
+msgstr "حساب دارید؟ وارد شوید"
+
+msgid "Published Posts"
+msgstr "پست‌های منتشرشده"
+
+msgid "Create Post"
+msgstr "ایجاد پست"
+
+msgid "Title"
+msgstr "عنوان"
+
+msgid "Visible"
+msgstr "نمایش"
+
+msgid "Date"
+msgstr "تاریخ"
+
+msgid "Actions"
+msgstr "عملیات"
+
+msgid "Yes"
+msgstr "بله"
+
+msgid "No"
+msgstr "خیر"
+
+msgid "Edit"
+msgstr "ویرایش"
+
+msgid "Delete"
+msgstr "حذف"
+
+msgid "No posts yet."
+msgstr "هنوز پستی نیست."
+
+msgid "Confirm Delete"
+msgstr "تأیید حذف"
+
+msgid "Cancel"
+msgstr "لغو"
+
+msgid "Are you sure you want to delete"
+msgstr "آیا مطمئن هستید که می‌خواهید حذف کنید"
+
+msgid "Manage Tags"
+msgstr "مدیریت برچسب‌ها"
+
+msgid "New tag"
+msgstr "برچسب جدید"
+
+msgid "Add Tag"
+msgstr "افزودن برچسب"
+
+msgid "No tags yet."
+msgstr "هنوز برچسبی نیست."
+
+msgid "Manage Users"
+msgstr "مدیریت کاربران"
+
+msgid "Username"
+msgstr "نام کاربری"
+
+msgid "Email"
+msgstr "ایمیل"
+
+msgid "Active"
+msgstr "فعال"
+
+msgid "Site Admin"
+msgstr "مدیر سایت"
+
+msgid "Toggle Active"
+msgstr "تغییر وضعیت فعال"
+
+msgid "Toggle Site Admin"
+msgstr "تغییر مدیر سایت"
+
+msgid "No posts in this category yet."
+msgstr "هنوز پستی در این دسته نیست."
+
+msgid "No posts in this subcategory yet."
+msgstr "هنوز پستی در این زیردسته نیست."
+
+msgid "Pagination"
+msgstr "صفحه‌بندی"
+
+msgid "News pagination"
+msgstr "صفحه‌بندی اخبار"
+
+msgid "Page %(num)s of %(total)s"
+msgstr "صفحه %(num)s از %(total)s"
+
+# Home page
+msgid "OpenSrc Persian — Free Software for Everyone"
+msgstr "منبع باز پارسی — نرم‌افزار آزاد برای همه"
+
+msgid "Free knowledge."
+msgstr "دانش آزاد."
+
+msgid "Free Society."
+msgstr "جامعه آزاد."
+
+msgid "OpenSrc Persian works to ensure freedom for all users. We believe that knowledge should be free and available to the community - that means publishing it for everyone to use, study, distribute, and improve."
+msgstr "منبع باز پارسی برای تضمین آزادی برای همه کاربران تلاش می‌کند. ما معتقدیم که دانش باید رایگان و در دسترس جامعه باشد - این به معنای انتشار آن برای استفاده، مطالعه، توزیع و بهبود همه است."
+
+msgid "Learn Our Mission"
+msgstr "مأموریت ما را بشناسید"
+
+msgid "Read the articles"
+msgstr "مقالات را بخوانید"
+
+msgid "The Four Freedoms"
+msgstr "چهار آزادی"
+
+msgid "We believe knowledge is only truly free when it grants its users four essential freedoms. Knowledge — whether scientific, academic, or practical — is free if all of the following hold true:"
+msgstr "ما معتقدیم دانش تنها زمانی واقعاً آزاد است که چهار آزادی اساسی را به کاربران خود اعطا کند. دانش - چه علمی، دانشگاهی یا عملی - در صورتی آزاد است که همه موارد زیر صادق باشند:"
+
+msgid "Use"
+msgstr "استفاده"
+
+msgid "anyone may use the knowledge for any purpose, without restriction or need for permission."
+msgstr "هر کسی می‌تواند از دانش برای هر هدفی، بدون محدودیت یا نیاز به اجازه، استفاده کند."
+
+msgid "Study"
+msgstr "مطالعه"
+
+msgid "anyone may examine how it works, understand its reasoning, and learn from it openly."
+msgstr "هر کسی می‌تواند نحوه عملکرد آن را بررسی کند، استدلال آن را بفهمد و آشکارا از آن بیاموزد."
+
+msgid "Distribute"
+msgstr "توزیع"
+
+msgid "anyone may share copies of it with others, so that knowledge can spread freely."
+msgstr "هر کسی می‌تواند نسخه‌هایی از آن را با دیگران به اشتراک بگذارد تا دانش بتواند آزادانه گسترش یابد."
+
+msgid "Improve"
+msgstr "بهبود"
+
+msgid "anyone may build on it, refine it, and share those improvements so the whole community benefits."
+msgstr "هر کسی می‌تواند بر روی آن بسازد، آن را اصلاح کند و آن پیشرفت‌ها را به اشتراک بگذارد تا کل جامعه از آن بهره‌مند شود."
+
+msgid "Latest articles"
+msgstr "تازه‌ترین مقالات"
+
+msgid "See all articles"
+msgstr "مشاهده همه مقالات"
+
+msgid "No news posts yet."
+msgstr "هنوز خبری منتشر نشده است."
+
+msgid "Join Us"
+msgstr "به ما بپیوندید"
+
+msgid "OpenSrc Persian runs on volunteers who believe knowledge shouldn't be locked behind language barriers. Whether you write code, translate, or spread the word, there is a place for you here. We can't pay you, but we can offer an audience that needs your work and a community that shares your values."
+msgstr "منبع باز پارسی توسط داوطلبانی اداره می‌شود که معتقدند دانش نباید پشت موانع زبانی محصور شود. چه کد بنویسید، چه ترجمه کنید و چه به دیگران اطلاع‌رسانی کنید، اینجا جایی برای شما وجود دارد. ما نمی‌توانیم به شما پولی بدهیم، اما می‌توانیم مخاطبی را که به کار شما نیاز دارد و جامعه‌ای را که ارزش‌های شما را به اشتراک می‌گذارد، ارائه دهیم."
+
+msgid "Get Involved"
+msgstr "مشارکت کنید"
+
+# About page
+msgid "Learn about OpenSrc Persian's mission to make knowledge available in Persian and share it with the world."
+msgstr "درباره مأموریت منبع باز پارسی در در دسترس قرار دادن دانش به زبان فارسی و اشتراک‌گذاری آن با جهان بخوانید."
+
+msgid "About OpenSrc Persian"
+msgstr "درباره منبع باز پارسی"
+
+msgid "OpenSrc Persian is a free, community-driven platform with a single purpose: making knowledge available in Persian and sharing it with the world, without any barriers. We believe that language should never be a reason someone is excluded from learning — and that access to knowledge is a right, not a privilege."
+msgstr "منبع باز پارسی یک بستر رایگان و مبتنی بر جامعه است با یک هدف واحد: در دسترس قرار دادن دانش به زبان فارسی و اشتراک‌گذاری آن با جهان، بدون هیچ مانعی. ما بر این باوریم که زبان نباید هرگز دلیلی برای محروم شدن کسی از یادگیری باشد — و اینکه دسترسی به دانش یک حق است، نه یک امتیاز."
+
+msgid "What We Offer"
+msgstr "آنچه ارائه می‌دهیم"
+
+msgid "We collect, create, and share a wide range of content:"
+msgstr "ما طیف گسترده‌ای از محتوا را گردآوری، تولید و به اشتراک می‌گذاریم:"
+
+msgid "Scientific and research articles"
+msgstr "مقالات علمی و پژوهشی"
+
+msgid "Academic documents and references"
+msgstr "اسناد و مراجع دانشگاهی"
+
+msgid "Documentation"
+msgstr "داکیومنت / مستندات"
+
+msgid "Book translations"
+msgstr "ترجمه کتاب"
+
+msgid "Game subtitle localizations"
+msgstr "ترجمه زیرنویس بازی‌های ویدیویی"
+
+msgid "Tutorials, guides, and educational resources"
+msgstr "آموزش‌ها، راهنماها و منابع آموزشی"
+
+msgid "Discussions around free software and digital rights"
+msgstr "بحث‌هایی پیرامون نرم‌افزار آزاد و حقوق دیجیتال"
+
+msgid "Everything on this site is completely free. No subscriptions, no payments, no advertisements — and no hidden agenda. (Maybe.)"
+msgstr "همه چیز در این سایت کاملاً رایگان است. بدون اشتراک، بدون پرداخت، بدون تبلیغات — و بدون هیچ انگیزه پنهانی. (شاید)"
+
+msgid "How We Work"
+msgstr "چگونه کار می‌کنیم"
+
+msgid "OpenSrc Persian is run entirely by volunteers. We are not able to pay contributors, and we say so honestly. What we offer instead is a space where your work reaches people who genuinely need it — and where it stands alongside others who share the same values. If you are passionate about spreading knowledge, translating useful content, promoting scientific thinking, or simply contributing to the Persian-speaking community — we invite you to join us."
+msgstr "منبع باز پارسی به طور کامل توسط داوطلبان اداره می‌شود. ما قادر به پرداخت دستمزد به مشارکت‌کنندگان نیستیم و صادقانه این را بیان می‌کنیم. آنچه در عوض ارائه می‌دهیم، فضایی است که کار شما به دست کسانی می‌رسد که واقعاً به آن نیاز دارند — و در کنار افرادی قرار می‌گیرد که ارزش‌های یکسانی با شما دارند. اگر به گسترش دانش، ترجمه محتوای مفید، ترویج تفکر علمی، یا صرفاً کمک به جامعه فارسی‌زبان علاقه‌مند هستید — شما را به پیوستن به این جامعه دعوت می‌کنیم."
+
+msgid "What We Stand For"
+msgstr "آنچه برای آن می‌ایستیم"
+
+msgid "Beyond content, we care about the principles behind it. OpenSrc Persian supports organizations that defend software freedom and an open internet. We encourage our community to write about free and open-source software issues and share their knowledge, exchange their experiences, and engage in the broader global conversation about digital rights. An informed community is a stronger one."
+msgstr "فراتر از محتوا، ما به اصول پشت آن اهمیت می‌دهیم. منبع باز پارسی از سازمان‌هایی که از آزادی نرم‌افزار و اینترنت آزاد دفاع می‌کنند حمایت می‌کند. ما جامعه خود را تشویق می‌کنیم درباره مسائل نرم‌افزار آزاد و متن‌باز و دانش خود بنویسند، تجربیات خود را به اشتراک بگذارند، و در گفتگوی جهانی گسترده‌تر درباره حقوق دیجیتال شرکت کنند. جامعه‌ای آگاه، جامعه‌ای قوی‌تر است."
+
+msgid "License"
+msgstr "مجوز"
+
+msgid "All content published on OpenSrc Persian is free to read and share for personal, non-commercial use, under the following conditions:"
+msgstr "تمام محتوای منتشر شده در منبع باز پارسی برای استفاده شخصی و غیرتجاری آزادانه قابل خواندن و به اشتراک‌گذاری است، مشروط بر رعایت شرایط زیر:"
+
+msgid "Credit is required. When sharing or referencing any work, the name of the original author or translator must be clearly stated."
+msgstr "ذکر منبع الزامی است. هنگام به اشتراک‌گذاری یا ارجاع به هر اثری، باید نام نویسنده یا مترجم اصلی به وضوح قید شود."
+
+msgid "Commercial use is not permitted without explicit permission from the author or translator."
+msgstr "استفاده تجاری مجاز نیست مگر با اجازه صریح از نویسنده یا مترجم."
+
+msgid "Republishing the work elsewhere — in full or in part — requires crediting the author or obtaining their explicit permission."
+msgstr "بازنشر اثر در جای دیگری — به طور کامل یا جزئی — نیازمند ذکر نام نویسنده یا کسب اجازه از وی است."
+
+msgid "We ask everyone to respect the time and effort behind each contribution."
+msgstr "از همه می‌خواهیم زمان و تلاشی که پشت هر مشارکت نهفته است را محترم بشمارند."
+
+msgid "Profile Privacy Note"
+msgstr "نکته حریم خصوصی پروفایل"
+
+msgid "Profile details are visible to all users. If you prefer that others do not have access to your professional or personal information, please leave the profile section empty."
+msgstr "مشخصات پروفایل برای همه کاربران قابل مشاهده است. اگر تمایل ندارید دیگران به اطلاعات شغلی یا شخصی شما دسترسی داشته باشند، لطفاً بخش پروفایل را پر نکنید."
+
+msgid "<strong>Telegram:</strong> @opensrcpersian"
+msgstr "<strong>تلگرام:</strong> @opensrcpersian"
+
+# User panel
+msgid "Panel navigation"
+msgstr "ناوبری پنل"
+
+msgid "Public Profile"
+msgstr "پروفایل عمومی"
+
+msgid "Administration"
+msgstr "مدیریت"
+
+msgid "Categories & Types"
+msgstr "دسته‌ها و انواع"
+
+msgid "Your public information and social links."
+msgstr "اطلاعات عمومی و پیوندهای اجتماعی شما."
+
+msgid "Update your account details, bio, and social links."
+msgstr "جزئیات حساب، بیوگرافی و پیوندهای اجتماعی خود را به‌روز کنید."
+
+msgid "Personal information"
+msgstr "اطلاعات شخصی"
+
+msgid "Professional profile"
+msgstr "پروفایل حرفه‌ای"
+
+msgid "Password"
+msgstr "رمز عبور"
+
+msgid "Confirm Password"
+msgstr "تأیید رمز عبور"
+
+msgid "First name"
+msgstr "نام"
+
+msgid "Last name"
+msgstr "نام خانوادگی"
+
+msgid "Bio (English)"
+msgstr "بیوگرافی (انگلیسی)"
+
+msgid "Bio (Persian)"
+msgstr "بیوگرافی (فارسی)"
+
+msgid "Avatar"
+msgstr "تصویر پروفایل"
+
+msgid "Website"
+msgstr "وب‌سایت"
+
+msgid "Display name"
+msgstr "نام نمایشی"
+
+msgid "Headline (English)"
+msgstr "عنوان شغلی (انگلیسی)"
+
+msgid "Headline (Persian)"
+msgstr "عنوان شغلی (فارسی)"
+
+msgid "Skills"
+msgstr "مهارت‌ها"
+
+msgid "LinkedIn URL"
+msgstr "نشانی لینکدین"
+
+msgid "GitHub URL"
+msgstr "نشانی گیت‌هاب"
+
+msgid "Telegram"
+msgstr "تلگرام"
+
+msgid "View, edit, and delete published content."
+msgstr "مشاهده، ویرایش و حذف محتوای منتشرشده."
+
+msgid "Status"
+msgstr "وضعیت"
+
+msgid "Published"
+msgstr "منتشرشده"
+
+msgid "Hidden"
+msgstr "پنهان"
+
+msgid "Create your first post"
+msgstr "اولین پست خود را بسازید"
+
+msgid "Create account"
+msgstr "ایجاد حساب"
+
+msgid "Join the OpenSrc community."
+msgstr "به جامعه فری‌سافت بپیوندید."
+
+msgid "Already have an account?"
+msgstr "حساب دارید؟"
+
+msgid "Welcome back"
+msgstr "خوش آمدید"
+
+msgid "Sign in to access your user panel."
+msgstr "برای دسترسی به پنل کاربری وارد شوید."
+
+msgid "Don't have an account?"
+msgstr "حساب ندارید؟"
+
+msgid "Delete Post"
+msgstr "حذف پست"
+
+msgid "This action cannot be undone."
+msgstr "این عمل قابل بازگشت نیست."
+
+msgid "Yes, Delete"
+msgstr "بله، حذف شود"
+
+msgid "Create a new article with category, tags, and media."
+msgstr "مقاله جدیدی با دسته، برچسب و رسانه بسازید."
+
+msgid "Manage categories & types"
+msgstr "مدیریت دسته‌ها و انواع"
+
+msgid "Back to posts"
+msgstr "بازگشت به پست‌ها"
+
+msgid "Basic info"
+msgstr "اطلاعات پایه"
+
+msgid "Manage categories, subcategories, and post types used when writing articles."
+msgstr "دسته‌ها، زیردسته‌ها و انواع پست را برای نگارش مقالات مدیریت کنید."
+
+msgid "Taxonomy sections"
+msgstr "بخش‌های طبقه‌بندی"
+
+msgid "Categories"
+msgstr "دسته‌ها"
+
+msgid "Subcategories"
+msgstr "زیردسته‌ها"
+
+msgid "Post Types"
+msgstr "انواع پست"
+
+# Registration & email verification
+msgid "This username is already taken."
+msgstr "این نام کاربری قبلاً ثبت شده است."
+
+msgid "Email is required."
+msgstr "ایمیل الزامی است."
+
+msgid "This email address is already registered."
+msgstr "این آدرس ایمیل قبلاً ثبت شده است."
+
+msgid "Passwords do not match."
+msgstr "رمزهای عبور یکسان نیستند."
+
+msgid "Invalid username or password."
+msgstr "نام کاربری یا رمز عبور نادرست است."
+
+msgid "Please confirm your email address before logging in. Check your inbox for the confirmation link."
+msgstr "لطفاً قبل از ورود آدرس ایمیل خود را تأیید کنید. صندوق ورودی را برای لینک تأیید بررسی کنید."
+
+msgid "We could not send the confirmation email. Please try again later."
+msgstr "ارسال ایمیل تأیید ممکن نشد. لطفاً بعداً دوباره تلاش کنید."
+
+msgid "Account created. Please check your email and click the confirmation link to activate your account."
+msgstr "حساب ایجاد شد. لطفاً ایمیل خود را بررسی کرده و برای فعال‌سازی حساب روی لینک تأیید کلیک کنید."
+
+msgid "Confirm your email"
+msgstr "ایمیل خود را تأیید کنید"
+
+msgid "Check your email"
+msgstr "ایمیل خود را بررسی کنید"
+
+msgid "We sent a confirmation link to your email address. Please click the link to activate your account."
+msgstr "لینک تأیید به آدرس ایمیل شما ارسال شد. لطفاً برای فعال‌سازی حساب روی آن کلیک کنید."
+
+msgid "Back to login"
+msgstr "بازگشت به ورود"
+
+msgid "This confirmation link is invalid or has expired."
+msgstr "این لینک تأیید نامعتبر است یا منقضی شده."
+
+msgid "Your account is already confirmed. You can log in."
+msgstr "حساب شما قبلاً تأیید شده است. می‌توانید وارد شوید."
+
+msgid "Your email has been confirmed. You can now log in."
+msgstr "ایمیل شما تأیید شد. اکنون می‌توانید وارد شوید."
+
+msgid "Profile updated successfully."
+msgstr "پروفایل با موفقیت به‌روز شد."
+
+msgid "Please correct the errors below."
+msgstr "لطفاً خطاهای زیر را اصلاح کنید."
+
+msgid "Confirm your OpenSrc Persian account"
+msgstr "تأیید حساب منبع باز پارسی"
+
+msgid ""
+"Hello %(username)s,\n"
+"\n"
+"Thank you for registering. Please confirm your email address by visiting the link below:\n"
+"\n"
+"%(url)s\n"
+"\n"
+"This link expires in 48 hours.\n"
+"\n"
+"If you did not create this account, you can ignore this email."
+msgstr ""
+"سلام %(username)s،\n"
+"\n"
+"از ثبت‌نام شما سپاسگزاریم. لطفاً با باز کردن لینک زیر آدرس ایمیل خود را تأیید کنید:\n"
+"\n"
+"%(url)s\n"
+"\n"
+"این لینک تا ۴۸ ساعت معتبر است.\n"
+"\n"
+"اگر این حساب را نساخته‌اید، این ایمیل را نادیده بگیرید."
+
+msgid "Subcategory"
+msgstr "زیردسته"
+
+msgid "Advanced Search"
+msgstr "جستجوی پیشرفته"
+
+msgid "Find posts using keywords, filters, and date ranges."
+msgstr "پست‌ها را با کلمات کلیدی، فیلترها و بازه زمانی پیدا کنید."
+
+msgid "Clear filters"
+msgstr "پاک کردن فیلترها"
+
+msgid "All subcategories"
+msgstr "همه زیردسته‌ها"
+
+msgid "Post created successfully."
+msgstr "پست با موفقیت ایجاد شد."
+
+msgid "Post updated successfully."
+msgstr "پست با موفقیت به‌روز شد."
+
+msgid "Post deleted."
+msgstr "پست حذف شد."
+
+msgid "If you did not create this account, you can ignore this email."
+msgstr "اگر این حساب را شما نساخته‌اید، می‌توانید این ایمیل را نادیده بگیرید."
+
+msgid "Avatar file too large (max 2 MB)."
+msgstr "حجم فایل تصویر پروفایل زیاد است (حداکثر ۲ مگابایت)."
+
+msgid "Could not read file."
+msgstr "خوانش فایل ممکن نشد."
+
+msgid "Too many registration attempts from your IP. Please try again in an hour."
+msgstr "تعداد تلاش‌های ثبت‌نام از آی‌پی شما زیاد است. لطفاً یک ساعت دیگر دوباره تلاش کنید."
+
+msgid "Too many confirmation attempts from your IP address. Please try again in an hour."
+msgstr "تعداد تلاش‌های تأیید از آی‌پی شما زیاد است. لطفاً یک ساعت دیگر دوباره تلاش کنید."
+
+msgid "Too many password-reset requests from your IP address. Please try again in an hour."
+msgstr "تعداد درخواست‌های بازنشانی رمز عبور از آی‌پی شما زیاد است. لطفاً یک ساعت دیگر دوباره تلاش کنید."
+
+msgid "Failed Login"
+msgstr "ورود ناموفق"
+
+msgid "Password Reset"
+msgstr "بازنشانی رمز عبور"
+
+msgid "Email Verified"
+msgstr "ایمیل تأیید شد"
+
+msgid "Post Created"
+msgstr "پست ایجاد شد"
+
+msgid "Post Deleted"
+msgstr "پست حذف شد"
+
+msgid "Post Edited"
+msgstr "پست ویرایش شد"
+
+msgid "Role Changed"
+msgstr "نقش تغییر یافت"
+
+msgid "Admin Login"
+msgstr "ورود مدیر"
+
+msgid "Grants access to the custom user panel admin tabs"
+msgstr "دسترسی به برگه‌های مدیریتی پنل کاربری را فعال می‌کند"
+
+msgid "Job title or short headline"
+msgstr "عنوان شغلی یا توضیح کوتاه"
+
+msgid "Comma-separated list of skills"
+msgstr "فهرست مهارت‌ها جداشده با کاما"
+
+msgid "Enter a valid Telegram username (5–32 characters, letters, digits, and underscores only)."
+msgstr "یک نام کاربری تلگرام معتبر وارد کنید (۵ تا ۳۲ نویسه، فقط حروف انگلیسی، اعداد و زیرخط)."
+
+msgid "Write your article…"
+msgstr "مقاله خود را بنویسید…"
+
+msgid "Uploading {n} file(s)…"
+msgstr "در حال بارگذاری {n} فایل…"
+
+msgid "Drop photos, audio, or video here to embed in the article"
+msgstr "عکس، صدا یا ویدیو را برای جای‌گذاری در مقاله، اینجا بکشید و رها کنید"
+
+msgid "Drop photos, music, or videos here — or click to browse"
+msgstr "عکس، موزیک یا ویدیو را اینجا بکشید و رها کنید — یا برای انتخاب کلیک کنید"
+
+msgid "JPEG, PNG, GIF, WebP · MP3, OGG, WAV · MP4, WebM"
+msgstr "JPEG, PNG, GIF, WebP · MP3, OGG, WAV · MP4, WebM"
+
+msgid "Use the toolbar for formatting, or upload samples (screenshots, audio clips, demo videos) inline while writing."
+msgstr "از نوار ابزار برای قالب‌بندی استفاده کنید، یا نمونه‌ها (تصاویر صفحه، کلیپ صوتی، ویدیوهای نمایشی) را هنگام نوشتن، درون متن بارگذاری کنید."
+
+msgid "Upload cover image"
+msgstr "بارگذاری تصویر کاور"
+
+msgid "Add a cover image"
+msgstr "افزودن تصویر کاور"
+
+msgid "Drag & drop here, or click to browse"
+msgstr "اینجا بکشید و رها کنید، یا برای انتخاب کلیک کنید"
+
+msgid "Change image"
+msgstr "تغییر تصویر"
+
+msgid "Choose file"
+msgstr "انتخاب فایل"
+
+msgid "Cover image"
+msgstr "تصویر کاور"
+
+msgid "Remove"
+msgstr "حذف"
+
+msgid "Optional hero image (16:9). Images are automatically resized to 1200×675 px on upload."
+msgstr "تصویر اصلی اختیاری (نسبت ۱۶:۹). تصاویر هنگام بارگذاری به‌طور خودکار به ابعاد ۱۲۰۰×۶۷۵ پیکسل تغییر اندازه می‌یابند."
+
+msgid "Describe the image for screen readers. Leave blank if the image is purely decorative."
+msgstr "تصویر را برای صفحه‌خوان‌ها توصیف کنید. اگر تصویر صرفاً تزئینی است، خالی بگذارید."
+
+msgid "View current file"
+msgstr "مشاهده فایل فعلی"
+
+msgid "Attach a sample file readers can download (archives, documents, full recordings, etc.)."
+msgstr "فایل نمونه‌ای برای دانلود خوانندگان پیوست کنید (فایل فشرده، سند، ضبط کامل و غیره)."
+
+msgid "Type to search and select one or more tags."
+msgstr "برای جستجو و انتخاب یک یا چند برچسب، تایپ کنید."
+
+msgid "Are you sure you want to permanently delete"
+msgstr "آیا مطمئن هستید که می‌خواهید برای همیشه حذف کنید"
+
+msgid "Changing the slug will break existing links to this post."
+msgstr "تغییر اسلاگ، پیوندهای موجود به این پست را خراب می‌کند."
+
+msgid "Content"
+msgstr "محتوا"
+
+msgid "Edit Post"
+msgstr "ویرایش پست"
+
+msgid "Media & tags"
+msgstr "رسانه و برچسب‌ها"
+
+msgid "Publishing"
+msgstr "انتشار"
+
+msgid "Creating…"
+msgstr "در حال ایجاد…"
+
+msgid "Add Category"
+msgstr "افزودن دسته‌بندی"
+
+msgid "English name"
+msgstr "نام انگلیسی"
+
+msgid "Persian name"
+msgstr "نام فارسی"
+
+msgid "Order"
+msgstr "ترتیب"
+
+msgid "Save"
+msgstr "ذخیره"
+
+msgid "No categories yet. Add one above."
+msgstr "هنوز دسته‌بندی‌ای وجود ندارد. یکی را در بالا اضافه کنید."
+
+msgid "Nested topics within a parent category."
+msgstr "موضوعات تو در توی یک دسته‌بندی والد."
+
+msgid "Add new subcategory"
+msgstr "افزودن زیردسته جدید"
+
+msgid "Parent category"
+msgstr "دسته‌بندی والد"
+
+msgid "Select category…"
+msgstr "انتخاب دسته‌بندی…"
+
+msgid "Add Subcategory"
+msgstr "افزودن زیردسته"
+
+msgid "No subcategories yet. Add one above."
+msgstr "هنوز زیردسته‌ای وجود ندارد. یکی را در بالا اضافه کنید."
+
+msgid "Labels and accent colors shown on articles and the news archive."
+msgstr "برچسب‌ها و رنگ‌های تأکیدی نمایش‌داده‌شده روی مقاله‌ها و آرشیو اخبار."
+
+msgid "Add new post type"
+msgstr "افزودن نوع پست جدید"
+
+msgid "e.g. Tutorial"
+msgstr "مثلاً آموزش"
+
+msgid "Accent color"
+msgstr "رنگ تأکیدی"
+
+msgid "Add Post Type"
+msgstr "افزودن نوع پست"
+
+msgid "Top-level groupings for your articles."
+msgstr "گروه‌بندی‌های سطح بالا برای مقاله‌های شما."
+
+msgid "No post types yet."
+msgstr "هنوز نوع پستی وجود ندارد."
+
+msgid "Add new category"
+msgstr "افزودن دسته‌بندی جدید"
+
+msgid "Name (English)"
+msgstr "نام (انگلیسی)"
+
+msgid "e.g. News"
+msgstr "مثلاً اخبار"
+
+msgid "Name (Persian)"
+msgstr "نام (فارسی)"
+
+msgid "e.g. اخبار"
+msgstr "مثلاً اخبار"
+
+msgid "Slug"
+msgstr "اسلاگ"
+
+msgid "(optional)"
+msgstr "(اختیاری)"
+
+msgid "No posts found."
+msgstr "پستی یافت نشد."
+
+msgid "Posts pagination"
+msgstr "صفحه‌بندی پست‌ها"
+
+msgid "Search by title or author…"
+msgstr "جستجو بر اساس عنوان یا نویسنده…"
+
+msgid "All statuses"
+msgstr "همه وضعیت‌ها"
+
+msgid "Filter"
+msgstr "فیلتر"
+
+msgid "Clear"
+msgstr "پاک کردن"
+
+msgid "Please select a bulk action."
+msgstr "لطفاً یک عملیات گروهی انتخاب کنید."
+
+msgid "Delete selected posts? This cannot be undone."
+msgstr "پست‌های انتخاب‌شده حذف شوند؟ این عمل قابل بازگشت نیست."
+
+msgid "selected"
+msgstr "انتخاب‌شده"
+
+msgid "Bulk action…"
+msgstr "عملیات گروهی…"
+
+msgid "Publish selected"
+msgstr "انتشار موارد انتخاب‌شده"
+
+msgid "Hide selected"
+msgstr "پنهان کردن موارد انتخاب‌شده"
+
+msgid "Delete selected"
+msgstr "حذف موارد انتخاب‌شده"
+
+msgid "Apply"
+msgstr "اجرا"
+
+msgid "Select all"
+msgstr "انتخاب همه"
+
+msgid "Select post"
+msgstr "انتخاب پست"
+
+msgid "Add or remove tags used on posts."
+msgstr "برچسب‌های استفاده‌شده در پست‌ها را افزودن یا حذف کنید."
+
+msgid "Enter tag name..."
+msgstr "نام برچسب را وارد کنید..."
+
+msgid "Name"
+msgstr "نام"
+
+msgid "No tags yet. Add one above."
+msgstr "هنوز برچسبی وجود ندارد. یکی را در بالا اضافه کنید."
+
+msgid "Control user access and site admin privileges."
+msgstr "دسترسی کاربران و اختیارات مدیریت سایت را کنترل کنید."
+
+msgid "User"
+msgstr "کاربر"
+
+msgid "Role"
+msgstr "نقش"
+
+msgid "Inactive"
+msgstr "غیرفعال"
+
+msgid "Activate"
+msgstr "فعال‌سازی"
+
+msgid "Deactivate"
+msgstr "غیرفعال‌سازی"
+
+msgid "Make Admin"
+msgstr "مدیر کردن"
+
+msgid "Revoke Admin"
+msgstr "لغو مدیریت"
+
+msgid "Users pagination"
+msgstr "صفحه‌بندی کاربران"
+
+msgid "Signing in…"
+msgstr "در حال ورود…"
+
+msgid "Forgot your password?"
+msgstr "رمز عبور خود را فراموش کرده‌اید؟"
+
+msgid "Creating account…"
+msgstr "در حال ایجاد حساب…"
+
+msgid "Your password has been updated successfully. You can now log in with your new password."
+msgstr "رمز عبور شما با موفقیت به‌روزرسانی شد. اکنون می‌توانید با رمز عبور جدید وارد شوید."
+
+msgid "Log in"
+msgstr "ورود"
+
+msgid "Password changed"
+msgstr "رمز عبور تغییر یافت"
+
+msgid "Set a new password"
+msgstr "تنظیم رمز عبور جدید"
+
+msgid "Choose a strong password for your account."
+msgstr "یک رمز عبور قوی برای حساب خود انتخاب کنید."
+
+msgid "Show password"
+msgstr "نمایش رمز عبور"
+
+msgid "Hide password"
+msgstr "پنهان کردن رمز عبور"
+
+msgid "Set new password"
+msgstr "تنظیم رمز عبور جدید"
+
+msgid "If an account exists with that address, we've sent a password reset link. Check your inbox (and spam folder)."
+msgstr "اگر حسابی با این آدرس وجود داشته باشد، پیوند بازنشانی رمز عبور ارسال شد. صندوق ورودی (و پوشه اسپم) خود را بررسی کنید."
+
+msgid "If you did not request a password reset, you can ignore this email — your password has not been changed."
+msgstr "اگر درخواست بازنشانی رمز عبور نداده‌اید، می‌توانید این ایمیل را نادیده بگیرید — رمز عبور شما تغییر نکرده است."
+
+msgid "You're receiving this email because a password reset was requested for your account at %(site_name)s."
+msgstr "این ایمیل را دریافت کرده‌اید چون درخواست بازنشانی رمز عبور برای حساب شما در %(site_name)s ثبت شده است."
+
+msgid "Please copy the link below into your browser to set a new password:"
+msgstr "برای تنظیم رمز عبور جدید، پیوند زیر را در مرورگر خود کپی کنید:"
+
+msgid "This link is valid for 24 hours."
+msgstr "این پیوند تا ۲۴ ساعت معتبر است."
+
+msgid "Reset your password"
+msgstr "بازنشانی رمز عبور شما"
+
+msgid "Enter the email address you registered with and we'll send you a reset link."
+msgstr "آدرس ایمیلی که با آن ثبت‌نام کرده‌اید را وارد کنید تا پیوند بازنشانی برایتان ارسال شود."
+
+msgid "Send reset link"
+msgstr "ارسال پیوند بازنشانی"
+
+msgid "Reset password"
+msgstr "بازنشانی رمز عبور"
+
+msgid "Selected posts published."
+msgstr "پست‌های انتخاب‌شده منتشر شدند."
+
+msgid "Selected posts hidden."
+msgstr "پست‌های انتخاب‌شده پنهان شدند."
+
+msgid "Selected posts deleted."
+msgstr "پست‌های انتخاب‌شده حذف شدند."
+
+msgid "Category \"%s\" created."
+msgstr "دسته‌بندی «%s» ایجاد شد."
+
+msgid "Category name (English) is required."
+msgstr "نام انگلیسی دسته‌بندی الزامی است."
+
+msgid "Category \"%s\" updated."
+msgstr "دسته‌بندی «%s» به‌روزرسانی شد."
+
+msgid "That slug is already in use by another category."
+msgstr "این اسلاگ توسط دسته‌بندی دیگری استفاده شده است."
+
+msgid "Cannot delete \"%s\" — it has posts."
+msgstr "حذف «%s» ممکن نیست — این مورد دارای پست است."
+
+msgid "Category \"%s\" deleted."
+msgstr "دسته‌بندی «%s» حذف شد."
+
+msgid "Subcategory \"%s\" created."
+msgstr "زیردسته «%s» ایجاد شد."
+
+msgid "Subcategory name (English) is required."
+msgstr "نام انگلیسی زیردسته الزامی است."
+
+msgid "Subcategory \"%s\" updated."
+msgstr "زیردسته «%s» به‌روزرسانی شد."
+
+msgid "That slug is already in use by another subcategory."
+msgstr "این اسلاگ توسط زیردسته دیگری استفاده شده است."
+
+msgid "Subcategory \"%s\" deleted."
+msgstr "زیردسته «%s» حذف شد."
+
+msgid "Post type \"%s\" created."
+msgstr "نوع پست «%s» ایجاد شد."
+
+msgid "Post type name (English) is required."
+msgstr "نام انگلیسی نوع پست الزامی است."
+
+msgid "Post type \"%s\" updated."
+msgstr "نوع پست «%s» به‌روزرسانی شد."
+
+msgid "That slug is already in use by another post type."
+msgstr "این اسلاگ توسط نوع پست دیگری استفاده شده است."
+
+msgid "Cannot delete \"%s\" — posts use this type."
+msgstr "حذف «%s» ممکن نیست — پست‌هایی از این نوع استفاده می‌کنند."
+
+msgid "Post type \"%s\" deleted."
+msgstr "نوع پست «%s» حذف شد."
+
+msgid "Tag \"%s\" created."
+msgstr "برچسب «%s» ایجاد شد."
+
+msgid "Tag deleted."
+msgstr "برچسب حذف شد."
+
+msgid "You cannot modify your own account from here."
+msgstr "شما نمی‌توانید حساب خود را از اینجا تغییر دهید."
+
+msgid "User \"%s\" active status updated."
+msgstr "وضعیت فعال بودن کاربر «%s» به‌روزرسانی شد."
+
+msgid "User \"%s\" site admin status updated."
+msgstr "وضعیت مدیریت سایت کاربر «%s» به‌روزرسانی شد."
+
+msgid "Page"
+msgstr "صفحه"
+
+msgid "Pages"
+msgstr "صفحه‌ها"
+
+msgid "You do not have permission to view this page. Admin access is required."
+msgstr "شما اجازه دسترسی به این صفحه را ندارید. دسترسی مدیر لازم است."
+
+msgid "If you believe this is a mistake, please contact the site administrator."
+msgstr "اگر فکر می‌کنید این یک اشتباه است، لطفاً با مدیر سایت تماس بگیرید."
+
+msgid "Access Denied"
+msgstr "دسترسی غیرمجاز"
+
+msgid "The page you are looking for has been moved, deleted, or never existed."
+msgstr "صفحه‌ای که به دنبال آن هستید منتقل یا حذف شده، یا هرگز وجود نداشته است."
+
+msgid "Go to Home"
+msgstr "رفتن به خانه"
+
+msgid "Browse News"
+msgstr "مشاهده اخبار"
+
+msgid "You might also try checking the URL for typos, or use the search page to find what you need."
+msgstr "همچنین می‌توانید نشانی را از نظر اشتباه تایپی بررسی کنید، یا از صفحه جستجو برای یافتن آنچه نیاز دارید استفاده کنید."
+
+msgid "Page Not Found"
+msgstr "صفحه پیدا نشد"
+
+msgid "Dismiss"
+msgstr "بستن"
+
+msgid "Back to top"
+msgstr "بازگشت به بالا"
+
+msgid "OpenSrc Persian RSS Feed"
+msgstr "خوراک RSS منبع باز پارسی"
+
+msgid "Quick search"
+msgstr "جستجوی سریع"
+
+msgid "Search posts"
+msgstr "جستجوی پست‌ها"
+
+msgid "Search…"
+msgstr "جستجو…"
+
+msgid "Submit search"
+msgstr "ارسال جستجو"
+
+msgid "Last updated:"
+msgstr "آخرین به‌روزرسانی:"
+
+msgid "Back to Home"
+msgstr "بازگشت به خانه"
+
+msgid "OpenSrc Persian — Latest Posts"
+msgstr "منبع باز پارسی — تازه‌ترین پست‌ها"
+
+msgid "Latest news and articles from OpenSrc Persian."
+msgstr "تازه‌ترین اخبار و مقالات از منبع باز پارسی."
+
+msgid "Could not determine file type."
+msgstr "نوع فایل قابل تشخیص نیست."
+
+msgid "Invalid file content (detected type: %(mime)s). Please upload a file matching its extension."
+msgstr "محتوای فایل نامعتبر است (نوع شناسایی‌شده: %(mime)s). لطفاً فایلی متناسب با پسوند آن بارگذاری کنید."
+
+msgid "Please upload a valid image file (JPEG, PNG, GIF, or WebP)."
+msgstr "لطفاً یک فایل تصویری معتبر (JPEG، PNG، GIF یا WebP) بارگذاری کنید."
+
+msgid "Search and select tags…"
+msgstr "جستجو و انتخاب برچسب‌ها…"
+
+msgid "Type to search when you have many tags."
+msgstr "اگر برچسب‌های زیادی دارید، برای جستجو تایپ کنید."
+
+msgid "File type \"%(ext)s\" is not allowed. Permitted types: %(types)s"
+msgstr "نوع فایل «%(ext)s» مجاز نیست. انواع مجاز: %(types)s"
+
+msgid "Attachment too large (max %(max_mb)s MB)."
+msgstr "حجم پیوست زیاد است (حداکثر %(max_mb)s مگابایت)."
+
+msgid "Hex color used for article accents (e.g. #ffcc00)"
+msgstr "رنگ هگز استفاده‌شده برای تأکیدهای مقاله (مثلاً #ffcc00)"
+
+msgid "Post type"
+msgstr "نوع پست"
+
+msgid "Post types"
+msgstr "انواع پست"
+
+msgid "Tag"
+msgstr "برچسب"
+
+msgid "First and last name, or team name"
+msgstr "نام و نام خانوادگی، یا نام تیم"
+
+msgid "Short intro / excerpt"
+msgstr "معرفی کوتاه / چکیده"
+
+msgid "Describe the image for screen readers (leave blank if purely decorative)"
+msgstr "تصویر را برای صفحه‌خوان‌ها توصیف کنید (در صورت تزئینی بودن خالی بگذارید)"
+
+msgid "Show?"
+msgstr "نمایش؟"
+
+msgid "Post"
+msgstr "پست"
+
+msgid "Posts"
+msgstr "پست‌ها"
+
+msgid "Enter a valid hex colour (e.g. #ffcc00)."
+msgstr "یک رنگ هگز معتبر وارد کنید (مثلاً #ffcc00)."
+
+msgid "Breadcrumb"
+msgstr "مسیر صفحه"
+
+msgid "Recent Posts"
+msgstr "پست‌های اخیر"
+
+msgid "Copy link to clipboard"
+msgstr "کپی پیوند در کلیپ‌بورد"
+
+msgid "Copy link"
+msgstr "کپی پیوند"
+
+msgid "Copied!"
+msgstr "کپی شد!"
+
+msgid "Estimated reading time"
+msgstr "زمان تقریبی مطالعه"
+
+msgid "min read"
+msgstr "دقیقه مطالعه"
+
+msgid "Table of contents"
+msgstr "فهرست مطالب"
+
+msgid "Contents"
+msgstr "فهرست"
+
+msgid "Downloadable attachment"
+msgstr "پیوست قابل دانلود"
+
+msgid "Related file"
+msgstr "فایل پیوست"
+
+msgid "OpenSrc Persian advocates for software freedom and digital rights."
+msgstr "منبع باز پارسی از آزادی نرم‌افزار و حقوق دیجیتال دفاع می‌کند."
+
+msgid "Learn more"
+msgstr "بیشتر بدانید"
+
+msgid "Latest news, announcements, and articles from the OpenSrc Persian."
+msgstr "تازه‌ترین اخبار، اطلاعیه‌ها و مقالات از منبع باز پارسی."
+
+msgid "Use the filters above to search posts. Leave keywords empty to browse by category, subcategory, type, tag, or date only."
+msgstr "از فیلترهای بالا برای جستجوی پست‌ها استفاده کنید. برای مرور فقط بر اساس دسته‌بندی، زیردسته، نوع، برچسب یا تاریخ، کلمات کلیدی را خالی بگذارید."
+
+msgid "Keywords"
+msgstr "کلمات کلیدی"
+
+msgid "Search title, body, author..."
+msgstr "جستجو در عنوان، متن، نویسنده..."
+
+msgid "All tags"
+msgstr "همه برچسب‌ها"
+
+msgid "Date from"
+msgstr "از تاریخ"
+
+msgid "Date to"
+msgstr "تا تاریخ"
+
+msgid "Search posts by keyword, category, subcategory, type, tag, and date range."
+msgstr "جستجوی پست‌ها بر اساس کلمه کلیدی، دسته‌بندی، زیردسته، نوع، برچسب و بازه تاریخ."
+
+# Pending comments count
+msgid "pending"
+msgstr "در انتظار"
+
+# Comment section
+msgid "Comments"
+msgstr "نظرات"
+
+msgid "No comments yet. Be the first to comment!"
+msgstr "هنوز نظری ثبت نشده. اولین نفری باشید که نظر می‌دهد!"
+
+msgid "Commenting as"
+msgstr "نظر دادن به عنوان"
+
+msgid "Comment"
+msgstr "نظر"
+
+msgid "Write your comment…"
+msgstr "نظر خود را بنویسید…"
+
+msgid "Submit comment"
+msgstr "ارسال نظر"
+
+msgid "Your comment will appear after admin approval."
+msgstr "نظر شما پس از تأیید مدیر نمایش داده خواهد شد."
+
+msgid "Login to comment"
+msgstr "برای نظر دادن وارد شوید"
+
+# Forum
+msgid "Forum"
+msgstr "انجمن"
+
+msgid "New Thread"
+msgstr "موضوع جدید"
+
+msgid "Sticky"
+msgstr "سنجاق‌شده"
+
+msgid "Closed"
+msgstr "بسته شده"
+
+msgid "ago"
+msgstr "پیش"
+
+msgid "Replies"
+msgstr "پاسخ‌ها"
+
+msgid "replies"
+msgstr "پاسخ"
+
+msgid "Views"
+msgstr "بازدیدها"
+
+msgid "views"
+msgstr "بازدید"
+
+msgid "No threads yet. Be the first to start a discussion!"
+msgstr "هنوز موضوعی نیست. اولین نفری باشید که بحث را شروع می‌کند!"
+
+msgid "Thread pagination"
+msgstr "صفحه‌بندی موضوعات"
+
+msgid "Post pagination"
+msgstr "صفحه‌بندی پست‌ها"
+
+msgid "of"
+msgstr "از"
+
+msgid "Unpin"
+msgstr "جدا کردن سنجاق"
+
+msgid "Pin"
+msgstr "سنجاق کردن"
+
+msgid "Open"
+msgstr "باز کردن"
+
+msgid "Close"
+msgstr "بستن"
+
+msgid "Delete this thread?"
+msgstr "این موضوع حذف شود؟"
+
+msgid "This thread is closed. No new replies can be posted."
+msgstr "این موضوع بسته شده است. پاسخ جدیدی نمی‌توان ثبت کرد."
+
+msgid "Post a Reply"
+msgstr "ارسال پاسخ"
+
+msgid "Body"
+msgstr "متن"
+
+msgid "Write your reply…"
+msgstr "پاسخ خود را بنویسید…"
+
+msgid "Post Reply"
+msgstr "ارسال پاسخ"
+
+msgid "Please"
+msgstr "لطفاً"
+
+msgid "log in"
+msgstr "وارد شوید"
+
+msgid "to post a reply."
+msgstr "تا پاسخ ثبت کنید."
+
+msgid "Community discussion boards"
+msgstr "تابلوهای بحث جامعه"
+
+msgid "New Board"
+msgstr "تابلوی جدید"
+
+msgid "threads"
+msgstr "موضوعات"
+
+msgid "posts"
+msgstr "پست‌ها"
+
+msgid "Last post"
+msgstr "آخرین پست"
+
+msgid "No posts yet"
+msgstr "هنوز پستی نیست"
+
+msgid "No forum boards available."
+msgstr "هیچ تابلوی انجمنی موجود نیست."
+
+msgid "in"
+msgstr "در"
+
+msgid "Write your post…"
+msgstr "پست خود را بنویسید…"
+
+msgid "Create Thread"
+msgstr "ایجاد موضوع"
+
+msgid "Create a new discussion board"
+msgstr "ایجاد تابلوی بحث جدید"
+
+msgid "Description (English)"
+msgstr "توضیحات (انگلیسی)"
+
+msgid "Description (Persian)"
+msgstr "توضیحات (فارسی)"
+
+msgid "Create Board"
+msgstr "ایجاد تابلو"
+
+msgid "Edit your post…"
+msgstr "پست خود را ویرایش کنید…"
+
+# Error pages
+msgid "Server Error"
+msgstr "خطای سرور"
+
+msgid "Something went wrong on our end. The error has been logged and our team has been notified."
+msgstr "مشکلی در سمت ما پیش آمده است. خطا ثبت شده و تیم ما مطلع شده است."
+
+msgid "Try Again"
+msgstr "دوباره تلاش کنید"
+
+msgid "If this problem persists, please contact the site administrator."
+msgstr "اگر این مشکل ادامه داشت، لطفاً با مدیر سایت تماس بگیرید."
+
+# Post form validation
+msgid "Body is too long (%(length)s characters). Maximum is %(max)s."
+msgstr "متن بیش از حد طولانی است (%(length)s نویسه). حداکثر %(max)s است."
+
+# Post detail page
+msgid "Page views"
+msgstr "بازدیدهای صفحه"
+
+msgid "Unique visitors"
+msgstr "بازدیدکنندگان یکتا"
+
+msgid "unique"
+msgstr "یکتا"
+
+# Post editor
+msgid "No tags found"
+msgstr "برچسبی یافت نشد"
+
+# Certificate form validation
+msgid "Icon must be under 2 MB."
+msgstr "آیکون باید کمتر از ۲ مگابایت باشد."
+
+msgid "Only image files are allowed for the icon."
+msgstr "فقط فایل‌های تصویری برای آیکون مجاز هستند."
+
+# Certificate form fields
+msgid "Certificate"
+msgstr "گواهی"
+
+msgid "Optional note..."
+msgstr "یادداشت اختیاری..."
+
+# Certificate validation
+msgid "The certificate '%s' is no longer active."
+msgstr "گواهی '%s' دیگر فعال نیست."
+
+msgid "%s already has the '%s' certificate."
+msgstr "%s قبلاً گواهی '%s' را دارد."
+
+# Certificate revoke
+msgid "Certificate \"%s\" revoked from %s."
+msgstr "گواهی «%s» از %s لغو شد."
+
+# Subcategory loading states
+msgid "Loading…"
+msgstr "در حال بارگذاری…"
+
+msgid "Error loading subcategories"
+msgstr "خطا در بارگذاری زیرمجموعه‌ها"
+
+# Upload messages
+msgid "Upload failed."
+msgstr "بارگذاری ناموفق بود."
+
+msgid "Upload cancelled."
+msgstr "بارگذاری لغو شد."
+
+# Post form field labels
+msgid "Post Type"
+msgstr "نوع مقاله"
+
+msgid "Author Name"
+msgstr "نام نویسنده"
+
+msgid "Summary"
+msgstr "خلاصه"
+
+msgid "Cover Image"
+msgstr "تصویر کاور"
+
+msgid "Cover Alt Text"
+msgstr "متن جایگزین تصویر"
+
+msgid "Attachment"
+msgstr "پیوست"
+
+msgid "Publish Date"
+msgstr "تاریخ انتشار"

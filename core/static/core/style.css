@@ -1,0 +1,60 @@
+/* ═══════════════════════════════════════════════════════════
+   OpenSrc Persian — GNU-Inspired Stylesheet
+   ═══════════════════════════════════════════════════════════
+   This file is the import hub for all CSS partials.
+   Edit the individual _*.css files in css/ for targeted changes.
+   ═══════════════════════════════════════════════════════════ */
+
+/* Design Tokens */
+@import url('css/_variables.css');
+
+/* Reset & Base Styles */
+@import url('css/_base.css');
+
+/* Top Bar, Site Header, Hamburger Menu */
+@import url('css/_header.css');
+
+/* Main Navigation & Dropdowns */
+@import url('css/_nav.css');
+
+/* Page Layout & Sidebar */
+@import url('css/_layout.css');
+
+/* Hero, Buttons, Section Divider */
+@import url('css/_hero-buttons.css');
+
+/* Homepage — Pillars, News List, CTA Banner */
+@import url('css/_home.css');
+
+/* Article Page — Detail, Meta, Download, Tags, Related */
+@import url('css/_article.css');
+
+/* Archive, Post Cards, Cover Thumbnails */
+@import url('css/_archive-cards.css');
+
+/* Search Form */
+@import url('css/_search.css');
+
+/* User Panel — Layout, Tabs, Cards, Forms, Tables, Badges */
+@import url('css/_panel.css');
+
+/* Taxonomy Admin — Tabs, Cards, Forms, Items */
+@import url('css/_taxonomy.css');
+
+/* Error Pages (404, 403, 500) */
+@import url('css/_error-pages.css');
+
+/* Comments Section */
+@import url('css/_comments.css');
+
+/* Admin Utilities — Filter Bar, Bulk Actions, Sort, Loading */
+@import url('css/_admin-utils.css');
+
+/* Forum — Board List, Thread List, Posts, Mod Bar, Reply */
+@import url('css/_forum.css');
+
+/* Admonitions (!!! note, !!! warning) + Math containers + Syntax Highlighting */
+@import url('css/_admonitions.css');
+
+/* Responsive Breakpoints & Footer */
+@import url('css/_responsive.css');

@@ -1,0 +1,55 @@
+{% extends "accounts/panel.html" %}
+{% load i18n post_extras %}
+
+{% block title %}{% trans "My Certificates" %} — OpenSrc Persian{% endblock %}
+
+{% block panel_content %}
+<header class="panel-page-header">
+  <div>
+    <h2 class="panel-page-title">{% trans "My Certificates" %}</h2>
+    <p class="panel-page-subtitle">{% trans "Badges and achievements granted to you." %}</p>
+  </div>
+</header>
+
+{% if certs %}
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.5rem">
+  {% for uc in certs %}
+  <div class="panel-card" style="padding:1.5rem;border-left:4px solid {{ uc.certificate.accent_color|css_color }}">
+    <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:0.75rem">
+      {% if uc.certificate.icon %}
+      <img src="{{ uc.certificate.icon.url }}" alt="{{ uc.certificate.name }}" width="48" height="48" loading="lazy" style="border-radius:50%">
+      {% else %}
+      <span style="width:48px;height:48px;border-radius:50%;background:{{ uc.certificate.accent_color|css_color }};display:inline-block;flex-shrink:0"></span>
+      {% endif %}
+      <div>
+        <strong style="font-size:1.1rem">{{ uc.certificate.name }}</strong>
+        {% if uc.certificate.name_fa %}
+        <div style="color:var(--text-muted);direction:rtl;font-size:0.9rem" lang="fa">{{ uc.certificate.name_fa }}</div>
+        {% endif %}
+      </div>
+    </div>
+    {% if uc.certificate.description %}
+    <p style="margin:0.5rem 0;font-size:0.9rem">{{ uc.certificate.description }}</p>
+    {% endif %}
+    <p style="margin:0.25rem 0;font-size:0.82rem;color:var(--text-muted)">
+      {% trans "Granted by" %} {{ uc.granted_by.username|default:"—" }} · {{ uc.granted_at|date:"F j, Y" }}
+    </p>
+    {% if uc.note %}
+    <blockquote style="margin:0.5rem 0;padding:0.5rem 0.75rem;border-left:3px solid var(--border);font-style:italic;font-size:0.85rem;color:var(--text-muted)">
+      {{ uc.note }}
+    </blockquote>
+    {% endif %}
+    {% if uc.is_visible %}
+    <span class="panel-badge panel-badge--success">{% trans "Visible" %}</span>
+    {% else %}
+    <span class="panel-badge panel-badge--muted">{% trans "Hidden from profile" %}</span>
+    {% endif %}
+  </div>
+  {% endfor %}
+</div>
+{% else %}
+<div class="panel-card" style="padding:2rem;text-align:center">
+  <p style="color:var(--text-muted)">{% trans "You haven't received any certificates yet." %}</p>
+</div>
+{% endif %}
+{% endblock %}

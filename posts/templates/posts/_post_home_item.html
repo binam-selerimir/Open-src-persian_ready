@@ -1,0 +1,13 @@
+{% load post_extras %}
+<li class="news-item-home{% if post.cover_image %} has-cover{% endif %}">
+  <div class="news-item-home-content">
+    <span class="news-date">{{ post.pub_date|date:"j N Y" }}</span>
+    <a href="{{ post.get_absolute_url }}" class="news-title-link">{{ post.title }}</a>
+    <p class="news-excerpt">{% if post.summary %}{{ post.summary|truncatewords:30 }}{% else %}{{ post.body|post_excerpt:30 }}{% endif %}</p>
+  </div>
+  {% if post.cover_image %}
+  <div class="news-item-home-cover">
+    {% include "posts/_post_cover_thumb.html" %}
+  </div>
+  {% endif %}
+</li>

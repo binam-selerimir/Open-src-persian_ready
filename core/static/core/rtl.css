@@ -1,0 +1,77 @@
+/* RTL overrides — only loaded when lang=fa */
+
+html[lang="fa"] {
+  --font-sans: 'Vazirmatn', 'Tahoma', 'Arial', sans-serif;
+}
+
+html[lang="fa"] body {
+  direction: rtl;
+  text-align: start;
+  font-family: var(--font-sans);
+  font-weight: 300;
+}
+
+/* Persian headings use light weight (not bold) */
+html[lang="fa"] h1,
+html[lang="fa"] h2,
+html[lang="fa"] h3,
+html[lang="fa"] h4,
+html[lang="fa"] h5,
+html[lang="fa"] h6 {
+  font-weight: 300;
+}
+
+/* Forum — Persian light weight */
+html[lang="fa"] .forum-board-name,
+html[lang="fa"] .forum-thread-title,
+html[lang="fa"] .forum-post-author,
+html[lang="fa"] .forum-post-number,
+html[lang="fa"] .forum-post-avatar-placeholder,
+html[lang="fa"] .forum-reply-form h3,
+html[lang="fa"] .forum-login-prompt a,
+html[lang="fa"] .forum-post-content a,
+html[lang="fa"] .forum-last-post-label {
+  font-weight: 300;
+}
+
+/* Article — Persian light weight */
+html[lang="fa"] .article-date-line,
+html[lang="fa"] .article-meta a,
+html[lang="fa"] .article-tags-label,
+html[lang="fa"] .article-related-title,
+html[lang="fa"] .article-related-list a {
+  font-weight: 300;
+}
+
+/* direction:rtl already mirrors flex rows — do NOT row-reverse */
+[dir="rtl"] ul,
+[dir="rtl"] ol {
+  padding-inline-start: 1.5rem;
+  padding-inline-end: 0;
+}
+
+[dir="rtl"] .site-branding { align-items: flex-end; }
+
+[dir="rtl"] .site-tagline {
+  padding-inline-start: 2.8rem;
+  padding-inline-end: 0;
+}
+
+[dir="rtl"] .main-nav ul   { justify-content: flex-start; }
+
+[dir="rtl"] .news-author {
+  margin-inline-start: 0.5rem;
+  margin-inline-end: 0;
+}
+
+[dir="rtl"] .panel-form .form-row,
+[dir="rtl"] .panel-form p { direction: rtl; }
+
+[dir="rtl"] .panel-page-header  { flex-direction: row-reverse; }
+[dir="rtl"] .panel-form-actions { flex-direction: row-reverse; }
+[dir="rtl"] .profile-card       { flex-direction: row-reverse; }
+[dir="rtl"] .panel-top-user     { flex-direction: row-reverse; }
+[dir="rtl"] .news-header        { flex-direction: row-reverse; }
+[dir="rtl"] .hero-actions       { flex-direction: row-reverse; }
+[dir="rtl"] .filter-group       { flex-direction: row-reverse; }
+[dir="rtl"] .pagination         { flex-direction: row-reverse; }

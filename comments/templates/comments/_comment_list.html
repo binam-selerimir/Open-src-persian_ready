@@ -1,0 +1,36 @@
+{% load i18n comment_extras %}
+<section class="comments-section">
+  <h3 class="comments-title">{% trans "Comments" %} ({{ approved_comments|length }})</h3>
+
+  {% for comment in approved_comments %}
+  <div class="comment">
+    <div class="comment-meta">
+      <strong class="comment-author">{{ comment.author_name }}</strong>
+      <time class="comment-date" datetime="{{ comment.created_at|date:'Y-m-d\TH:i' }}">{{ comment.created_at|date:"j M Y H:i" }}</time>
+    </div>
+    <div class="comment-body">{{ comment.body|render_comment_body|linebreaks }}</div>
+  </div>
+  {% empty %}
+  <p class="comments-empty">{% trans "No comments yet. Be the first to comment!" %}</p>
+  {% endfor %}
+
+  {% if user.is_authenticated %}
+  <form method="post" action="{% url 'comments:add_comment' post.slug %}" class="comment-form">
+    {% csrf_token %}
+    <div class="comment-form-user">
+      <span class="comment-form-user-label">{% trans "Commenting as" %}</span>
+      <strong class="comment-form-user-name">{{ user.get_full_name_display|default:user.username }}</strong>
+      <span class="comment-form-user-email">({{ user.email }})</span>
+    </div>
+    <div class="comment-form-row">
+      <label for="id_body">{% trans "Comment" %}</label>
+      <textarea name="body" id="id_body" rows="4" required maxlength="2000" placeholder="{% trans 'Write your comment…' %}"></textarea>
+      <div class="form-char-count" id="comment-char-count">0 / 2000</div>
+    </div>
+    <button type="submit" class="btn-primary" data-loading-text="{% trans 'Submitting…' %}">{% trans "Submit comment" %}</button>
+    <p class="comment-notice">{% trans "Your comment will appear after admin approval." %}</p>
+  </form>
+  {% else %}
+  <p class="comment-login"><a href="{% url 'accounts:login' %}?next={{ request.path }}">{% trans "Login to comment" %}</a></p>
+  {% endif %}
+</section>

@@ -1,0 +1,132 @@
+/* ═══════════════════════════════════════════════════════════
+   Main Navigation & Dropdowns
+   ═══════════════════════════════════════════════════════════ */
+
+.main-nav { background: var(--navy-mid); border-top: 2px solid var(--gold); }
+
+.main-nav ul {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 1rem;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.main-nav a {
+  display: block;
+  padding: 0.65rem 1rem;
+  color: #c8dff0;
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 400;
+  transition: background var(--transition), color var(--transition);
+}
+.main-nav a:hover,
+.main-nav a.active { background: var(--navy-light); color: var(--gold); }
+.main-nav a.nav-admin { color: #7aa8cc; font-size: 0.85rem; }
+
+/* ── Dropdown navigation ──────────────────────────────────── */
+
+.main-nav ul li.has-dropdown { position: relative; }
+
+.main-nav ul li .dropdown {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: var(--navy-light);
+  min-width: 200px;
+  z-index: 200;
+  border: 1px solid var(--navy-mid);
+  border-top: 2px solid var(--gold);
+  padding: 0.25rem 0;
+  list-style: none;
+}
+.main-nav ul li.has-dropdown:hover .dropdown,
+.main-nav ul li.has-dropdown:focus-within .dropdown { display: block; }
+
+.main-nav ul li .dropdown li a {
+  display: block;
+  padding: 0.4rem 1rem;
+  color: var(--white);
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+.main-nav ul li .dropdown li a:hover { background: var(--navy-mid); color: var(--gold); }
+[dir="rtl"] .main-nav ul li .dropdown { left: auto; right: 0; }
+
+/* ── Inline nav search ───────────────────────────────────── */
+
+.nav-search {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  margin-inline-start: auto;
+  margin-inline-end: 0.75rem;
+}
+
+.nav-search-input {
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: var(--radius) 0 0 var(--radius);
+  color: var(--white);
+  padding: 0.3rem 0.6rem;
+  font-size: 0.85rem;
+  width: 180px;
+  transition: background var(--transition), border-color var(--transition);
+}
+.nav-search-input::placeholder { color: #8ab0d8; }
+.nav-search-input:focus {
+  outline: none;
+  background: rgba(255,255,255,0.2);
+  border-color: var(--gold);
+  width: 220px;
+}
+
+.nav-search-btn {
+  background: var(--gold);
+  border: 1px solid var(--gold);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  color: var(--navy);
+  padding: 0.3rem 0.55rem;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background var(--transition);
+}
+.nav-search-btn:hover { background: var(--gold-dark); }
+.nav-search-btn:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+
+/* ── POST-based logout button ────────────────────────────── */
+.nav-logout-btn {
+  background: none;
+  border: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  padding: var(--nav-link-padding, 0.6rem 1rem);
+  display: block;
+  width: 100%;
+  text-align: start;
+  text-decoration: none;
+  transition: background var(--transition), color var(--transition);
+}
+.nav-logout-btn:hover { background: var(--navy-light); color: var(--gold); }
+.nav-logout-btn:focus-visible { outline: 2px solid var(--gold); outline-offset: -2px; }
+
+/* ── Nav language switcher ──────────────────────────────── */
+.nav-lang-btn {
+  background: none;
+  border: none;
+  color: #c8dff0;
+  font: inherit;
+  cursor: pointer;
+  padding: 0.65rem 1rem;
+  display: block;
+  width: 100%;
+  text-align: start;
+  text-decoration: none;
+  transition: background var(--transition), color var(--transition);
+}
+.nav-lang-btn:hover { background: var(--navy-light); color: var(--gold); }
+.nav-lang-btn:focus-visible { outline: 2px solid var(--gold); outline-offset: -2px; }

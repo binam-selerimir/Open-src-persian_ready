@@ -1,0 +1,12 @@
+{% load static i18n %}
+<div id="editor-config" class="sr-only"
+     data-upload-failed="{% trans 'Upload failed.' %}"
+     data-upload-cancelled="{% trans 'Upload cancelled.' %}"
+     data-uploading="{% trans 'Uploading' %}"
+     data-upload-timeout="{% trans 'Upload timed out.' %}"
+     data-editor-load-failed="{% trans 'Rich text editor could not be loaded. You can still type plain text in the box below.' %}"></div>
+<script src="{% static 'accounts/editor-messages.js' %}"></script>
+<script src="{% static 'vendor/quill.js' %}"></script>
+<script src="{% static 'vendor/tom-select.complete.min.js' %}"></script>
+<script src="{% static 'core/editor-utils.js' %}"></script>
+<script src="{% static 'core/post-editor.js' %}"></script>

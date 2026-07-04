@@ -1,0 +1,5 @@
+{% if post.cover_image %}
+<a href="{{ post.get_absolute_url }}" class="post-cover-thumb" aria-hidden="true" tabindex="-1">
+  <img src="{{ post.cover_image.url }}" alt="" loading="lazy" width="88" height="50">
+</a>
+{% endif %}

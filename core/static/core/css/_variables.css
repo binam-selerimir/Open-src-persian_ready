@@ -1,0 +1,45 @@
+/* ═══════════════════════════════════════════════════════════
+   Design Tokens — Color palette, typography, spacing
+   ═══════════════════════════════════════════════════════════ */
+
+:root {
+  /* Primary Colors */
+  --navy:        #001a33;
+  --navy-light:  #002a52;
+  --navy-mid:    #00396e;
+  --gold:        #ffcc00;
+  --gold-dark:   #c89a00;
+
+  /* Neutrals */
+  --white:       #ffffff;
+  --off-white:   #f8f7f4;
+  --gray-100:    #f0eeeb;
+  --gray-200:    #e0ddd8;
+  --gray-400:    #b0ada8;
+  --gray-600:    #706d68;
+  --gray-800:    #3a3835;
+
+  /* Text Colors */
+  --text:        #1a1917;
+  --text-muted:  #5a5754;
+
+  /* Link Colors */
+  --link:        #004a99;
+  --link-hover:  #002a52;
+  --link-footer: #a8c8f0;
+
+  /* Border & Surface */
+  --border:      #d0cdc8;
+  --sidebar-bg:  #f0eeeb;
+  --code-bg:     #f4f2ee;
+
+  /* Typography */
+  --font-sans:   'Source Sans 3', 'Liberation Sans', Arial, sans-serif;
+  --font-mono:   'Liberation Mono', 'Courier New', monospace;
+
+  /* Spacing & Sizing */
+  --radius:      3px;
+  --max-width:   1100px;
+  --sidebar-w:   220px;
+  --transition:  0.18s ease;
+}

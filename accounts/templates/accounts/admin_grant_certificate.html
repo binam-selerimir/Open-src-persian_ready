@@ -1,0 +1,128 @@
+{% extends "accounts/panel.html" %}
+{% load i18n post_extras %}
+
+{% block title %}{% trans "Grant Certificates" %} — OpenSrc Persian{% endblock %}
+
+{% block panel_content %}
+<header class="panel-page-header">
+  <div>
+    <h2 class="panel-page-title">{% trans "Grant Certificates" %}</h2>
+    <p class="panel-page-subtitle">{% trans "Assign certificate badges to specific users." %}</p>
+  </div>
+</header>
+
+<!-- Grant Form -->
+<div class="panel-card" style="margin-bottom:1.5rem;padding:1.5rem">
+  <h3 style="margin-bottom:1rem">{% trans "Grant a Certificate" %}</h3>
+  <form method="post" class="panel-form">
+    {% csrf_token %}
+    <input type="hidden" name="action" value="grant">
+    {% if form.non_field_errors %}
+    <div class="panel-alert panel-alert--error" style="margin-bottom:1rem">
+      {% for error in form.non_field_errors %}<p>{{ error }}</p>{% endfor %}
+    </div>
+    {% endif %}
+    <div class="form-row">
+      <label for="{{ form.user.id_for_label }}">{% trans "User" %}</label>
+      <div>
+        {{ form.user }}
+        {% if form.user.errors %}
+        <ul class="form-errors">{% for e in form.user.errors %}<li>{{ e }}</li>{% endfor %}</ul>
+        {% endif %}
+      </div>
+    </div>
+    <div class="form-row">
+      <label for="{{ form.certificate.id_for_label }}">{% trans "Certificate" %}</label>
+      <div>
+        {{ form.certificate }}
+        {% if form.certificate.errors %}
+        <ul class="form-errors">{% for e in form.certificate.errors %}<li>{{ e }}</li>{% endfor %}</ul>
+        {% endif %}
+      </div>
+    </div>
+    <div class="form-row">
+      <label for="{{ form.note.id_for_label }}">{% trans "Note" %}</label>
+      <div>{{ form.note }}</div>
+    </div>
+    <div class="form-row">
+      <div></div>
+      <button type="submit" class="panel-btn panel-btn-primary">{% trans "Grant Certificate" %}</button>
+    </div>
+  </form>
+</div>
+
+<!-- Search -->
+<form class="admin-filter-bar" method="get" action="">
+  <input type="search" name="q" value="{{ q }}" placeholder="{% trans 'Search by username or certificate name…' %}" class="admin-search-input">
+  <button type="submit" class="panel-btn panel-btn-secondary">{% trans "Search" %}</button>
+  {% if q %}
+  <a href="{% url 'accounts:admin_grant_certificate' %}" class="panel-btn panel-btn-secondary">{% trans "Clear" %}</a>
+  {% endif %}
+</form>
+
+<p style="color:var(--text-muted);margin:0.5rem 0">{{ grants.paginator.count }} {% trans "grants" %}</p>
+
+<!-- Grants Table -->
+<div class="panel-table-wrap">
+  <table class="panel-table">
+    <thead>
+      <tr>
+        <th>{% trans "User" %}</th>
+        <th>{% trans "Certificate" %}</th>
+        <th>{% trans "Granted By" %}</th>
+        <th>{% trans "Date" %}</th>
+        <th>{% trans "Note" %}</th>
+        <th>{% trans "Revoke" %}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for grant in grants %}
+      <tr>
+        <td>
+          <a href="{% url 'accounts:public_profile' grant.user.username %}">{{ grant.user.username }}</a>
+        </td>
+        <td>
+          <span style="display:inline-flex;align-items:center;gap:0.35rem">
+            <span style="width:12px;height:12px;border-radius:50%;background:{{ grant.certificate.accent_color|css_color }};display:inline-block"></span>
+            {{ grant.certificate.name }}
+          </span>
+        </td>
+        <td>{{ grant.granted_by.username|default:"—" }}</td>
+        <td>{{ grant.granted_at|date:"Y-m-d" }}</td>
+        <td>{{ grant.note|truncatechars:60|default:"—" }}</td>
+        <td>
+          <form method="post" style="display:inline" onsubmit="return confirm('{% trans "Revoke this certificate?" %}');">
+            {% csrf_token %}
+            <input type="hidden" name="action" value="revoke">
+            <input type="hidden" name="grant_id" value="{{ grant.pk }}">
+            <button type="submit" class="panel-btn panel-btn-sm panel-btn-danger">{% trans "Revoke" %}</button>
+          </form>
+        </td>
+      </tr>
+      {% empty %}
+      <tr>
+        <td colspan="6" class="panel-table-empty">{% trans "No grants found." %}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{% if grants.has_other_pages %}
+<nav class="pagination" aria-label="{% trans 'Grants pagination' %}">
+  {% if grants.has_previous %}
+    <a href="?page={{ grants.previous_page_number }}{% if q %}&q={{ q }}{% endif %}" class="page-link">&laquo; {% trans "Previous" %}</a>
+  {% else %}
+    <span class="page-link disabled">&laquo; {% trans "Previous" %}</span>
+  {% endif %}
+  <span class="page-info">
+    {% blocktrans with num=grants.number total=grants.paginator.num_pages %}Page {{ num }} of {{ total }}{% endblocktrans %}
+  </span>
+  {% if grants.has_next %}
+    <a href="?page={{ grants.next_page_number }}{% if q %}&q={{ q }}{% endif %}" class="page-link">{% trans "Next" %} &raquo;</a>
+  {% else %}
+    <span class="page-link disabled">{% trans "Next" %} &raquo;</span>
+  {% endif %}
+</nav>
+{% endif %}
+{% endblock %}

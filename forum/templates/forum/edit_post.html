@@ -1,0 +1,71 @@
+{% extends "core/base.html" %}
+{% load i18n static %}
+
+{% block title %}{% trans "Edit Post" %} — {% trans "Forum" %}{% endblock %}
+
+{% block content %}
+<div class="container">
+  <nav class="breadcrumb" aria-label="{% trans 'Breadcrumb' %}">
+    <ol>
+      <li><a href="{% url 'forum:index' %}">{% trans "Forum" %}</a></li>
+      <li><a href="{% url 'forum:board_detail' thread.board.slug %}">{% if LANGUAGE_CODE == 'fa' and thread.board.name_fa %}{{ thread.board.name_fa }}{% else %}{{ thread.board.name_en }}{% endif %}</a></li>
+      <li><a href="{{ thread.get_absolute_url }}">{{ thread.title|truncatechars:40 }}</a></li>
+      <li aria-current="page">{% trans "Edit Post" %}</li>
+    </ol>
+  </nav>
+
+  <header class="page-header">
+    <h1 class="page-title">{% trans "Edit Post" %}</h1>
+  </header>
+
+  <div class="panel-card">
+    <form method="post" class="panel-form">
+      {% csrf_token %}
+      {% if form.non_field_errors %}
+      <div class="form-row--error">
+        <ul class="errorlist">{% for error in form.non_field_errors %}<li>{{ error }}</li>{% endfor %}</ul>
+      </div>
+      {% endif %}
+      <div class="form-row{% if form.body.errors %} form-row--error{% endif %}">
+        <label for="id_body">{% trans "Body" %}</label>
+        <div class="richtext-editor-wrap"{% if form.body.errors %} aria-describedby="id_body-errors"{% endif %}>
+          <div id="forum-quill-editor" class="richtext-editor"
+               data-placeholder="{% trans 'Edit your post…' %}"
+               data-upload-url="{% url 'forum:upload_media' %}"
+               data-textarea-id="id_body"
+               data-forum-editor></div>
+          <textarea name="body" id="id_body" class="richtext-source" rows="12">{{ form.body.value|default:'' }}</textarea>
+          <input type="file" id="forum-quill-editor-file-input" class="sr-only" accept="image/jpeg,image/png,image/gif,image/webp">
+        </div>
+        {% if form.body.errors %}
+          <ul class="errorlist" id="id_body-errors">{% for error in form.body.errors %}<li>{{ error }}</li>{% endfor %}</ul>
+        {% endif %}
+      </div>
+      <div class="panel-form-actions">
+        <button type="submit" class="panel-btn panel-btn-primary" data-loading-text="{% trans 'Saving…' %}">{% trans "Save Changes" %}</button>
+        <a href="{{ thread.get_absolute_url }}" class="panel-btn panel-btn-secondary">{% trans "Cancel" %}</a>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_head %}
+{{ block.super }}
+<link href="{% static 'vendor/quill.snow.css' %}" rel="stylesheet" />
+<link rel="stylesheet" href="{% static 'core/post-editor.css' %}" />
+{% endblock %}
+
+{% block extra_scripts %}
+{{ block.super }}
+<div id="editor-config" class="sr-only"
+     data-upload-failed="{% trans 'Upload failed.' %}"
+     data-upload-cancelled="{% trans 'Upload cancelled.' %}"
+     data-uploading="{% trans 'Uploading' %}"
+     data-upload-timeout="{% trans 'Upload timed out.' %}"
+     data-editor-load-failed="{% trans 'Rich text editor could not be loaded. You can still type plain text in the box below.' %}"></div>
+<script src="{% static 'accounts/editor-messages.js' %}"></script>
+<script src="{% static 'vendor/quill.js' %}"></script>
+<script src="{% static 'core/editor-utils.js' %}"></script>
+<script src="{% static 'forum/forum-editor.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,66 @@
+{% extends "core/base.html" %}
+{% block body_class %} layout--no-sidebar{% endblock %}
+{% load i18n %}
+
+{% block title %}{% trans "About" %} — OpenSrc Persian{% endblock %}
+{% block description %}{% trans "Learn about OpenSrc Persian's mission to make knowledge available in Persian and share it with the world." %}{% endblock %}
+
+{% block content %}
+<article class="article-single">
+  <header class="article-header">
+    <h1>{% trans "About OpenSrc Persian" %}</h1>
+  </header>
+
+  <div class="article-body">
+    <p>
+      {% blocktrans %}OpenSrc Persian is a free, community-driven platform with a single purpose: making knowledge available in Persian and sharing it with the world, without any barriers. We believe that language should never be a reason someone is excluded from learning — and that access to knowledge is a right, not a privilege.{% endblocktrans %}
+    </p>
+
+    <h2>{% trans "What We Offer" %}</h2>
+    <p>{% trans "We collect, create, and share a wide range of content:" %}</p>
+    <ul>
+      <li>{% trans "Scientific and research articles" %}</li>
+      <li>{% trans "Academic documents and references" %}</li>
+      <li>{% trans "Documentation" %}</li>
+      <li>{% trans "Book translations" %}</li>
+      <li>{% trans "Game subtitle localizations" %}</li>
+      <li>{% trans "Tutorials, guides, and educational resources" %}</li>
+      <li>{% trans "Discussions around free software and digital rights" %}</li>
+    </ul>
+    <p>
+      {% blocktrans %}Everything on this site is completely free. No subscriptions, no payments, no advertisements — and no hidden agenda. (Maybe.){% endblocktrans %}
+    </p>
+
+    <h2>{% trans "How We Work" %}</h2>
+    <p>
+      {% blocktrans %}OpenSrc Persian is run entirely by volunteers. We are not able to pay contributors, and we say so honestly. What we offer instead is a space where your work reaches people who genuinely need it — and where it stands alongside others who share the same values. If you are passionate about spreading knowledge, translating useful content, promoting scientific thinking, or simply contributing to the Persian-speaking community — we invite you to join us.{% endblocktrans %}
+    </p>
+
+    <h2>{% trans "What We Stand For" %}</h2>
+    <p>
+      {% blocktrans %}Beyond content, we care about the principles behind it. OpenSrc Persian supports organizations that defend software freedom and an open internet. We encourage our community to write about free and open-source software issues and share their knowledge, exchange their experiences, and engage in the broader global conversation about digital rights. An informed community is a stronger one.{% endblocktrans %}
+    </p>
+
+    <h2>{% trans "License" %}</h2>
+    <p>
+      {% blocktrans %}All content published on OpenSrc Persian is free to read and share for personal, non-commercial use, under the following conditions:{% endblocktrans %}
+    </p>
+    <ul>
+      <li>{% trans "Credit is required. When sharing or referencing any work, the name of the original author or translator must be clearly stated." %}</li>
+      <li>{% trans "Commercial use is not permitted without explicit permission from the author or translator." %}</li>
+      <li>{% trans "Republishing the work elsewhere — in full or in part — requires crediting the author or obtaining their explicit permission." %}</li>
+    </ul>
+    <p>{% trans "We ask everyone to respect the time and effort behind each contribution." %}</p>
+
+    <h2>{% trans "Profile Privacy Note" %}</h2>
+    <p>
+      {% blocktrans %}Profile details are visible to all users. If you prefer that others do not have access to your professional or personal information, please leave the profile section empty.{% endblocktrans %}
+    </p>
+
+    <h2>{% trans "Contact" %}</h2>
+    <p>
+      {% blocktrans %}<strong>Telegram:</strong> @opensrcpersian{% endblocktrans %}
+    </p>
+  </div>
+</article>
+{% endblock %}

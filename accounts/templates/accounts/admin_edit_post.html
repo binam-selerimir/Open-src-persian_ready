@@ -1,0 +1,156 @@
+{% extends "accounts/panel.html" %}
+{% load i18n panel_extras %}
+
+{% block title %}{% trans "Edit Post" %} — OpenSrc Persian{% endblock %}
+
+{% block extra_head %}
+{% include "accounts/_post_editor_head.html" %}
+{% endblock %}
+
+{% block panel_content %}
+<header class="panel-page-header">
+  <div>
+    <h2 class="panel-page-title">{% trans "Edit Post" %}</h2>
+    <p class="panel-page-subtitle">{{ post.title }}</p>
+  </div>
+  <a href="{% url 'accounts:admin_posts' %}" class="panel-btn panel-btn-secondary">{% trans "Back to posts" %}</a>
+</header>
+
+<form method="post" enctype="multipart/form-data" class="panel-form panel-form--post">
+  {% csrf_token %}
+  {% if form.non_field_errors %}
+  <div class="panel-form-errors">{{ form.non_field_errors }}</div>
+  {% endif %}
+
+  <section class="panel-form-section">
+    <h3 class="panel-form-section-title">{% trans "Basic info" %}</h3>
+    <fieldset class="panel-fieldset">
+      {% for field in form.visible_fields %}
+        {% if field.name|in_field_group:"title,slug,category,subcategory,post_type,author_name" %}
+        <div class="form-row{% if field.errors %} form-row--error{% endif %}">
+          <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+          <div class="form-row-input">
+            {{ field }}
+            {% if field.name == 'slug' %}
+            <span class="helptext slug-warning"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: -2px"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> {% trans "Changing the slug will break existing links to this post." %}</span>
+            {% elif field.help_text %}
+            <span class="helptext">{{ field.help_text }}</span>
+            {% endif %}
+            {% if field.errors %}<ul class="errorlist">{% for e in field.errors %}<li>{{ e }}</li>{% endfor %}</ul>{% endif %}
+          </div>
+        </div>
+        {% endif %}
+      {% endfor %}
+    </fieldset>
+  </section>
+
+  <section class="panel-form-section">
+    <h3 class="panel-form-section-title">{% trans "Content" %}</h3>
+    <fieldset class="panel-fieldset">
+      <div class="form-row form-row--full{% if form.summary.errors %} form-row--error{% endif %}">
+        <label for="id_summary">{{ form.summary.label }}</label>
+        <div class="form-row-input">
+          {{ form.summary }}
+          {% if form.summary.errors %}<ul class="errorlist">{% for e in form.summary.errors %}<li>{{ e }}</li>{% endfor %}</ul>{% endif %}
+        </div>
+      </div>
+      {% include "accounts/_post_body_field.html" %}
+    </fieldset>
+  </section>
+
+  <section class="panel-form-section">
+    <h3 class="panel-form-section-title">{% trans "Media & tags" %}</h3>
+    <fieldset class="panel-fieldset">
+      {% include "accounts/_post_media_fields.html" %}
+    </fieldset>
+  </section>
+
+  <section class="panel-form-section">
+    <h3 class="panel-form-section-title">{% trans "Publishing" %}</h3>
+    <fieldset class="panel-fieldset">
+      {% for field in form.visible_fields %}
+        {% if field.name|in_field_group:"reading_time_override,pub_date,is_visible" %}
+        <div class="form-row{% if field.errors %} form-row--error{% endif %}">
+          <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+          <div class="form-row-input">{{ field }}
+            {% if field.errors %}<ul class="errorlist">{% for e in field.errors %}<li>{{ e }}</li>{% endfor %}</ul>{% endif %}
+          </div>
+        </div>
+        {% endif %}
+      {% endfor %}
+    </fieldset>
+  </section>
+
+  <div class="panel-form-actions">
+    <button type="submit" class="panel-btn panel-btn-primary" id="edit-post-submit">{% trans "Save Changes" %}</button>
+    <a href="{% url 'accounts:admin_posts' %}" class="panel-btn panel-btn-secondary">{% trans "Cancel" %}</a>
+  </div>
+</form>
+
+<!-- Comments Section -->
+<section class="panel-form-section" id="comments-section">
+  <h3 class="panel-form-section-title">
+    {% trans "Comments" %}
+    <span class="panel-badge panel-badge--gold">{{ post_comments|length }}</span>
+  </h3>
+
+  {% if post_comments %}
+  <form method="post" data-no-disable data-no-action-msg="{% trans 'Please select comments.' %}">
+    {% csrf_token %}
+    <input type="hidden" name="form_type" value="comment_action">
+    <div class="bulk-action-bar" id="comment-bulk-bar" style="display:none">
+      <span class="bulk-count" id="comment-bulk-count" data-label="{% trans 'selected' %}">0 {% trans "selected" %}</span>
+      <select name="comment_action">
+        <option value="">{% trans "Action…" %}</option>
+        <option value="approve">{% trans "Approve selected" %}</option>
+        <option value="reject">{% trans "Reject selected" %}</option>
+        <option value="delete">{% trans "Delete selected" %}</option>
+      </select>
+      <button type="submit" class="panel-btn panel-btn-secondary">{% trans "Apply" %}</button>
+    </div>
+
+    <div class="panel-table-wrap">
+      <table class="panel-table">
+        <thead>
+          <tr>
+            <th class="col-check"><input type="checkbox" id="select-all-comments" aria-label="{% trans 'Select all comments' %}"></th>
+            <th>{% trans "Author" %}</th>
+            <th>{% trans "Comment" %}</th>
+            <th>{% trans "Status" %}</th>
+            <th>{% trans "Date" %}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for comment in post_comments %}
+          <tr>
+            <td class="col-check"><input type="checkbox" name="selected_comments" value="{{ comment.pk }}" class="comment-checkbox" aria-label="{% trans 'Select comment' %}"></td>
+            <td>
+              <strong>{{ comment.author_name }}</strong>
+              <br><span class="panel-table-date">{{ comment.author_email }}</span>
+            </td>
+            <td class="panel-table-title">{{ comment.body|truncatechars:120 }}</td>
+            <td>
+              {% if comment.is_approved %}
+              <span class="panel-badge panel-badge--success">{% trans "Approved" %}</span>
+              {% else %}
+              <span class="panel-badge panel-badge--gold">{% trans "Pending" %}</span>
+              {% endif %}
+            </td>
+            <td class="panel-table-date">{{ comment.created_at|date:"j M Y H:i" }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </form>
+  {% else %}
+  <p class="panel-table-empty">{% trans "No comments on this post yet." %}</p>
+  {% endif %}
+</section>
+{% endblock %}
+
+{% block extra_scripts %}
+{% load static %}
+{% include "accounts/_post_editor_scripts.html" %}
+<script src="{% static 'accounts/post-editor-panel.js' %}"></script>
+{% endblock %}

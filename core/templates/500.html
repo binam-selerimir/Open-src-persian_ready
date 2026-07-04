@@ -1,0 +1,70 @@
+{% load static i18n %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE|default:'en' }}" dir="{% if LANGUAGE_CODE == 'fa' %}rtl{% else %}ltr{% endif %}">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% trans "Server Error" %} — {% trans "OpenSrc Persian" %}</title>
+  <meta name="robots" content="noindex" />
+  <link rel="stylesheet" href="{% static 'core/local-fonts.css' %}" />
+  <link rel="stylesheet" href="{% static 'core/style.css' %}" />
+  {% if LANGUAGE_CODE == 'fa' %}
+  <link rel="stylesheet" href="{% static 'core/rtl.css' %}" />
+  {% endif %}
+</head>
+<body>
+
+  <a href="#main-content" class="skip-link">{% trans "Skip to main content" %}</a>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="site-branding">
+        <a href="{% url 'home' %}" class="site-logo">
+          <span class="logo-icon" aria-hidden="true">&#9675;</span>
+          <span class="site-name">{% trans "OpenSrc" %} <span class="site-name-accent">{% trans "Persian" %}</span></span>
+        </a>
+        <p class="site-tagline">{% trans "Freedom, Privacy, and Open Technology" %}</p>
+      </div>
+    </div>
+  </header>
+
+  <nav class="main-nav" role="navigation" aria-label="{% trans 'Main navigation' %}">
+    <ul>
+      <li><a href="{% url 'home' %}">{% trans "Home" %}</a></li>
+    </ul>
+  </nav>
+
+  <div class="layout">
+    <main id="main-content" class="main-content" role="main">
+      <div class="error-page">
+
+        <div class="error-page-code" aria-hidden="true">500</div>
+
+        <div class="error-page-body">
+          <h1 class="error-page-title">{% trans "Server Error" %}</h1>
+          <p class="error-page-lead">
+            {% trans "Something went wrong on our end. The error has been logged and our team has been notified." %}
+          </p>
+
+          <div class="error-page-actions">
+            <a href="{% url 'home' %}" class="btn-primary">{% trans "Go to Home" %}</a>
+            <a href="{{ request.path }}" class="btn-secondary">{% trans "Try Again" %}</a>
+          </div>
+
+          <div class="error-page-hint">
+            <p>{% trans "If this problem persists, please contact the site administrator." %}</p>
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <footer class="site-footer">
+    <div class="footer-bottom">
+      <p>{% trans "Copyright" %} &copy; {% now "Y" %} {% trans "OpenSrc Persian" %}.</p>
+    </div>
+  </footer>
+
+</body>
+</html>
