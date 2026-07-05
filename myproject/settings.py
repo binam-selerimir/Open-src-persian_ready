@@ -201,12 +201,38 @@ WSGI_APPLICATION = 'myproject.wsgi.application'
 #    (see Django docs: "Time zone data" for MySQL).
 
 _db_url = config('DATABASE_URL', default='')
+# Individual DB env vars — bypass dj-database-url parsing which can mangle
+# passwords containing special characters (e.g. $$, @, #).  When any of
+# DB_NAME / DB_USER / DB_PASSWORD are set, they take precedence over
+# DATABASE_URL so the raw password is passed to MySQL without URL decoding.
+_db_name = config('DB_NAME', default='')
+_db_user = config('DB_USER', default='')
+_db_password = config('DB_PASSWORD', default='')
+_db_host = config('DB_HOST', default='localhost')
+_db_port = config('DB_PORT', default='3306')
 
-if _db_url:
+if _db_name and _db_user and _db_password:
+    # Direct connection — no URL encoding/decoding step.
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': _db_name,
+            'USER': _db_user,
+            'PASSWORD': _db_password,
+            'HOST': _db_host,
+            'PORT': _db_port,
+            'CONN_MAX_AGE': 600,
+            'OPTIONS': {
+                'charset': 'utf8mb4',
+            },
+        }
+    }
+    _db_ssl_ca = config('DB_SSL_CA', default='')
+    if _db_ssl_ca:
+        DATABASES['default']['OPTIONS']['ssl'] = {'ca': _db_ssl_ca}
+elif _db_url:
     try:
         import dj_database_url
-        # conn_max_age=600 keeps connections alive for 10 minutes,
-        # reducing connection overhead on busy database deployments.
         DATABASES = {'default': dj_database_url.parse(_db_url, conn_max_age=600)}
     except ImportError:
         raise RuntimeError(
@@ -217,6 +243,9 @@ if _db_url:
     if DATABASES['default'].get('ENGINE') == 'django.db.backends.mysql':
         DATABASES['default'].setdefault('OPTIONS', {})
         DATABASES['default']['OPTIONS'].setdefault('charset', 'utf8mb4')
+        _db_ssl_ca = config('DB_SSL_CA', default='')
+        if _db_ssl_ca:
+            DATABASES['default']['OPTIONS']['ssl'] = {'ca': _db_ssl_ca}
 else:
     # Local development default: SQLite file in the project root.
     DATABASES = {
