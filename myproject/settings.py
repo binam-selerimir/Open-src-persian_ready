@@ -37,6 +37,7 @@ from django.utils.csp import CSP
 import sys
 import pymysql
 pymysql.install_as_MySQLdb()
+config = Config(RepositoryEnv(str(Path(__file__).resolve().parent / '.env')))
 # ---------------------------------------------------------------------------
 # Runtime detection — must be defined before CACHE and STORAGES sections below
 # ---------------------------------------------------------------------------
