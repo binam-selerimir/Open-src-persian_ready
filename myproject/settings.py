@@ -31,7 +31,8 @@ Key third-party integrations
 
 from pathlib import Path
 
-from decouple import Csv, config
+from decouple import Csv, Config, RepositoryEnv
+
 from datetime import timedelta
 from django.utils.csp import CSP
 import sys
@@ -223,7 +224,7 @@ if _db_name and _db_user and _db_password:
             'PASSWORD': _db_password,
             'HOST': _db_host,
             'PORT': _db_port,
-            'CONN_MAX_AGE': 600,
+            'CONN_MAX_AGE': 0,
             'OPTIONS': {
                 'charset': 'utf8mb4',
             },
