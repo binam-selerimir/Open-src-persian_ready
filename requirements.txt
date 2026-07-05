@@ -11,6 +11,7 @@ dj-database-url          # required by settings.py DATABASE_URL path
 
 # MySQL driver (Django 6 requires mysqlclient>=2.2.1; MySQL 8.0.11+ / MariaDB 10.6+)
 pymysql
+mysqlclient
 
 # Media
 Pillow
