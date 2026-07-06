@@ -460,6 +460,11 @@ LOGGING = {
             "filename": LOG_DIR / "email_confirmation.log",
             "formatter": "security",
         },
+        "request_file": {
+            "class": "logging.FileHandler",
+            "filename": LOG_DIR / "request.log",
+            "formatter": "security",
+        },
     },
 
     "loggers": {
@@ -479,6 +484,12 @@ LOGGING = {
         "accounts.email_verification": {
             "handlers": ["email_file"],
             "level": "DEBUG",
+            "propagate": False,
+        },
+        # Captures 500 errors and other request-level warnings/errors.
+        "django.request": {
+            "handlers": ["request_file"],
+            "level": "WARNING",
             "propagate": False,
         },
     },
