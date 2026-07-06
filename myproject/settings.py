@@ -31,7 +31,7 @@ Key third-party integrations
 
 from pathlib import Path
 
-from decouple import Csv, config
+from decouple import Csv, Config, RepositoryEnv
 from datetime import timedelta
 from django.utils.csp import CSP
 import sys
