@@ -31,14 +31,11 @@ Key third-party integrations
 
 from pathlib import Path
 
-from decouple import Csv, Config, RepositoryEnv
-
+from decouple import Csv, config
 from datetime import timedelta
 from django.utils.csp import CSP
 import sys
-import pymysql
-pymysql.install_as_MySQLdb()
-config = Config(RepositoryEnv(str(Path(__file__).resolve().parent / '.env')))
+
 # ---------------------------------------------------------------------------
 # Runtime detection — must be defined before CACHE and STORAGES sections below
 # ---------------------------------------------------------------------------
@@ -236,7 +233,7 @@ if _db_name and _db_user and _db_password:
 elif _db_url:
     try:
         import dj_database_url
-        DATABASES = {'default': dj_database_url.parse(_db_url, conn_max_age=600)}
+        DATABASES = {'default': dj_database_url.parse(_db_url, conn_max_age=0)}
     except ImportError:
         raise RuntimeError(
             'DATABASE_URL is set but dj-database-url is not installed. '
@@ -609,10 +606,12 @@ if not DEBUG:
     # Allow the domain to be included in browser HSTS preload lists.
     SECURE_HSTS_PRELOAD = True
     # Redirect all HTTP requests to HTTPS.
-    SECURE_SSL_REDIRECT = True
-    # Ensure session and CSRF cookies are only sent over HTTPS.
-    SESSION_COOKIE_SECURE = True
-    CSRF_COOKIE_SECURE = True
+    # Line 609: was hardcoded True
+    SECURE_SSL_REDIRECT = config('SECURE_SSL_REDIRECT', default=True, cast=bool)
+
+# Lines 611-612: were hardcoded True  
+    SESSION_COOKIE_SECURE = config('SESSION_COOKIE_SECURE', default=True, cast=bool)
+    CSRF_COOKIE_SECURE = config('CSRF_COOKIE_SECURE', default=True, cast=bool)
     SECURE_CONTENT_TYPE_NOSNIFF = True
     # Prevent the site from being embedded in iframes (clickjacking protection).
     X_FRAME_OPTIONS = 'DENY'
