@@ -570,7 +570,7 @@ msgid "Create account"
 msgstr "ایجاد حساب"
 
 msgid "Join the OpenSrc community."
-msgstr "به جامعه فری‌سافت بپیوندید."
+msgstr "به جامعه منبع باز بپیوندید."
 
 msgid "Already have an account?"
 msgstr "حساب دارید؟"
@@ -653,6 +653,9 @@ msgstr "ایمیل خود را بررسی کنید"
 
 msgid "We sent a confirmation link to your email address. Please click the link to activate your account."
 msgstr "لینک تأیید به آدرس ایمیل شما ارسال شد. لطفاً برای فعال‌سازی حساب روی آن کلیک کنید."
+
+msgid "The email may take a few minutes to arrive."
+msgstr "ایمیل ممکن است چند دقیقه طول بکشد تا به دست شما برسد."
 
 msgid "Back to login"
 msgstr "بازگشت به ورود"

@@ -431,7 +431,7 @@
 
 /* ── Auth pages ───────────────────────────────────────────── */
 
-.auth-page { display: flex; justify-content: center; padding: 1rem 0 2rem; }
+.auth-page { display: flex; justify-content: center; align-items: flex-start; padding: 1rem 0 2rem; }
 
 .auth-card {
   width: 100%;

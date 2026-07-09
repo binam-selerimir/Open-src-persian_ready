@@ -132,20 +132,22 @@ urlpatterns += i18n_patterns(
 
     # Rate-limited password reset — inside i18n so email links include the
     # language prefix (e.g. /en/accounts/reset/...).
-    path('accounts/password_reset/', _RateLimitedPasswordResetView.as_view(),
+    # NOTE: templates live in accounts/templates/accounts/ (not registration/)
+    # because django.contrib.admin ships its own registration/password_reset_*.html
+    # that shadow ours when APP_DIRS is used.
+    path('accounts/password_reset/', _RateLimitedPasswordResetView.as_view(
+         template_name='accounts/password_reset_form.html',
+         email_template_name='accounts/password_reset_email.html',
+         subject_template_name='accounts/password_reset_subject.txt'),
          name='password_reset'),
-    # Only the parts of django.contrib.auth.urls that this project actually
-    # uses and has templates for (password_reset_done, confirm, complete).
-    # NOTE: do not `include('django.contrib.auth.urls')` wholesale -- it also
-    # registers login/, logout/, password_change/ and password_change/done/,
-    # none of which have a registration/*.html template in this project (the
-    # site uses accounts:login / accounts:logout instead), so hitting those
-    # URLs would raise TemplateDoesNotExist (500).
-    path('accounts/password_reset/done/', auth_views.PasswordResetDoneView.as_view(),
+    path('accounts/password_reset/done/', auth_views.PasswordResetDoneView.as_view(
+         template_name='accounts/password_reset_done.html'),
          name='password_reset_done'),
-    path('accounts/reset/<uidb64>/<token>/', _SessionInvalidatingPasswordResetConfirmView.as_view(),
+    path('accounts/reset/<uidb64>/<token>/', _SessionInvalidatingPasswordResetConfirmView.as_view(
+         template_name='accounts/password_reset_confirm.html'),
          name='password_reset_confirm'),
-    path('accounts/reset/done/', auth_views.PasswordResetCompleteView.as_view(),
+    path('accounts/reset/done/', auth_views.PasswordResetCompleteView.as_view(
+         template_name='accounts/password_reset_complete.html'),
          name='password_reset_complete'),
 
     path('accounts/', include('accounts.urls', namespace='accounts')),
