@@ -75,3 +75,16 @@ html[lang="fa"] .article-related-list a {
 [dir="rtl"] .hero-actions       { flex-direction: row-reverse; }
 [dir="rtl"] .filter-group       { flex-direction: row-reverse; }
 [dir="rtl"] .pagination         { flex-direction: row-reverse; }
+
+/* Code blocks must always be LTR, even in RTL pages */
+[dir="rtl"] pre,
+[dir="rtl"] code {
+  direction: ltr;
+  text-align: left;
+}
+
+[dir="rtl"] .highlight pre,
+[dir="rtl"] .highlight code {
+  direction: ltr;
+  text-align: left;
+}
