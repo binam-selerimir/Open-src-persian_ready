@@ -238,7 +238,7 @@ class Post(models.Model):
         verbose_name=_('Reading Time Override (min)'),
         help_text=_('Override auto-calculated reading time. Leave blank for automatic.'),
     )
-    is_visible = models.BooleanField(default=True, verbose_name=_('Show?'))
+    is_visible = models.BooleanField(default=False, verbose_name=_('Show?'))
     view_count = models.PositiveIntegerField(default=0, editable=False, verbose_name=_('Total Views'))
     unique_view_count = models.PositiveIntegerField(default=0, editable=False, verbose_name=_('Unique Views'))
 

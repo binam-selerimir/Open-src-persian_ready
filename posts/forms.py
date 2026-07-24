@@ -99,8 +99,9 @@ class PostForm(forms.ModelForm):
             }),
         }
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, user=None, **kwargs):
         super().__init__(*args, **kwargs)
+        self._user = user
         if self.instance and self.instance.pk and self.instance.body_md_file:
             self.fields['body_mode'].initial = 'upload_md'
         self.fields['category'].required = True
@@ -115,6 +116,11 @@ class PostForm(forms.ModelForm):
             'data-loading-text': _('Loading…'),
             'data-error-text': _('Error loading subcategories'),
         })
+
+        # Only superusers can see and edit is_visible and author_name.
+        if not (user and user.is_superuser):
+            self.fields['is_visible'].widget = forms.HiddenInput()
+            self.fields['author_name'].widget = forms.HiddenInput()
 
         # Set default post type for new posts
         if not self.instance.pk and not self.data:

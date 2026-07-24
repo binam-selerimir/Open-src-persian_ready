@@ -71,6 +71,9 @@
             </a>
             {% endif %}
           </th>
+          {% if is_superuser %}
+          <th>{% trans "Author" %}</th>
+          {% endif %}
           <th>
             {% if sort == 'category__name_en' and dir == 'asc' %}
             <a href="?{% url_replace sort='category__name_en' dir='desc' page=None %}" class="sort-link sort-active">
@@ -106,6 +109,9 @@
           <td class="panel-table-title">
             <a href="{{ post.get_absolute_url }}" target="_blank" rel="noopener">{{ post.title|truncatechars:45 }}</a>
           </td>
+          {% if is_superuser %}
+          <td>{% if post.author_name %}{{ post.author_name|truncatechars:20 }}{% elif post.publisher %}{{ post.publisher.username|truncatechars:20 }}{% else %}-{% endif %}</td>
+          {% endif %}
           <td>{% if LANGUAGE_CODE == 'fa' %}{{ post.category.name_fa }}{% else %}{{ post.category.name_en }}{% endif %}</td>
           <td><span class="panel-badge panel-badge--muted">{{ post.post_type|type_label:LANGUAGE_CODE }}</span></td>
           <td>
@@ -130,7 +136,7 @@
         </tr>
         {% empty %}
         <tr>
-          <td colspan="8" class="panel-table-empty">
+          <td colspan="{% if is_superuser %}9{% else %}8{% endif %}" class="panel-table-empty">
             <p>{% trans "No posts found." %}</p>
             <a href="{% url 'accounts:admin_new_post' %}" class="panel-btn panel-btn-primary">{% trans "Create your first post" %}</a>
           </td>

@@ -21,6 +21,8 @@ def _save_post(form, request):
     post = form.save(commit=False)
     if not post.publisher:
         post.publisher = request.user
+    if not request.user.is_superuser:
+        post.author_name = request.user.username
     post.save()
     form.save_m2m()
     return post
@@ -44,7 +46,7 @@ def upload_post_media(request):
 @_admin_login_required
 def admin_new_post(request):
     """Create a new post."""
-    form = PostForm(request.POST or None, request.FILES or None)
+    form = PostForm(request.POST or None, request.FILES or None, user=request.user)
     if request.method == 'POST' and form.is_valid():
         post = _save_post(form, request)
         audit(request, "POST_CREATE", f"Created post #{post.id}: {post.title}")
@@ -52,6 +54,7 @@ def admin_new_post(request):
         return redirect('accounts:admin_posts')
     return render(request, 'accounts/admin_new_post.html', {
         'form': form, 'post': None, 'active_tab': 'new_post',
+        'is_superuser': request.user.is_superuser,
     })
 
 
@@ -146,7 +149,7 @@ def admin_edit_post(request, pk):
     post = get_object_or_404(Post, pk=pk)
     if not request.user.is_superuser and post.publisher != request.user:
         return render(request, '403.html', status=403)
-    form = PostForm(request.POST or None, request.FILES or None, instance=post)
+    form = PostForm(request.POST or None, request.FILES or None, instance=post, user=request.user)
     if request.method == 'POST' and 'form_type' not in request.POST:
         if form.is_valid():
             new_md = form.cleaned_data.get('body_md_file')
@@ -184,6 +187,7 @@ def admin_edit_post(request, pk):
     return render(request, 'accounts/admin_edit_post.html', {
         'form': form, 'post': post, 'active_tab': 'posts',
         'post_comments': post_comments,
+        'is_superuser': request.user.is_superuser,
     })
 
 
